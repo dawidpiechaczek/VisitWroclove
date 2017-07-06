@@ -3,7 +3,6 @@ package com.example.dawid.visitwroclove;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 
 import java.util.concurrent.TimeUnit;
@@ -21,7 +20,7 @@ public class SplashScreenActivity extends Activity {
 
     private Context mContext = SplashScreenActivity.this;
 
-    Observer mObserver = new Observer() {
+    private Observer mObserver = new Observer() {
         @Override
         public void onSubscribe(Disposable d) {
 
@@ -48,7 +47,7 @@ public class SplashScreenActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        DataBindingUtil.setContentView(this,R.layout.splash_screen_activity);
+        setContentView(R.layout.splash_screen_activity);
     }
 
     @Override

@@ -11,20 +11,21 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import butterknife.ButterKnife;
+
 /**
  * Created by Dawid on 02.07.2017.
  */
 
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback{
-    private GoogleMap map;
+    public GoogleMap map;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
-
+        ButterKnife.bind(this);
+        initMap();
     }
 
     @Override
@@ -33,6 +34,11 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         LatLng sydney = new LatLng(51.11, 17.03);
         map.addMarker(new MarkerOptions().position(sydney).title("Wrocław"));
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney,15));
+    }
 
+    private void initMap(){
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
     }
 }
