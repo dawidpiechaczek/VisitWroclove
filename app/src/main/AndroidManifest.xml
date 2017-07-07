@@ -11,15 +11,15 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBqWuDIVSRCq2YYT4a2gjG3fgLmOE0_Rw0"/>
-        <activity android:name=".SplashScreenActivity">
+        <activity android:name=".view.activity.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainPanelActivity">
+        <activity android:name=".view.activity.MainPanelActivity">
         </activity>
-        <activity android:name=".MapActivity">
+        <activity android:name=".view.activity.MapActivity">
         </activity>
     </application>
 

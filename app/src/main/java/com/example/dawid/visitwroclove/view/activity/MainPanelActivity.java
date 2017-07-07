@@ -1,10 +1,12 @@
-package com.example.dawid.visitwroclove;
+package com.example.dawid.visitwroclove.view.activity;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.LinearLayout;
+
+import com.example.dawid.visitwroclove.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

@@ -1,9 +1,10 @@
-package com.example.dawid.visitwroclove;
+package com.example.dawid.visitwroclove.view.activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
+import com.example.dawid.visitwroclove.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;

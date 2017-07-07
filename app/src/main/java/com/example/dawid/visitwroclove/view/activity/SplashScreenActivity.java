@@ -1,9 +1,11 @@
-package com.example.dawid.visitwroclove;
+package com.example.dawid.visitwroclove.view.activity;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+
+import com.example.dawid.visitwroclove.R;
 
 import java.util.concurrent.TimeUnit;
 
