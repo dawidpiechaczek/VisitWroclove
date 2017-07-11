@@ -1,6 +1,5 @@
 package com.example.dawid.visitwroclove.database.interfaces;
 
-import com.example.dawid.visitwroclove.database.interfaces.IEntityDAOService;
 import com.example.dawid.visitwroclove.model.ObjectDTO;
 
 import java.util.List;

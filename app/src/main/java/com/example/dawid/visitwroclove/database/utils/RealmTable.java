@@ -11,7 +11,6 @@ public interface RealmTable {
     interface ObjectDAO {
         String NAME = "name";
         String TYPE = "type";
-        String STANDARD = "standard";
         String RECOMMENDED = "recommended";
         String REMOVED = "removed";
         String STATUS = "status";
@@ -23,18 +22,8 @@ public interface RealmTable {
 
     }
 
-    interface RoomDAO {
-        String OBJECT_ID = "objectId";
-    }
-
     interface RouteDAO {
         String NAME = "name";
         String REMOVED = "removed";
     }
-
-    interface PlacesDAO{
-        String TYPE = "type";
-        String OBJECT_ID ="object_id";
-    }
-
 }

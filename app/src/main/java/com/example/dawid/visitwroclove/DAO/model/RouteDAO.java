@@ -1,7 +1,5 @@
 package com.example.dawid.visitwroclove.DAO.model;
 
-import com.example.dawid.visitwroclove.DAO.model.PointDAO;
-
 import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;

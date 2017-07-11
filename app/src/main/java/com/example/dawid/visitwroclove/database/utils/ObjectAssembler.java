@@ -1,7 +1,6 @@
 package com.example.dawid.visitwroclove.database.utils;
 
 import com.example.dawid.visitwroclove.DAO.model.ObjectDAO;
-import com.example.dawid.visitwroclove.database.utils.AddressAssembler;
 import com.example.dawid.visitwroclove.model.ObjectDTO;
 
 /**

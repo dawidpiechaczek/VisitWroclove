@@ -7,7 +7,7 @@ import java.util.List;
  * Created by Dawid on 07.07.2017.
  */
 
-public interface IRouteDAOService {
+public interface IRouteDAOService extends IEntityDAOService<RouteDTO> {
     RouteDTO getByIdLocal(int id_local);
     List<RouteDTO> getByType(final String type);
     List<RouteDTO> getMine();
