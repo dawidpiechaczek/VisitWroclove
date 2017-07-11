@@ -1,4 +1,4 @@
-package com.example.dawid.visitwroclove.database;
+package com.example.dawid.visitwroclove.database.interfaces;
 
 import java.util.List;
 

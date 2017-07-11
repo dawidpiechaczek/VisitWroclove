@@ -1,4 +1,6 @@
-package com.example.dawid.visitwroclove.DAO;
+package com.example.dawid.visitwroclove.DAO.model;
+
+import com.example.dawid.visitwroclove.DAO.model.AddressDAO;
 
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
