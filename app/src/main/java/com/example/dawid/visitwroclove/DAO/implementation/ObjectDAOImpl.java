@@ -96,8 +96,7 @@ public class ObjectDAOImpl implements IObjectDAOService {
     public List<ObjectDTO> getAll() {
         Realm realm = Realm.getDefaultInstance();
         RealmQuery<ObjectDAO> query = realm.where(ObjectDAO.class)
-                .equalTo(RealmTable.ObjectDAO.REMOVED, Removed.NOT_REMOVED.getValue())
-                .equalTo(RealmTable.ObjectDAO.STATUS, Status.PUBLISH.getValue());
+                .equalTo(RealmTable.ObjectDAO.REMOVED, Removed.NOT_REMOVED.getValue());
         RealmResults<ObjectDAO> results = query.findAll().sort(RealmTable.ObjectDAO.NAME, Sort.ASCENDING);
         //RealmResults<EventDAO> results = query.findAll().sort(RealmTable.Report.ID, Sort.DESCENDING);
 
