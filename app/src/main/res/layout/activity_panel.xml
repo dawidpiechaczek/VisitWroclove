@@ -16,6 +16,7 @@
             android:orientation="horizontal">
 
             <LinearLayout
+                android:id="@+id/ll_places"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.25"
@@ -37,6 +38,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/ll_tracks"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.25"
@@ -80,6 +82,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/ll_events"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.25"

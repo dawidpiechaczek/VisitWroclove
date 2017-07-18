@@ -4,13 +4,17 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
+import com.example.dawid.visitwroclove.DAO.implementation.ObjectDAOImpl;
 import com.example.dawid.visitwroclove.R;
+import com.example.dawid.visitwroclove.model.ObjectDTO;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.util.List;
 
 import butterknife.ButterKnife;
 
@@ -20,6 +24,7 @@ import butterknife.ButterKnife;
 
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback{
     public GoogleMap map;
+    private ObjectDAOImpl mRepo;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -27,14 +32,18 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         setContentView(R.layout.activity_map);
         ButterKnife.bind(this);
         initMap();
+        mRepo = new ObjectDAOImpl();
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
-        LatLng sydney = new LatLng(51.11, 17.03);
-        map.addMarker(new MarkerOptions().position(sydney).title("Wrocław"));
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney,15));
+        List<ObjectDTO>buildings = mRepo.getAll();
+        LatLng ratusz = new LatLng(Double.parseDouble(buildings.get(0).getAddress().getLat()),Double.parseDouble(buildings.get(0).getAddress().getLng()));
+        LatLng hala= new LatLng(Double.parseDouble(buildings.get(1).getAddress().getLat()),Double.parseDouble(buildings.get(1).getAddress().getLng()));
+        map.addMarker(new MarkerOptions().position(ratusz).title(buildings.get(0).getName()));
+        map.addMarker(new MarkerOptions().position(hala).title(buildings.get(1).getName()));
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(ratusz,15));
     }
 
     private void initMap(){
