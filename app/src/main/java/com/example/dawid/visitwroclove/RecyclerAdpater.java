@@ -1,6 +1,8 @@
 package com.example.dawid.visitwroclove;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.GlideBuilder;
 import com.example.dawid.visitwroclove.DAO.implementation.ObjectDAOImpl;
 import com.example.dawid.visitwroclove.model.ObjectDTO;
 
@@ -26,6 +29,7 @@ public class RecyclerAdpater extends RecyclerView.Adapter<RecyclerAdpater.ViewHo
     private ObjectDAOImpl mRepo;
     private Context context;
     private List<ObjectDTO>list;
+    private String[]colors = new String[]{"#7986cb", "#5c6bc0", "#3f51b5", "#03a9f4", "#00bcd4" };
 
     public RecyclerAdpater(Context context){
         this.context = context;
@@ -40,6 +44,8 @@ public class RecyclerAdpater extends RecyclerView.Adapter<RecyclerAdpater.ViewHo
         public ImageView itemImage;
         @BindView(R.id.cl_tv_name)
         public TextView itemName;
+        @BindView(R.id.cl_cv_card)
+        public CardView itemCard;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -63,8 +69,9 @@ public class RecyclerAdpater extends RecyclerView.Adapter<RecyclerAdpater.ViewHo
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Glide.with(context).load(list.get(position).getImage()).into(holder.itemImage);
+        Glide.with(context).load(list.get(position).getImage()).centerCrop().into(holder.itemImage);
         holder.itemName.setText(list.get(position).getName());
+     //   holder.itemCard.setCardBackgroundColor(Color.parseColor(colors[position]));
     }
 
     @Override
