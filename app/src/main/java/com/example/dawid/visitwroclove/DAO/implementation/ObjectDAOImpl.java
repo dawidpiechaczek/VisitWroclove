@@ -23,6 +23,19 @@ import io.realm.Sort;
  */
 
 public class ObjectDAOImpl implements IObjectDAOService {
+    private static ObjectDAOImpl instance;
+
+    public static ObjectDAOImpl getInstance(){
+        if(instance == null){
+            instance = new ObjectDAOImpl();
+        }
+        return instance;
+    }
+
+    protected static void setInstance(ObjectDAOImpl objectDAOImpl){
+        instance = objectDAOImpl;
+    }
+
 
     @Override
     public void add(ObjectDTO entity) {

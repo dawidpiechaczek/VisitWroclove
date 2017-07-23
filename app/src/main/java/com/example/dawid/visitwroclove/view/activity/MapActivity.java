@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
+import com.example.dawid.visitwroclove.BaseActivity;
 import com.example.dawid.visitwroclove.DAO.implementation.ObjectDAOImpl;
 import com.example.dawid.visitwroclove.R;
 import com.example.dawid.visitwroclove.model.ObjectDTO;
@@ -16,23 +17,26 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import butterknife.ButterKnife;
 
 /**
  * Created by Dawid on 02.07.2017.
  */
 
-public class MapActivity extends AppCompatActivity implements OnMapReadyCallback{
+public class MapActivity extends BaseActivity implements OnMapReadyCallback{
     public GoogleMap map;
-    private ObjectDAOImpl mRepo;
+    @Inject
+    public ObjectDAOImpl mRepo;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getComponent().inject(this);
         setContentView(R.layout.activity_map);
         ButterKnife.bind(this);
         initMap();
-        mRepo = new ObjectDAOImpl();
     }
 
     @Override

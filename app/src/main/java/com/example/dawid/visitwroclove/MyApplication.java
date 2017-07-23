@@ -14,12 +14,24 @@ import io.realm.Realm;
  */
 
 public class MyApplication extends Application {
+    private AppComponent appComponent;
+
     @Override
     public void onCreate() {
         super.onCreate();
         stethoCongig();
         Realm.init(this);
         stethoInit();
+        createAppComponent();
+        appComponent.inject(this);
+    }
+
+    private void createAppComponent(){
+        appComponent = DaggerAppComponent.builder().appModule(new AppModule(this)).build();
+    }
+
+    public AppComponent getAppComponent(){
+        return appComponent;
     }
 
     private void stethoInit() {
