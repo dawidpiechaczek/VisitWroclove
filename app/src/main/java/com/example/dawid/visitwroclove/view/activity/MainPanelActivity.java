@@ -6,7 +6,6 @@ import android.util.Log;
 import android.widget.LinearLayout;
 
 
-import com.example.dawid.visitwroclove.BaseActivity;
 import com.example.dawid.visitwroclove.DAO.implementation.ObjectDAOImpl;
 import com.example.dawid.visitwroclove.R;
 import com.example.dawid.visitwroclove.model.AddressDTO;

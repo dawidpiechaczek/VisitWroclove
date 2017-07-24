@@ -18,7 +18,13 @@
         <ImageView
             android:id="@+id/cl_im_photo"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:transitionName="myImage" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/shadow"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -36,7 +42,8 @@
                 android:layout_marginTop="10dp"
                 android:text="text"
                 android:textColor="#ffffff"
-                android:textSize="30sp" />
+                android:textSize="30sp"
+                android:transitionName="myTitle" />
         </LinearLayout>
     </RelativeLayout>
 </android.support.v7.widget.CardView>

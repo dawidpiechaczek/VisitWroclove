@@ -1,4 +1,6 @@
-package com.example.dawid.visitwroclove;
+package com.example.dawid.visitwroclove.dagger;
+
+import com.example.dawid.visitwroclove.application.MyApplication;
 
 import dagger.Component;
 

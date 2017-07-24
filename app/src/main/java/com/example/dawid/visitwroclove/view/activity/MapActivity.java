@@ -2,12 +2,11 @@ package com.example.dawid.visitwroclove.view.activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 
-import com.example.dawid.visitwroclove.BaseActivity;
 import com.example.dawid.visitwroclove.DAO.implementation.ObjectDAOImpl;
 import com.example.dawid.visitwroclove.R;
 import com.example.dawid.visitwroclove.model.ObjectDTO;
+import com.example.dawid.visitwroclove.view.interfaces.MapView;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -25,7 +24,7 @@ import butterknife.ButterKnife;
  * Created by Dawid on 02.07.2017.
  */
 
-public class MapActivity extends BaseActivity implements OnMapReadyCallback{
+public class MapActivity extends BaseActivity implements OnMapReadyCallback, MapView{
     public GoogleMap map;
     @Inject
     public ObjectDAOImpl mRepo;

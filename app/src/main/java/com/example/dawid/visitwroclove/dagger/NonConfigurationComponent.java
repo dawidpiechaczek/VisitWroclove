@@ -1,7 +1,9 @@
-package com.example.dawid.visitwroclove;
+package com.example.dawid.visitwroclove.dagger;
 
+import com.example.dawid.visitwroclove.view.activity.DetailsActivity;
 import com.example.dawid.visitwroclove.view.activity.MainPanelActivity;
 import com.example.dawid.visitwroclove.view.activity.MapActivity;
+import com.example.dawid.visitwroclove.view.activity.PlacesActivity;
 
 import dagger.Subcomponent;
 
@@ -13,4 +15,6 @@ import dagger.Subcomponent;
 public interface NonConfigurationComponent {
     void inject(MainPanelActivity activity);
     void inject(MapActivity activity);
+    void inject(DetailsActivity activity);
+    void inject(PlacesActivity activity);
 }

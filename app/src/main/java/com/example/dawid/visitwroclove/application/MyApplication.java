@@ -1,9 +1,13 @@
-package com.example.dawid.visitwroclove;
+package com.example.dawid.visitwroclove.application;
 
 import android.app.Application;
 import android.content.ComponentName;
 import android.content.pm.PackageManager;
 
+import com.example.dawid.visitwroclove.dagger.AppComponent;
+
+import com.example.dawid.visitwroclove.dagger.AppModule;
+import com.example.dawid.visitwroclove.dagger.DaggerAppComponent;
 import com.facebook.stetho.Stetho;
 import com.uphyca.stetho_realm.RealmInspectorModulesProvider;
 
@@ -26,11 +30,11 @@ public class MyApplication extends Application {
         appComponent.inject(this);
     }
 
-    private void createAppComponent(){
+    private void createAppComponent() {
         appComponent = DaggerAppComponent.builder().appModule(new AppModule(this)).build();
     }
 
-    public AppComponent getAppComponent(){
+    public AppComponent getAppComponent() {
         return appComponent;
     }
 

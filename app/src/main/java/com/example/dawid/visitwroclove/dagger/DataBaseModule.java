@@ -1,4 +1,4 @@
-package com.example.dawid.visitwroclove;
+package com.example.dawid.visitwroclove.dagger;
 
 import com.example.dawid.visitwroclove.DAO.implementation.ObjectDAOImpl;
 

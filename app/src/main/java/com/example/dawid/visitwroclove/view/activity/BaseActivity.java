@@ -1,8 +1,11 @@
-package com.example.dawid.visitwroclove;
+package com.example.dawid.visitwroclove.view.activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+
+import com.example.dawid.visitwroclove.application.MyApplication;
+import com.example.dawid.visitwroclove.dagger.NonConfigurationComponent;
 
 
 /**

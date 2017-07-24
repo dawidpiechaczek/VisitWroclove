@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="1"
+    android:background="#424242">
+
+    <ImageView
+        android:id="@+id/ad_im_image"
+        android:layout_width="match_parent"
+        android:layout_height="230dp"
+        android:layout_weight="0.13"
+        android:transitionName="myImage" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="230dp"
+        android:background="@drawable/shadow"/>
+
+    <TextView
+        android:id="@+id/ad_tv_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/ad_im_image"
+        android:layout_marginBottom="5dp"
+        android:textStyle="bold"
+        android:layout_marginLeft="10dp"
+        android:textColor="#ffffff"
+        android:textSize="30sp"
+        android:transitionName="myTitle" />
+
+    <Button
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:background="@drawable/roundbutton"
+        android:layout_marginRight="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_alignTop="@+id/ad_tv_name"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="15dp" />
+</RelativeLayout>

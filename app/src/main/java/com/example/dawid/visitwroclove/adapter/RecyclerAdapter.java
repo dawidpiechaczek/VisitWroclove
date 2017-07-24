@@ -1,10 +1,8 @@
-package com.example.dawid.visitwroclove;
+package com.example.dawid.visitwroclove.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,11 +10,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.GlideBuilder;
 import com.example.dawid.visitwroclove.DAO.implementation.ObjectDAOImpl;
+import com.example.dawid.visitwroclove.R;
 import com.example.dawid.visitwroclove.model.ObjectDTO;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,21 +25,19 @@ import butterknife.ButterKnife;
  * Created by Dawid on 18.07.2017.
  */
 
-public class RecyclerAdpater extends RecyclerView.Adapter<RecyclerAdpater.ViewHolder> {
-    private ObjectDAOImpl mRepo;
+public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
+    private ClickListener clickListener;
     private Context context;
-    private List<ObjectDTO>list;
-    private String[]colors = new String[]{"#7986cb", "#5c6bc0", "#3f51b5", "#03a9f4", "#00bcd4" };
+    private List<ObjectDTO> list;
 
-    public RecyclerAdpater(Context context){
+
+    public RecyclerAdapter(Context context, List<ObjectDTO>list) {
         this.context = context;
-        mRepo = new ObjectDAOImpl();
-        list = mRepo.getAll();
+        this.list = list;
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        public int currentItem;
         @BindView(R.id.cl_im_photo)
         public ImageView itemImage;
         @BindView(R.id.cl_tv_name)
@@ -49,33 +47,44 @@ public class RecyclerAdpater extends RecyclerView.Adapter<RecyclerAdpater.ViewHo
 
         public ViewHolder(View itemView) {
             super(itemView);
+            itemView.setOnClickListener(this);
             ButterKnife.bind(this, itemView);
+        }
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Log.d("TATA", getAdapterPosition() + "");
-                }
-            });
+        @Override
+        public void onClick(View view) {
+            int adapterPosition = getAdapterPosition();
+            if (adapterPosition >= 0) {
+                clickListener.onItemClick(adapterPosition, view);
+            }
         }
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_layout, parent, false);
-        ViewHolder viewHolder = new ViewHolder(v);
-        return viewHolder;
+        return new ViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        Glide.with(context).load(list.get(position).getImage()).centerCrop().into(holder.itemImage);
+    public void onBindViewHolder(final ViewHolder holder, int position) {
+        Glide.with(context)
+                .load(list.get(position).getImage())
+                .centerCrop()
+                .into(holder.itemImage);
         holder.itemName.setText(list.get(position).getName());
-     //   holder.itemCard.setCardBackgroundColor(Color.parseColor(colors[position]));
+    }
+
+    public void setOnClickListener(ClickListener clickListener){
+        this.clickListener = clickListener;
     }
 
     @Override
     public int getItemCount() {
         return list.size();
+    }
+
+    public interface ClickListener {
+        void onItemClick(int position, View view);
     }
 }
