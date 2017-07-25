@@ -12,6 +12,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.dawid.visitwroclove.DAO.implementation.ObjectDAOImpl;
 import com.example.dawid.visitwroclove.R;
+import com.example.dawid.visitwroclove.model.BaseDTO;
+import com.example.dawid.visitwroclove.model.EventDTO;
 import com.example.dawid.visitwroclove.model.ObjectDTO;
 
 import java.util.List;
@@ -28,10 +30,10 @@ import butterknife.ButterKnife;
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
     private ClickListener clickListener;
     private Context context;
-    private List<ObjectDTO> list;
+    private List<BaseDTO> list;
 
 
-    public RecyclerAdapter(Context context, List<ObjectDTO>list) {
+    public RecyclerAdapter(Context context, List list) {
         this.context = context;
         this.list = list;
     }

@@ -151,7 +151,7 @@ public class ObjectDAOImpl implements IObjectDAOService {
         Realm realm = Realm.getDefaultInstance();
         RealmResults<ObjectDAO> results = realm.where(ObjectDAO.class)
                 .equalTo(RealmTable.ObjectDAO.REMOVED, Removed.NOT_REMOVED.getValue())
-                .equalTo(RealmTable.ObjectDAO.STATUS, Status.PUBLISH.getValue())
+      //          .equalTo(RealmTable.ObjectDAO.STATUS, Status.PUBLISH.getValue())
                 .equalTo(RealmTable.ObjectDAO.TYPE, type).findAll().sort(RealmTable.ObjectDAO.NAME, Sort.ASCENDING);
 
         List<ObjectDTO> list = new ArrayList<>();

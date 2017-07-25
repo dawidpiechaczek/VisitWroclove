@@ -6,9 +6,11 @@ import android.util.Log;
 import android.widget.LinearLayout;
 
 
+import com.example.dawid.visitwroclove.DAO.implementation.EventDAOImpl;
 import com.example.dawid.visitwroclove.DAO.implementation.ObjectDAOImpl;
 import com.example.dawid.visitwroclove.R;
 import com.example.dawid.visitwroclove.model.AddressDTO;
+import com.example.dawid.visitwroclove.model.EventDTO;
 import com.example.dawid.visitwroclove.model.ObjectDTO;
 
 import javax.inject.Inject;
@@ -31,6 +33,8 @@ public class MainPanelActivity extends BaseActivity {
     public LinearLayout mpa_ll_tracks;
     @Inject
     public ObjectDAOImpl mRepo;
+    @Inject
+    public EventDAOImpl mRepoEvent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,8 +65,14 @@ public class MainPanelActivity extends BaseActivity {
         startActivity(intent);
     }
 
+    @OnClick(R.id.ll_events)
+    public void showEventsActivity() {
+        Intent intent = new Intent(getApplicationContext(), EventsActivity.class);
+        startActivity(intent);
+    }
 
     private void scripts() {
+        mRepoEvent = new EventDAOImpl();
         ObjectDTO objectDTO = new ObjectDTO();
         objectDTO.setId(0);
         objectDTO.setFavourite(true);
@@ -86,7 +96,7 @@ public class MainPanelActivity extends BaseActivity {
         objectDTO1.setId(1);
         objectDTO1.setFavourite(true);
         objectDTO1.setName("Hala Stulecia");
-        objectDTO1.setDescription("Odbywają się w niej liczbne wydarzenia kulturalne.");
+        objectDTO1.setDescription("Hala Stulecia (inna funkcjonująca nazwa: Hala Ludowa), to duży obiekt widowiskowo-sportowy położony w Parku Szczytnickim we Wrocławiu. Wzniesiony w latach 1911–1913 według projektu architektonicznego Maxa Berga. W 2006 roku Hala została wpisana na Listę Światowego Dziedzictwa Kulturalnego i Przyrodniczego UNESCO! ");
         objectDTO1.setPhone("42 455 34 43");
         objectDTO1.setRank(9.53);
         objectDTO1.setType("building");
@@ -94,6 +104,7 @@ public class MainPanelActivity extends BaseActivity {
         AddressDTO addressDTO1 = new AddressDTO();
         addressDTO1.setId(1);
         addressDTO1.setCity("Wrocław");
+        addressDTO1.setZipCode("50-200");
         addressDTO1.setStreet("Biskupin");
         addressDTO1.setHomeNumber("14");
         addressDTO1.setLat("51.106586");
@@ -117,7 +128,7 @@ public class MainPanelActivity extends BaseActivity {
         addressDTO2.setHomeNumber("14");
         addressDTO2.setLat("51.106586");
         addressDTO2.setLng("17.077028");
-        objectDTO2.setAddress(addressDTO1);
+        objectDTO2.setAddress(addressDTO2);
         mRepo.add(objectDTO2);
 
         ObjectDTO objectDTO3 = new ObjectDTO();
@@ -136,7 +147,24 @@ public class MainPanelActivity extends BaseActivity {
         addressDTO3.setHomeNumber("14");
         addressDTO3.setLat("51.106586");
         addressDTO3.setLng("17.077028");
-        objectDTO3.setAddress(addressDTO1);
+        objectDTO3.setAddress(addressDTO3);
         mRepo.add(objectDTO3);
+
+        EventDTO eventDTO = new EventDTO();
+        eventDTO.setId(0);
+        eventDTO.setFavourite(true);
+        eventDTO.setName("Wyścigi konne");
+        eventDTO.setDescription("Budynek gdzie mieści się starostwo miasta Wrocław.");
+        eventDTO.setType("event");
+        eventDTO.setImage("http://www.iceis.pl/wyscigi/konne/wyscigi-konne_partynice,400px.jpg");
+        AddressDTO addressDTO4 = new AddressDTO();
+        addressDTO4.setId(0);
+        addressDTO4.setCity("Wrocław");
+        addressDTO4.setStreet("Rynek");
+        addressDTO4.setHomeNumber("19");
+        addressDTO4.setLat("51.109678");
+        addressDTO4.setLng("17.031879");
+        eventDTO.setAddress(addressDTO4);
+        mRepoEvent.add(eventDTO);
     }
 }

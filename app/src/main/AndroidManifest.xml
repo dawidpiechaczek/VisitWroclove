@@ -26,6 +26,8 @@
         </activity>
         <activity android:name=".view.activity.DetailsActivity">
         </activity>
+        <activity android:name=".view.activity.EventsActivity">
+        </activity>
     </application>
 
 </manifest>

@@ -2,9 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#424242"
     android:orientation="vertical"
-    android:weightSum="1"
-    android:background="#424242">
+    android:weightSum="1">
 
     <ImageView
         android:id="@+id/ad_im_image"
@@ -16,7 +16,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="230dp"
-        android:background="@drawable/shadow"/>
+        android:background="@drawable/shadow" />
 
     <TextView
         android:id="@+id/ad_tv_name"
@@ -24,20 +24,44 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/ad_im_image"
         android:layout_marginBottom="5dp"
-        android:textStyle="bold"
         android:layout_marginLeft="10dp"
         android:textColor="#ffffff"
         android:textSize="30sp"
+        android:textStyle="bold"
         android:transitionName="myTitle" />
 
     <Button
+        android:id="@+id/ad_btn_favourite"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:background="@drawable/roundbutton"
-        android:layout_marginRight="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_alignTop="@+id/ad_tv_name"
-        android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="15dp" />
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/ad_tv_name"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/roundbutton" />
+
+    <TextView
+        android:id="@+id/ad_tv_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:textColor="#ffffff"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/ad_tv_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ad_btn_favourite"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:textColor="#ffffff"
+        android:textSize="20sp" />
 </RelativeLayout>

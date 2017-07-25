@@ -1,5 +1,6 @@
 package com.example.dawid.visitwroclove.dagger;
 
+import com.example.dawid.visitwroclove.DAO.implementation.EventDAOImpl;
 import com.example.dawid.visitwroclove.DAO.implementation.ObjectDAOImpl;
 
 import dagger.Module;
@@ -15,5 +16,9 @@ public class DataBaseModule {
     ObjectDAOImpl provideObjectDao(){
         return ObjectDAOImpl.getInstance();
     }
+
+    @Provides
+    @AppScope
+    EventDAOImpl provideEventDao(){ return EventDAOImpl.getInstance(); }
 
 }

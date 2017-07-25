@@ -22,6 +22,14 @@ public interface RealmTable {
 
     }
 
+    interface EventDAO {
+        String NAME = "name";
+        String START_DATE = "date";
+        String REMOVED = "removed";
+        String STATUS = "status";
+        String FAVOURITE = "isFavourite";
+    }
+
     interface RouteDAO {
         String NAME = "name";
         String REMOVED = "removed";

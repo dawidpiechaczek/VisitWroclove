@@ -1,5 +1,7 @@
 package com.example.dawid.visitwroclove.model;
 
+import com.example.dawid.visitwroclove.view.activity.BaseActivity;
+
 /**
  * Created by Dawid on 07.07.2017.
  */
