@@ -93,7 +93,7 @@ public class ObjectDAOImpl implements IObjectDAOService {
         ObjectDAO eDAO = realm.where(ObjectDAO.class)
                 .equalTo(RealmTable.ID, id)
                 .equalTo(RealmTable.ObjectDAO.REMOVED, Removed.NOT_REMOVED.getValue())
-                .equalTo(RealmTable.ObjectDAO.STATUS, Status.PUBLISH.getValue())
+         //       .equalTo(RealmTable.ObjectDAO.STATUS, Status.PUBLISH.getValue())
                 .findFirst();
 
         ObjectDTO eDTO = null;

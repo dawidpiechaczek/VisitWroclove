@@ -31,6 +31,7 @@ import butterknife.ButterKnife;
 public class EventsActivity extends BaseActivity{
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerAdapter adapter;
+    private List<EventDTO> list;
 
     @Inject
     public EventDAOImpl mRepo;
@@ -48,7 +49,7 @@ public class EventsActivity extends BaseActivity{
     }
 
     private void initPage() {
-        List<EventDTO> list = mRepo.getAll();
+        list = mRepo.getAll();
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         adapter = new RecyclerAdapter(this);
@@ -58,7 +59,7 @@ public class EventsActivity extends BaseActivity{
             @Override
             public void onItemClick(int position, View view) {
                 Intent intent = new Intent(EventsActivity.this, DetailsActivity.class);
-                intent.putExtra(Constants.EXTRA_POSIOTION, position);
+                intent.putExtra(Constants.EXTRA_POSIOTION, list.get(position).getId());
                 intent.putExtra(Constants.EXTRA_ACTIVITY, Constants.ACTIVITY_VALUE_EVENT);
                 Pair<View, String> pair1 = Pair.create(view.findViewById(R.id.cl_im_photo), Constants.TRANSITION_IMAGE);
                 Pair<View, String> pair2 = Pair.create(view.findViewById(R.id.cl_tv_name), Constants.TRANSITION_NAME);

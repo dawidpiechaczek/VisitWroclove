@@ -15,8 +15,6 @@ import com.example.dawid.visitwroclove.R;
 import com.example.dawid.visitwroclove.model.BaseDTO;
 import com.example.dawid.visitwroclove.utils.Constants;
 
-import java.util.List;
-
 import javax.inject.Inject;
 
 import butterknife.BindView;
@@ -46,8 +44,8 @@ public class DetailsActivity extends BaseActivity {
     public EventDAOImpl mRepoEvents;
 
     private Bundle extras;
-    private List<BaseDTO> list;
-    private int itemPosition;
+    private BaseDTO list;
+    private int itemId;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -60,28 +58,28 @@ public class DetailsActivity extends BaseActivity {
 
     private void getExtras() {
         extras = getIntent().getExtras();
-        itemPosition = extras.getInt(Constants.EXTRA_POSIOTION);
+        itemId = extras.getInt(Constants.EXTRA_POSIOTION);
         String activityType = extras.getString(Constants.EXTRA_ACTIVITY);
 
         if (activityType.equals(Constants.ACTIVITY_VALUE_EVENT)) {
-            setList(mRepoEvents.getAll());
+            setObject(mRepoEvents.getById(itemId));
         } else {
-            setList(mRepoObjects.getAll());
+            setObject(mRepoObjects.getById(itemId));
         }
         loadObjectImage();
     }
 
-    private void setList(List list) {
-        this.list = list;
+    private void setObject(BaseDTO dto) {
+        this.list = dto;
     }
 
     private void loadObjectImage() {
-        setToolbarTitle(list.get(itemPosition).getName());
-        name.setText(list.get(itemPosition).getName());
-        description.setText(list.get(itemPosition).getDescription());
-        address.setText(list.get(itemPosition).getAddress().getStreet() + " " + list.get(itemPosition).getAddress().getHomeNumber()
-                + ", " + list.get(itemPosition).getAddress().getZipCode() + " " + list.get(itemPosition).getAddress().getCity());
-        String imageUrl = list.get(itemPosition).getImage();
+        setToolbarTitle(list.getName());
+        name.setText(list.getName());
+        description.setText(list.getDescription());
+        address.setText(list.getAddress().getStreet() + " " + list.getAddress().getHomeNumber()
+                + ", " + list.getAddress().getZipCode() + " " + list.getAddress().getCity());
+        String imageUrl = list.getImage();
         setImage(imageUrl);
     }
 

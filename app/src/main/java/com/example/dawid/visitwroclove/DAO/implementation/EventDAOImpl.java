@@ -90,7 +90,7 @@ public class EventDAOImpl implements IEventDAOService {
         EventDAO eDAO = realm.where(EventDAO.class)
                 .equalTo("id", id)
                 .equalTo(RealmTable.EventDAO.REMOVED, Removed.NOT_REMOVED.getValue())
-                .equalTo(RealmTable.EventDAO.STATUS, Status.PUBLISH.getValue())
+//                .equalTo(RealmTable.EventDAO.STATUS, Status.PUBLISH.getValue())
                 .findFirst();
 
         EventDTO eDTO = null;

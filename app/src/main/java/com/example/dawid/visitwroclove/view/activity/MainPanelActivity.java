@@ -99,7 +99,7 @@ public class MainPanelActivity extends BaseActivity {
         objectDTO1.setDescription("Hala Stulecia (inna funkcjonująca nazwa: Hala Ludowa), to duży obiekt widowiskowo-sportowy położony w Parku Szczytnickim we Wrocławiu. Wzniesiony w latach 1911–1913 według projektu architektonicznego Maxa Berga. W 2006 roku Hala została wpisana na Listę Światowego Dziedzictwa Kulturalnego i Przyrodniczego UNESCO! ");
         objectDTO1.setPhone("42 455 34 43");
         objectDTO1.setRank(9.53);
-        objectDTO1.setType("building");
+        objectDTO1.setType("visit");
         objectDTO1.setImage("https://upload.wikimedia.org/wikipedia/commons/0/06/Wroc%C5%82aw_-_Jahrhunderthalle1.jpg");
         AddressDTO addressDTO1 = new AddressDTO();
         addressDTO1.setId(1);
