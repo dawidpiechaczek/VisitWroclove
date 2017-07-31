@@ -9,4 +9,5 @@ import javax.inject.Inject;
  */
 
 public class DetailPresenter extends BasePresenter<DetailsView> {
+
 }

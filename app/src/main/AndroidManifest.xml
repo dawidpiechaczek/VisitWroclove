@@ -24,7 +24,8 @@
         </activity>
         <activity android:name=".view.activity.PlacesActivity">
         </activity>
-        <activity android:name=".view.activity.DetailsActivity">
+        <activity android:name=".view.activity.DetailsActivity"
+            android:theme="@style/AppTheme">
         </activity>
         <activity android:name=".view.activity.EventsActivity">
         </activity>

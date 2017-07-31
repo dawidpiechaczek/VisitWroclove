@@ -29,13 +29,12 @@ import butterknife.ButterKnife;
  */
 
 public class PlacesActivity extends BaseActivity {
+    @Inject public ObjectDAOImpl mRepo;
+    @BindView(R.id.ap_rv_recycler) public RecyclerView recyclerView;
+
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerAdapter adapter;
-
-    @Inject
-    public ObjectDAOImpl mRepo;
-    @BindView(R.id.ap_rv_recycler)
-    public RecyclerView recyclerView;
+    private List<ObjectDTO> list;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,11 +47,11 @@ public class PlacesActivity extends BaseActivity {
     }
 
     private void initPage() {
-        List<ObjectDTO> list = mRepo.getAll();
-
+        list = mRepo.getAll();
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new RecyclerAdapter(this, list);
+        adapter = new RecyclerAdapter(this);
+        adapter.setData(list);
         recyclerView.setAdapter(adapter);
         adapter.setOnClickListener(new RecyclerAdapter.ClickListener() {
             @Override

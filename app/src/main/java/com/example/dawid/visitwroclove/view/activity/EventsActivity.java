@@ -44,17 +44,16 @@ public class EventsActivity extends BaseActivity{
         getComponent().inject(this);
         setContentView(R.layout.activity_places);
         ButterKnife.bind(this);
-
         initPage();
     }
 
     private void initPage() {
         List<EventDTO> list = mRepo.getAll();
-
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new RecyclerAdapter(this, list);
+        adapter = new RecyclerAdapter(this);
         recyclerView.setAdapter(adapter);
+        adapter.setData(list);
         adapter.setOnClickListener(new RecyclerAdapter.ClickListener() {
             @Override
             public void onItemClick(int position, View view) {

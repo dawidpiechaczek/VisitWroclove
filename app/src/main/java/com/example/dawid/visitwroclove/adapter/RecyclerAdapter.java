@@ -33,9 +33,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     private List<BaseDTO> list;
 
 
-    public RecyclerAdapter(Context context, List list) {
+    public RecyclerAdapter(Context context) {
         this.context = context;
-        this.list = list;
     }
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -79,6 +78,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
     public void setOnClickListener(ClickListener clickListener){
         this.clickListener = clickListener;
+    }
+
+    public void setData(List list){
+        this.list = list;
     }
 
     @Override
