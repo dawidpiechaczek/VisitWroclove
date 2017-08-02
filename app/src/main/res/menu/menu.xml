@@ -10,8 +10,8 @@
                 android:title="Zabytki" />
             <item android:id="@+id/eat"
                 android:title="Restauracje" />
-            <item android:id="@+id/church"
-                android:title="Kościoły" />
+            <item android:id="@+id/all"
+                android:title="Wszystkie" />
         </menu>
     </item>
 </menu>

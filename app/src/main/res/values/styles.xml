@@ -12,8 +12,12 @@
     </style>
 
     <style name="NoActionBar" parent="@android:style/Theme.Holo.Light">
-    <item name="android:windowActionBar">false</item>
-    <item name="android:windowNoTitle">true</item>
-</style>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
 
-    </resources>
+    <style name="ToolbarColoredBackArrow" parent="AppTheme">
+        <item name="android:textColorSecondary">@color/secondaryToolbar</item>
+    </style>
+
+</resources>

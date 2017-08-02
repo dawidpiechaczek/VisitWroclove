@@ -57,13 +57,12 @@ public class PlacesActivity extends BaseActivity {
 
     private void setToolbar() {
         toolbar.setTitle("Obiekty");
-        toolbar.setTitleTextColor(Color.WHITE);
+        toolbar.setTitleTextColor(getColor(R.color.secondaryToolbar));
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -85,9 +84,11 @@ public class PlacesActivity extends BaseActivity {
             case (R.id.eat):
                 sortWithCategory("visit");
                 return true;
-            default:
+            case (R.id.all):
                 sortWithCategory("all");
                 return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 
@@ -99,6 +100,7 @@ public class PlacesActivity extends BaseActivity {
             list = mRepo.getByType(category);
         }
         adapter.setData(list);
+        this.list = list;
         adapter.notifyDataSetChanged();
     }
 

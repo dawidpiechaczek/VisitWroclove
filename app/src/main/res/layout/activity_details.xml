@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#424242"
+    android:background="#616161"
     android:orientation="vertical"
     android:weightSum="1">
 
@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="300dp"
             android:fitsSystemWindows="true"
-            app:contentScrim="@color/colorPrimaryDark"
+            app:contentScrim="@color/colorPrimary"
             app:expandedTitleTextAppearance="@color/colorTransparent"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
@@ -40,7 +40,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="300dp"
                     android:layout_weight="0.13"
-                    android:src="@color/cardview_dark_background"
+                    android:src="@color/colorPrimary"
                     android:transitionName="myImage"
                     app:layout_collapseMode="parallax" />
 

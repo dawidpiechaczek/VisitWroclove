@@ -7,6 +7,8 @@ import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.util.Pair;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.example.dawid.visitwroclove.DAO.implementation.EventDAOImpl;
@@ -32,6 +34,8 @@ public class EventsActivity extends BaseActivity{
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerAdapter adapter;
     private List<EventDTO> list;
+    @BindView(R.id.toolbar2)
+    public Toolbar toolbar;
 
     @Inject
     public EventDAOImpl mRepo;
@@ -46,6 +50,28 @@ public class EventsActivity extends BaseActivity{
         setContentView(R.layout.activity_places);
         ButterKnife.bind(this);
         initPage();
+        setToolbar();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemId = item.getItemId();
+        switch (itemId) {
+            case (android.R.id.home):
+                onBackPressed();
+                return true;
+            default:
+                return true;
+        }
+    }
+
+    private void setToolbar() {
+        toolbar.setTitle("Wydarzenia");
+        toolbar.setTitleTextColor(getColor(R.color.secondaryToolbar));
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
     }
 
     private void initPage() {
