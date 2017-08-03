@@ -66,14 +66,14 @@ public class DetailsActivity extends BaseActivity {
         } else {
             setObject(mRepoObjects.getById(itemId));
         }
-        loadObjectImage();
+        loadObject();
     }
 
     private void setObject(BaseDTO dto) {
         this.list = dto;
     }
 
-    private void loadObjectImage() {
+    private void loadObject() {
         setToolbarTitle(list.getName());
         name.setText(list.getName());
         description.setText(list.getDescription());

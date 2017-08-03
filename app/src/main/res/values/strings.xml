@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">VisitWroclove</string>
+    <string name="ic_route">&#xf456;</string>
+    <string name="ic_details">&#xf2e4;</string>
 </resources>
