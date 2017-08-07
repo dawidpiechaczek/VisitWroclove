@@ -11,7 +11,6 @@ public class ObjectDTO extends BaseDTO {
     private int standard;
     private String thumb;
     private int removed;
-    private boolean isFavourite;
 
     public String getPhone() {
         return phone;
@@ -53,11 +52,4 @@ public class ObjectDTO extends BaseDTO {
         this.removed = removed;
     }
 
-    public boolean isFavourite() {
-        return isFavourite;
-    }
-
-    public void setFavourite(boolean favourite) {
-        isFavourite = favourite;
-    }
 }

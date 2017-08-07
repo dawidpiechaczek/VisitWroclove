@@ -19,16 +19,6 @@ public class EventDTO extends BaseDTO {
         this.www = www;
     }
 
-    private boolean isFavourite;
-
-    public boolean isFavourite() {
-        return isFavourite;
-    }
-
-    public void setFavourite(boolean favourite) {
-        isFavourite = favourite;
-    }
-
     public String getStartDate() {
         return date;
     }

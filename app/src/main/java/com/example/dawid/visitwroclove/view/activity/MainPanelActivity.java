@@ -59,6 +59,12 @@ public class MainPanelActivity extends BaseActivity {
         startActivity(intent);
     }
 
+    @OnClick(R.id.ll_tracks)
+    public void showTracksActivity(){
+        Intent intent = new Intent(getApplicationContext(), WeatherActivity.class);
+        startActivity(intent);
+    }
+
     @OnClick(R.id.ll_places)
     public void showPlacesActivity() {
         Intent intent = new Intent(getApplicationContext(), PlacesActivity.class);
@@ -126,8 +132,8 @@ public class MainPanelActivity extends BaseActivity {
         addressDTO2.setCity("Wrocław");
         addressDTO2.setStreet("Biskupin");
         addressDTO2.setHomeNumber("14");
-        addressDTO2.setLat("51.106586");
-        addressDTO2.setLng("17.077028");
+        addressDTO2.setLat("51.107586");
+        addressDTO2.setLng("17.078028");
         objectDTO2.setAddress(addressDTO2);
         mRepo.add(objectDTO2);
 
@@ -145,8 +151,8 @@ public class MainPanelActivity extends BaseActivity {
         addressDTO3.setCity("Wrocław");
         addressDTO3.setStreet("Biskupin");
         addressDTO3.setHomeNumber("14");
-        addressDTO3.setLat("51.106586");
-        addressDTO3.setLng("17.077028");
+        addressDTO3.setLat("51.106186");
+        addressDTO3.setLng("17.068028");
         objectDTO3.setAddress(addressDTO3);
         mRepo.add(objectDTO3);
 

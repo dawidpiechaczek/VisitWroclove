@@ -19,6 +19,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by Dawid on 20.07.2017.
@@ -46,6 +47,7 @@ public class DetailsActivity extends BaseActivity {
     private Bundle extras;
     private BaseDTO list;
     private int itemId;
+    private boolean isFavourite = false;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -81,6 +83,13 @@ public class DetailsActivity extends BaseActivity {
                 + ", " + list.getAddress().getZipCode() + " " + list.getAddress().getCity());
         String imageUrl = list.getImage();
         setImage(imageUrl);
+        if(list.isFavourite()){
+            favourite.setImageResource(R.drawable.ic_heart_clicked);
+            isFavourite = true;
+        } else {
+            favourite.setImageResource(R.drawable.ic_action_name);
+            isFavourite = false;
+        }
     }
 
     private void setImage(String imageUrl) {
@@ -105,5 +114,16 @@ public class DetailsActivity extends BaseActivity {
             onBackPressed();
         }
         return true;
+    }
+
+    @OnClick(R.id.ad_btn_favourite)
+    public void setFavourite(){
+        if(isFavourite){
+            favourite.setImageResource(R.drawable.ic_action_name);
+            isFavourite = !isFavourite;
+        } else{
+            favourite.setImageResource(R.drawable.ic_heart_clicked);
+            isFavourite = !isFavourite;
+        }
     }
 }

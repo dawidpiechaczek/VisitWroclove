@@ -12,6 +12,7 @@ public class BaseDTO {
     private int address_id;
     private AddressDTO address;
     private String image;
+    private boolean isFavourite;
 
     public String getImage() {
         return image;
@@ -67,5 +68,13 @@ public class BaseDTO {
 
     public void setAddress(AddressDTO address) {
         this.address = address;
+    }
+
+    public boolean isFavourite() {
+        return isFavourite;
+    }
+
+    public void setFavourite(boolean favourite) {
+        isFavourite = favourite;
     }
 }
