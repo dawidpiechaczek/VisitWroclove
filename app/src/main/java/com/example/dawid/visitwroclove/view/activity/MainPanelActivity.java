@@ -1,13 +1,17 @@
 package com.example.dawid.visitwroclove.view.activity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.widget.LinearLayout;
 
 
 import com.example.dawid.visitwroclove.DAO.implementation.EventDAOImpl;
 import com.example.dawid.visitwroclove.DAO.implementation.ObjectDAOImpl;
+import com.example.dawid.visitwroclove.Manifest;
 import com.example.dawid.visitwroclove.R;
 import com.example.dawid.visitwroclove.model.AddressDTO;
 import com.example.dawid.visitwroclove.model.EventDTO;
@@ -44,7 +48,13 @@ public class MainPanelActivity extends BaseActivity {
         ButterKnife.bind(this);
         Log.d(mLog, "MainPanelActivity.onCreate()");
         scripts();
+        setPermissions();
+    }
 
+    private void setPermissions() {
+        ActivityCompat.requestPermissions(this,
+                new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
+                1);
     }
 
     @Override
@@ -61,7 +71,9 @@ public class MainPanelActivity extends BaseActivity {
 
     @OnClick(R.id.ll_tracks)
     public void showTracksActivity(){
+       // Uri uri = Uri.parse("https://www.google.com");
         Intent intent = new Intent(getApplicationContext(), WeatherActivity.class);
+      //  Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         startActivity(intent);
     }
 

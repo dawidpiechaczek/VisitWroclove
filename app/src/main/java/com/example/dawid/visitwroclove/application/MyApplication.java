@@ -3,6 +3,7 @@ package com.example.dawid.visitwroclove.application;
 import android.app.Application;
 import android.content.ComponentName;
 import android.content.pm.PackageManager;
+import android.support.v4.app.ActivityCompat;
 
 import com.example.dawid.visitwroclove.dagger.AppComponent;
 

@@ -1,10 +1,15 @@
 package com.example.dawid.visitwroclove.view.activity;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.widget.Toast;
 
 import com.example.dawid.visitwroclove.DAO.implementation.ObjectDAOImpl;
 import com.example.dawid.visitwroclove.R;
+import com.example.dawid.visitwroclove.WindowListener;
 import com.example.dawid.visitwroclove.adapter.WindowAdapter;
 import com.example.dawid.visitwroclove.model.ObjectDTO;
 import com.example.dawid.visitwroclove.view.interfaces.MapView;
@@ -58,7 +63,16 @@ public class MapActivity extends BaseActivity implements OnMapReadyCallback, Map
 
         WindowAdapter adapter = new WindowAdapter(getApplicationContext(), mRepo, (HashMap<Marker, Integer>) markersId);
         map.setInfoWindowAdapter(adapter);
+        WindowListener windowListener = new WindowListener(this, markersId);
+        map.setOnInfoWindowClickListener(windowListener);
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(Double.parseDouble(buildings.get(0).getAddress().getLat()), Double.parseDouble(buildings.get(0).getAddress().getLng())), 15));
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            Toast.makeText(this, "brak neta", Toast.LENGTH_LONG).show();
+        } else {
+            map.setMyLocationEnabled(true);
+        }
+
     }
 
     private void initMap() {
