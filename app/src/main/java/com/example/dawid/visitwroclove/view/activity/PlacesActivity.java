@@ -2,7 +2,6 @@ package com.example.dawid.visitwroclove.view.activity;
 
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
@@ -38,7 +37,7 @@ public class PlacesActivity extends BaseActivity {
     public ObjectDAOImpl mRepo;
     @BindView(R.id.ap_rv_recycler)
     public RecyclerView recyclerView;
-    @BindView(R.id.toolbar2)
+    @BindView(R.id.ap_t_toolbar)
     public Toolbar toolbar;
 
     private RecyclerView.LayoutManager layoutManager;

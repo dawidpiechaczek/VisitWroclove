@@ -12,11 +12,9 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.dawid.visitwroclove.DAO.implementation.EventDAOImpl;
-import com.example.dawid.visitwroclove.DAO.implementation.ObjectDAOImpl;
 import com.example.dawid.visitwroclove.R;
 import com.example.dawid.visitwroclove.adapter.RecyclerAdapter;
 import com.example.dawid.visitwroclove.model.EventDTO;
-import com.example.dawid.visitwroclove.model.ObjectDTO;
 import com.example.dawid.visitwroclove.utils.Constants;
 
 import java.util.List;
@@ -34,7 +32,7 @@ public class EventsActivity extends BaseActivity{
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerAdapter adapter;
     private List<EventDTO> list;
-    @BindView(R.id.toolbar2)
+    @BindView(R.id.ap_t_toolbar)
     public Toolbar toolbar;
 
     @Inject

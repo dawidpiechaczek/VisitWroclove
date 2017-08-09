@@ -32,6 +32,10 @@
         </activity>
         <activity android:name=".view.activity.WeatherActivity">
         </activity>
+        <activity android:name=".view.activity.RoutesActivity">
+        </activity>
+        <activity android:name=".view.activity.RoutesListActivity">
+        </activity>
     </application>
 
 </manifest>

@@ -1,27 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/ap_t_toolbar"
+        android:id="@+id/ar_t_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/colorPrimary"
         android:theme="@style/ToolbarColoredBackArrow"/>
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/ap_rv_recycler"
+        android:id="@+id/ar_rv_recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/ap_t_toolbar"
-        android:background="@color/colorPrimary"/>
+        android:layout_below="@id/ar_t_toolbar"
+        android:background="@color/colorSecondary" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="6dp"
         android:background="@drawable/toolbar_shadow"
-        android:layout_below="@id/ap_t_toolbar"
+        android:layout_below="@id/ar_t_toolbar"
         />
 
 </RelativeLayout>

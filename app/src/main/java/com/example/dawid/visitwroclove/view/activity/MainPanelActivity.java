@@ -71,9 +71,12 @@ public class MainPanelActivity extends BaseActivity {
 
     @OnClick(R.id.ll_tracks)
     public void showTracksActivity(){
-       // Uri uri = Uri.parse("https://www.google.com");
+        Intent intent = new Intent(getApplicationContext(), RoutesActivity.class);
+        startActivity(intent);
+    }
+
+    public void showWeatherActivity(){
         Intent intent = new Intent(getApplicationContext(), WeatherActivity.class);
-      //  Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         startActivity(intent);
     }
 

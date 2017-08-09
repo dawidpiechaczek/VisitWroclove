@@ -4,24 +4,24 @@
     android:layout_height="match_parent">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/ap_t_toolbar"
+        android:id="@+id/rla_t_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/colorPrimary"
         android:theme="@style/ToolbarColoredBackArrow"/>
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/ap_rv_recycler"
+        android:id="@+id/rla_rv_recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/ap_t_toolbar"
+        android:layout_below="@id/rla_t_toolbar"
         android:background="@color/colorPrimary"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="6dp"
         android:background="@drawable/toolbar_shadow"
-        android:layout_below="@id/ap_t_toolbar"
+        android:layout_below="@id/rla_t_toolbar"
         />
 
 </RelativeLayout>
