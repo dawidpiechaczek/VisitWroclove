@@ -1,10 +1,14 @@
 package com.example.dawid.visitwroclove.DAO.implementation;
 
+import com.example.dawid.visitwroclove.DAO.model.ObjectDAO;
 import com.example.dawid.visitwroclove.DAO.model.PointDAO;
 import com.example.dawid.visitwroclove.DAO.model.RouteDAO;
 import com.example.dawid.visitwroclove.database.enums.Removed;
 import com.example.dawid.visitwroclove.database.interfaces.IRouteDAOService;
+import com.example.dawid.visitwroclove.database.utils.ObjectAssembler;
 import com.example.dawid.visitwroclove.database.utils.RealmTable;
+import com.example.dawid.visitwroclove.database.utils.RouteAssembler;
+import com.example.dawid.visitwroclove.model.ObjectDTO;
 import com.example.dawid.visitwroclove.model.PointDTO;
 import com.example.dawid.visitwroclove.model.RouteDTO;
 
@@ -22,6 +26,15 @@ import io.realm.Sort;
  */
 
 public class RouteDAOImpl implements IRouteDAOService {
+
+    private static RouteDAOImpl instance;
+
+    public static RouteDAOImpl getInstance(){
+        if(instance == null){
+            instance = new RouteDAOImpl();
+        }
+        return instance;
+    }
 
     private static final String TAG = RouteDAOImpl.class.getName();
 
@@ -75,6 +88,7 @@ public class RouteDAOImpl implements IRouteDAOService {
         r.setName(entity.getName());
         r.setDescription(entity.getDescription());
         r.setLength(entity.getLength());
+        r.setType(entity.getType());
 
         for (int i=0; i<entity.getPoints().size(); i++) {
             PointDAO p = new PointDAO();
@@ -233,7 +247,21 @@ public class RouteDAOImpl implements IRouteDAOService {
 
     @Override
     public List<RouteDTO> getByType(String type) {
-        return null;
+        Realm realm = Realm.getDefaultInstance();
+        RealmResults<RouteDAO> results = realm.where(RouteDAO.class)
+                .equalTo(RealmTable.RouteDAO.REMOVED, Removed.NOT_REMOVED.getValue())
+                //          .equalTo(RealmTable.ObjectDAO.STATUS, Status.PUBLISH.getValue())
+                .equalTo(RealmTable.RouteDAO.TYPE, type).findAll().sort(RealmTable.RouteDAO.NAME, Sort.ASCENDING);
+
+        List<RouteDTO> list = new ArrayList<>();
+        if (results != null) {
+            for (int i = 0; i < results.size(); i++) {
+                RouteDTO oDTO = RouteAssembler.DAOtoDTO(results.get(i));
+                list.add(oDTO);
+            }
+        }
+        realm.close();
+        return list;
     }
 
     @Override

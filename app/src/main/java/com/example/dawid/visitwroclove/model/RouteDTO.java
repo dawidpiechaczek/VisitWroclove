@@ -92,11 +92,11 @@ public class RouteDTO {
         this.removed = removed;
     }
 
-    public String getIcon() {
+    public String getType() {
         return type;
     }
 
-    public void setIcon(String type) {
+    public void setType(String type) {
         this.type = type;
     }
 }

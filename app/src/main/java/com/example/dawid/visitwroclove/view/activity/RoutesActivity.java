@@ -12,6 +12,8 @@ import android.view.View;
 import com.example.dawid.visitwroclove.DAO.implementation.ObjectDAOImpl;
 import com.example.dawid.visitwroclove.R;
 import com.example.dawid.visitwroclove.adapter.RecyclerRoutesAdapter;
+import com.example.dawid.visitwroclove.utils.Constants;
+
 import javax.inject.Inject;
 
 import butterknife.BindView;
@@ -72,7 +74,7 @@ public class RoutesActivity extends BaseActivity {
             @Override
             public void onItemClick(int position, View view) {
                 Intent intent = new Intent(RoutesActivity.this, RoutesListActivity.class);
-               // intent.putExtra(Constants.EXTRA_POSIOTION, position);
+                intent.putExtra(Constants.EXTRA_POSIOTION, position);
                 startActivity(intent);
             }
         });

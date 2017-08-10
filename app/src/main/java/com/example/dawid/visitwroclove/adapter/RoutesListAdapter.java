@@ -8,7 +8,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.dawid.visitwroclove.R;
+import com.example.dawid.visitwroclove.model.RouteDTO;
 import com.example.dawid.visitwroclove.utils.FontManager;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -20,9 +23,7 @@ import butterknife.ButterKnife;
 public class RoutesListAdapter extends RecyclerView.Adapter<RoutesListAdapter.ViewHolder> {
     private Context context;
     private RecyclerRoutesAdapter.ClickListener clickListener;
-    private String[] names = new String[]{"leśne", "morskie", "rowerowe"};
-    private String[] amount = new String[]{"2", "5", "12"};
-    private String[] times = new String[]{"40 min", "75 min", "120 min"};
+    private List<RouteDTO>list;
 
     public RoutesListAdapter(Context context) {
         this.context = context;
@@ -64,13 +65,12 @@ public class RoutesListAdapter extends RecyclerView.Adapter<RoutesListAdapter.Vi
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.itemName.setText(names[position]);
-        holder.itemAmount.setText(amount[position]);
-        holder.itemTime.setText(times[position]);
+        holder.itemName.setText(list.get(position).getName());
+        holder.itemAmount.setText(list.get(position).getPoints().size()+"");
+        holder.itemTime.setText(list.get(position).getLength());
         holder.placesImage.setTypeface(FontManager.getIcons(context));
         holder.timeImage.setTypeface(FontManager.getIcons(context));
     }
-
 
     public void setOnClickListener(RecyclerRoutesAdapter.ClickListener clickListener) {
         this.clickListener = clickListener;
@@ -78,7 +78,11 @@ public class RoutesListAdapter extends RecyclerView.Adapter<RoutesListAdapter.Vi
 
     @Override
     public int getItemCount() {
-        return names.length;
+        return list.size();
+    }
+
+    public void setData(List list){
+        this.list = list;
     }
 
     public interface ClickListener {

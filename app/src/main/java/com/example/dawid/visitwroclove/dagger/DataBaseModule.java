@@ -2,6 +2,7 @@ package com.example.dawid.visitwroclove.dagger;
 
 import com.example.dawid.visitwroclove.DAO.implementation.EventDAOImpl;
 import com.example.dawid.visitwroclove.DAO.implementation.ObjectDAOImpl;
+import com.example.dawid.visitwroclove.DAO.implementation.RouteDAOImpl;
 
 import dagger.Module;
 import dagger.Provides;
@@ -21,4 +22,8 @@ public class DataBaseModule {
     @AppScope
     EventDAOImpl provideEventDao(){ return EventDAOImpl.getInstance(); }
 
+
+    @Provides
+    @AppScope
+    RouteDAOImpl provideRouteDao(){ return RouteDAOImpl.getInstance(); }
 }

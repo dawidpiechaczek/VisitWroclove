@@ -32,6 +32,7 @@ public interface RealmTable {
 
     interface RouteDAO {
         String NAME = "name";
+        String TYPE = "type";
         String REMOVED = "removed";
     }
 }

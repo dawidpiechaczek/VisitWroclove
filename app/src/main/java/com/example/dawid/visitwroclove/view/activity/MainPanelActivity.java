@@ -11,11 +11,17 @@ import android.widget.LinearLayout;
 
 import com.example.dawid.visitwroclove.DAO.implementation.EventDAOImpl;
 import com.example.dawid.visitwroclove.DAO.implementation.ObjectDAOImpl;
+import com.example.dawid.visitwroclove.DAO.implementation.RouteDAOImpl;
 import com.example.dawid.visitwroclove.Manifest;
 import com.example.dawid.visitwroclove.R;
 import com.example.dawid.visitwroclove.model.AddressDTO;
 import com.example.dawid.visitwroclove.model.EventDTO;
 import com.example.dawid.visitwroclove.model.ObjectDTO;
+import com.example.dawid.visitwroclove.model.PointDTO;
+import com.example.dawid.visitwroclove.model.RouteDTO;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -39,6 +45,8 @@ public class MainPanelActivity extends BaseActivity {
     public ObjectDAOImpl mRepo;
     @Inject
     public EventDAOImpl mRepoEvent;
+    @Inject
+    public RouteDAOImpl mRepoRoutes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -187,5 +195,41 @@ public class MainPanelActivity extends BaseActivity {
         addressDTO4.setLng("17.031879");
         eventDTO.setAddress(addressDTO4);
         mRepoEvent.add(eventDTO);
+
+        PointDTO pointDTO = new PointDTO();
+        pointDTO.setLat(addressDTO.getLat());
+        pointDTO.setLng(addressDTO.getLng());
+        PointDTO pointDTO1 = new PointDTO();
+        pointDTO1.setLat(addressDTO1.getLat());
+        pointDTO1.setLng(addressDTO1.getLng());
+        PointDTO pointDTO2 = new PointDTO();
+        pointDTO2.setLat(addressDTO2.getLat());
+        pointDTO2.setLng(addressDTO2.getLng());
+        PointDTO pointDTO3 = new PointDTO();
+        pointDTO3.setLat(addressDTO3.getLat());
+        pointDTO3.setLng(addressDTO3.getLng());
+
+        List<PointDTO>list = new ArrayList<>();
+        list.add(pointDTO);
+        list.add(pointDTO1);
+        list.add(pointDTO2);
+        List<PointDTO>list1 = new ArrayList<>();
+        list1.add(pointDTO3);
+        list1.add(pointDTO);
+
+        RouteDTO routeDTO = new RouteDTO();
+        routeDTO.setId(0);
+        routeDTO.setName("łatwa");
+        routeDTO.setLength("14 min");
+        routeDTO.setType("las");
+        routeDTO.setPoints(list);
+        RouteDTO routeDTO1 = new RouteDTO();
+        routeDTO1.setId(1);
+        routeDTO1.setName("trudniejsza");
+        routeDTO1.setLength("20 min");
+        routeDTO1.setType("woda");
+        routeDTO1.setPoints(list1);
+        mRepoRoutes.add(routeDTO);
+        mRepoRoutes.add(routeDTO1);
     }
 }
