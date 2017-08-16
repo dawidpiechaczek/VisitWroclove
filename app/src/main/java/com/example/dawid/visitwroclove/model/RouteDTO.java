@@ -1,5 +1,7 @@
 package com.example.dawid.visitwroclove.model;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -99,4 +101,13 @@ public class RouteDTO {
     public void setType(String type) {
         this.type = type;
     }
+
+    public List<LatLng> getLatLngsList(){
+        List<LatLng>list = new ArrayList<>();
+        for(PointDTO pointDTO : points){
+            list.add(new LatLng(Double.parseDouble(pointDTO.getLat()), Double.parseDouble(pointDTO.getLng())));
+        }
+        return list;
+    }
 }
+

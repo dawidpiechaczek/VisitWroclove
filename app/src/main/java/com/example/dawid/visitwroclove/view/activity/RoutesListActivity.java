@@ -47,8 +47,6 @@ public class RoutesListActivity extends BaseActivity {
         setContentView(R.layout.routeslist_activity);
         ButterKnife.bind(this);
         getComponent().inject(this);
-        layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
         setAdapter();
         setToolbar();
     }
@@ -77,6 +75,10 @@ public class RoutesListActivity extends BaseActivity {
     private void setAdapter(){
         int position = getIntent().getIntExtra(Constants.EXTRA_POSIOTION, 0);
         list = new ArrayList<>();
+
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+
         if (position == Categories.LAS.getValue()) {
             list = mRepo.getByType("las");
         } else if (position == Categories.WODA.getValue()) {
@@ -91,6 +93,7 @@ public class RoutesListActivity extends BaseActivity {
             @Override
             public void onItemClick(int position, View view) {
                 Intent intent = new Intent(RoutesListActivity.this, MapActivity.class);
+                intent.putExtra("trasa", list.get(position).getId());
                 startActivity(intent);
             }
         });
