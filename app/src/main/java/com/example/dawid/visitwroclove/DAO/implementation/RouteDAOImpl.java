@@ -29,8 +29,8 @@ public class RouteDAOImpl implements IRouteDAOService {
 
     private static RouteDAOImpl instance;
 
-    public static RouteDAOImpl getInstance(){
-        if(instance == null){
+    public static RouteDAOImpl getInstance() {
+        if (instance == null) {
             instance = new RouteDAOImpl();
         }
         return instance;
@@ -90,7 +90,7 @@ public class RouteDAOImpl implements IRouteDAOService {
         r.setLength(entity.getLength());
         r.setType(entity.getType());
 
-        for (int i=0; i<entity.getPoints().size(); i++) {
+        for (int i = 0; i < entity.getPoints().size(); i++) {
             PointDAO p = new PointDAO();
             if (entity.getPoints().get(i).getId() != null)
                 p.setId(entity.getPoints().get(i).getId());
@@ -148,7 +148,7 @@ public class RouteDAOImpl implements IRouteDAOService {
             r.setName(rDAO.getName());
 
             ArrayList<PointDTO> points = new ArrayList<>();
-            for (int i=0; i<rDAO.getPoints().size(); i++) {
+            for (int i = 0; i < rDAO.getPoints().size(); i++) {
                 PointDTO p = new PointDTO();
                 p.setId(rDAO.getPoints().get(i).getId());
                 p.setRouteId(rDAO.getPoints().get(i).getRouteId());
@@ -176,7 +176,7 @@ public class RouteDAOImpl implements IRouteDAOService {
         RealmResults<RouteDAO> results = query.findAll().sort(RealmTable.RouteDAO.NAME, Sort.ASCENDING);
 
         List<RouteDTO> list = new ArrayList<>();
-        for (int i=0; i<results.size(); i++) {
+        for (int i = 0; i < results.size(); i++) {
             RouteDTO r = new RouteDTO();
             r.setId(results.get(i).getId());
             r.setLength(results.get(i).getLength());
@@ -184,7 +184,7 @@ public class RouteDAOImpl implements IRouteDAOService {
             r.setName(results.get(i).getName());
 
             ArrayList<PointDTO> points = new ArrayList<>();
-            for (int j=0; j<results.get(i).getPoints().size(); j++) {
+            for (int j = 0; j < results.get(i).getPoints().size(); j++) {
                 PointDTO p = new PointDTO();
 
                 p.setId(results.get(i).getPoints().get(j).getId());
@@ -226,7 +226,7 @@ public class RouteDAOImpl implements IRouteDAOService {
             r.setName(rDAO.getName());
 
             ArrayList<PointDTO> points = new ArrayList<>();
-            for (int i=0; i<rDAO.getPoints().size(); i++) {
+            for (int i = 0; i < rDAO.getPoints().size(); i++) {
                 PointDTO p = new PointDTO();
                 p.setRouteId(rDAO.getPoints().get(i).getRouteId());
                 p.setObjectId(rDAO.getPoints().get(i).getObjectId());
@@ -273,7 +273,7 @@ public class RouteDAOImpl implements IRouteDAOService {
         RealmResults<RouteDAO> results = query.findAll().sort(RealmTable.RouteDAO.NAME, Sort.ASCENDING);
 
         List<RouteDTO> list = new ArrayList<>();
-        for (int i=0; i<results.size(); i++) {
+        for (int i = 0; i < results.size(); i++) {
             RouteDTO r = new RouteDTO();
             r.setId(results.get(i).getId());
             r.setLength(results.get(i).getLength());
@@ -281,7 +281,7 @@ public class RouteDAOImpl implements IRouteDAOService {
             r.setName(results.get(i).getName());
 
             ArrayList<PointDTO> points = new ArrayList<>();
-            for (int j=0; j<results.get(i).getPoints().size(); j++) {
+            for (int j = 0; j < results.get(i).getPoints().size(); j++) {
                 PointDTO p = new PointDTO();
 
                 p.setRouteId(results.get(i).getPoints().get(j).getRouteId());
@@ -319,7 +319,7 @@ public class RouteDAOImpl implements IRouteDAOService {
             rDAO.setLength(r.getLength());
 
             RealmList<PointDAO> points = new RealmList<>();
-            for (int i=0; i<r.getPoints().size(); i++) {
+            for (int i = 0; i < r.getPoints().size(); i++) {
                 PointDAO p = new PointDAO();
                 p.setId(fromDbDAO.getGlobalId() + "." + i);
                 p.setRouteId(r.getPoints().get(i).getRouteId());

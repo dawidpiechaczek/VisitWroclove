@@ -7,14 +7,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.dawid.visitwroclove.DAO.implementation.EventDAOImpl;
 import com.example.dawid.visitwroclove.DAO.implementation.ObjectDAOImpl;
 import com.example.dawid.visitwroclove.R;
+import com.example.dawid.visitwroclove.model.BaseDTO;
 import com.example.dawid.visitwroclove.model.ObjectDTO;
 import com.example.dawid.visitwroclove.utils.FontManager;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.Marker;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -23,7 +26,7 @@ import butterknife.ButterKnife;
  * Created by Dawid on 03.08.2017.
  */
 
-public class WindowAdapter implements GoogleMap.InfoWindowAdapter {
+public class MyWindowAdapter implements GoogleMap.InfoWindowAdapter {
     @BindView(R.id.wl_tv_name)
     TextView name;
     @BindView(R.id.wl_iv_show_details)
@@ -35,11 +38,13 @@ public class WindowAdapter implements GoogleMap.InfoWindowAdapter {
 
     private Context context;
     private ObjectDAOImpl mRepo;
-    private HashMap<Marker, Integer> hashMap;
+    private EventDAOImpl mRepoEvent;
+    private Map<Marker, Integer> hashMap;
 
-    public WindowAdapter(Context context, ObjectDAOImpl repo, HashMap<Marker, Integer> hashMap) {
+    public MyWindowAdapter(Context context, ObjectDAOImpl repo, EventDAOImpl repoEvent, Map<Marker, Integer> hashMap) {
         this.context = context;
         this.mRepo = repo;
+        this.mRepoEvent = repoEvent;
         this.hashMap = hashMap;
     }
 
@@ -54,11 +59,16 @@ public class WindowAdapter implements GoogleMap.InfoWindowAdapter {
         View view = layoutInflater.inflate(R.layout.window_layout, null);
         ButterKnife.bind(this, view);
         int id = hashMap.get(marker);
-        ObjectDTO obj = mRepo.getById(id);
+        BaseDTO baseDTO;
+        if (marker.getTag().equals("EVENT")) {
+            baseDTO = mRepoEvent.getById(id);
+        } else {
+            baseDTO = mRepo.getById(id);
+        }
         details.setTypeface(FontManager.getIcons(context));
         route.setTypeface(FontManager.getIcons(context));
-        name.setText(obj.getName());
-        Glide.with(context).load(obj.getImage()).centerCrop().into(image);
+        name.setText(baseDTO.getName());
+        Glide.with(context).load(baseDTO.getImage()).centerCrop().into(image);
         return view;
     }
 }

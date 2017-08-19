@@ -26,21 +26,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="300dp">
 
-                <TextView
-                    android:id="@+id/ad_tv_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="#ffffff"
-                    android:textSize="30sp"
-                    android:textStyle="bold"
-                    android:transitionName="myTitle" />
-
                 <ImageView
                     android:id="@+id/ad_im_image"
                     android:layout_width="match_parent"
                     android:layout_height="300dp"
                     android:layout_weight="0.13"
-                    android:src="@color/colorPrimary"
+                    android:background="@android:color/white"
                     android:transitionName="myImage"
                     app:layout_collapseMode="parallax" />
 
@@ -86,6 +77,55 @@
                 android:textSize="17sp" />
 
             <LinearLayout
+                android:id="@+id/ad_ll_event_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/boarder"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/ad_tv_prize"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:text="cena"
+                        android:textColor="#FFFFFF"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/boarder2"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/ad_tv_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="10dp"
+                        android:text="data"
+                        android:textColor="#FFFFFF"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -104,7 +144,8 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
 
                 <TextView
                     android:layout_width="wrap_content"

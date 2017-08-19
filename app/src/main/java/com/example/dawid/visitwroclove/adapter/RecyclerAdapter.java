@@ -71,6 +71,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     public void onBindViewHolder(final ViewHolder holder, int position) {
         Glide.with(context)
                 .load(list.get(position).getImage())
+                .placeholder(R.drawable.placeholder)
+                .dontAnimate()
                 .centerCrop()
                 .into(holder.itemImage);
         holder.itemName.setText(list.get(position).getName());

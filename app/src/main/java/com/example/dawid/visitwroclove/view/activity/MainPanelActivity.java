@@ -106,7 +106,7 @@ public class MainPanelActivity extends BaseActivity {
         objectDTO.setId(0);
         objectDTO.setFavourite(true);
         objectDTO.setName("Ratusz Wrocławski");
-        objectDTO.setDescription("Budynek gdzie mieści się starostwo miasta Wrocław.");
+        objectDTO.setDescription("Stary Ratusz we Wrocławiu – późnogotycki budynek na wrocławskim Rynku, jeden z najlepiej zachowanych historycznych ratuszy w Polsce, zarazem jeden z głównych zabytków architektonicznych Wrocławia.");
         objectDTO.setPhone("42 455 34 43");
         objectDTO.setRank(7.53);
         objectDTO.setType("building");
@@ -115,7 +115,7 @@ public class MainPanelActivity extends BaseActivity {
         addressDTO.setId(0);
         addressDTO.setCity("Wrocław");
         addressDTO.setStreet("Rynek");
-        addressDTO.setHomeNumber("19");
+        addressDTO.setHomeNumber("50");
         addressDTO.setLat("51.109678");
         addressDTO.setLng("17.031879");
         objectDTO.setAddress(addressDTO);
@@ -128,16 +128,16 @@ public class MainPanelActivity extends BaseActivity {
         objectDTO1.setDescription("Hala Stulecia (inna funkcjonująca nazwa: Hala Ludowa), to duży obiekt widowiskowo-sportowy położony w Parku Szczytnickim we Wrocławiu. Wzniesiony w latach 1911–1913 według projektu architektonicznego Maxa Berga. W 2006 roku Hala została wpisana na Listę Światowego Dziedzictwa Kulturalnego i Przyrodniczego UNESCO! ");
         objectDTO1.setPhone("42 455 34 43");
         objectDTO1.setRank(9.53);
-        objectDTO1.setType("visit");
+        objectDTO1.setType("building");
         objectDTO1.setImage("https://upload.wikimedia.org/wikipedia/commons/0/06/Wroc%C5%82aw_-_Jahrhunderthalle1.jpg");
         AddressDTO addressDTO1 = new AddressDTO();
         addressDTO1.setId(1);
         addressDTO1.setCity("Wrocław");
-        addressDTO1.setZipCode("50-200");
-        addressDTO1.setStreet("Biskupin");
-        addressDTO1.setHomeNumber("14");
-        addressDTO1.setLat("51.106586");
-        addressDTO1.setLng("17.077028");
+        addressDTO1.setZipCode("51-618");
+        addressDTO1.setStreet("Wystawowa");
+        addressDTO1.setHomeNumber("1");
+        addressDTO1.setLat("51.107222");
+        addressDTO1.setLng("17.076944");
         objectDTO1.setAddress(addressDTO1);
         mRepo.add(objectDTO1);
 
@@ -145,18 +145,19 @@ public class MainPanelActivity extends BaseActivity {
         objectDTO2.setId(2);
         objectDTO2.setFavourite(false);
         objectDTO2.setName("ZOO");
-        objectDTO2.setDescription("Odbywają się w niej liczbne wydarzenia kulturalne.");
+        objectDTO2.setDescription("Wrocławskie ZOO ma przebogatą tradycję. To tu urodziły się pierwsze w historii ogrodów zoologicznych tapiry, a gorylica PUSSI na wiele dziesięcioleci pobiła wszelkie rekordy długości życia w warunkach sztucznych. Metody hodowlane i sposób ekspozycji zwierząt ulegają stałym zmianom.");
         objectDTO2.setPhone("42 455 34 43");
         objectDTO2.setRank(9.53);
-        objectDTO2.setType("building");
+        objectDTO2.setType("visit");
         objectDTO2.setImage("http://www.zoo.wroclaw.pl/zdc/wp-content/uploads/2016/09/logo-ZOO-WROCLAW.jpg");
         AddressDTO addressDTO2 = new AddressDTO();
         addressDTO2.setId(2);
         addressDTO2.setCity("Wrocław");
-        addressDTO2.setStreet("Biskupin");
-        addressDTO2.setHomeNumber("14");
-        addressDTO2.setLat("51.107586");
-        addressDTO2.setLng("17.078028");
+        addressDTO2.setStreet("Wróblewskiego");
+        addressDTO2.setHomeNumber("1-5");
+        addressDTO2.setZipCode("51-618");
+        addressDTO2.setLat("51.105625");
+        addressDTO2.setLng("17.071294");
         objectDTO2.setAddress(addressDTO2);
         mRepo.add(objectDTO2);
 
@@ -164,18 +165,18 @@ public class MainPanelActivity extends BaseActivity {
         objectDTO3.setId(3);
         objectDTO3.setFavourite(false);
         objectDTO3.setName("Galeria Dominikańska");
-        objectDTO3.setDescription("Odbywają się w niej liczbne wydarzenia kulturalne.");
+        objectDTO3.setDescription("Galeria Dominikańska – centrum handlowe zlokalizowane pomiędzy Placem Dominikańskim oraz ulicami: bł. Czesława i Oławską, w centralnej części Wrocławia, niedaleko Rynku.");
         objectDTO3.setPhone("42 455 34 43");
         objectDTO3.setRank(9.53);
-        objectDTO3.setType("building");
+        objectDTO3.setType("mall");
         objectDTO3.setImage("http://galeria-dominikanska.pl/files/gallery/fotom-2196.jpg");
         AddressDTO addressDTO3 = new AddressDTO();
         addressDTO3.setId(3);
         addressDTO3.setCity("Wrocław");
         addressDTO3.setStreet("Biskupin");
         addressDTO3.setHomeNumber("14");
-        addressDTO3.setLat("51.106186");
-        addressDTO3.setLng("17.068028");
+        addressDTO3.setLat("51.108591");
+        addressDTO3.setLng("17.040943");
         objectDTO3.setAddress(addressDTO3);
         mRepo.add(objectDTO3);
 
@@ -183,16 +184,19 @@ public class MainPanelActivity extends BaseActivity {
         eventDTO.setId(0);
         eventDTO.setFavourite(true);
         eventDTO.setName("Wyścigi konne");
-        eventDTO.setDescription("Budynek gdzie mieści się starostwo miasta Wrocław.");
-        eventDTO.setType("event");
+        eventDTO.setDescription("Wrocławski Tor Wyścigów Konnych - Partynice jest jednostką organizacyjną Gminy Wrocław, działającą w formie jednostki budżetowej, nie posiada osobowości prawnej. Leży na terenie osiedla Partynice.");
+        eventDTO.setType("sport");
         eventDTO.setImage("http://www.iceis.pl/wyscigi/konne/wyscigi-konne_partynice,400px.jpg");
+        eventDTO.setPrice("15 zł");
+        eventDTO.setStartDate("15.04.2018");
         AddressDTO addressDTO4 = new AddressDTO();
-        addressDTO4.setId(0);
+        addressDTO4.setId(4);
         addressDTO4.setCity("Wrocław");
-        addressDTO4.setStreet("Rynek");
-        addressDTO4.setHomeNumber("19");
-        addressDTO4.setLat("51.109678");
-        addressDTO4.setLng("17.031879");
+        addressDTO4.setStreet("Zwycięska");
+        addressDTO4.setHomeNumber("2");
+        addressDTO4.setZipCode("53-033");
+        addressDTO4.setLat("51.060935");
+        addressDTO4.setLng("16.997813");
         eventDTO.setAddress(addressDTO4);
         mRepoEvent.add(eventDTO);
 
@@ -208,6 +212,9 @@ public class MainPanelActivity extends BaseActivity {
         PointDTO pointDTO3 = new PointDTO();
         pointDTO3.setLat(addressDTO3.getLat());
         pointDTO3.setLng(addressDTO3.getLng());
+        PointDTO pointDTO4 = new PointDTO();
+        pointDTO4.setLat(addressDTO4.getLat());
+        pointDTO4.setLng(addressDTO4.getLng());
 
         List<PointDTO>list = new ArrayList<>();
         list.add(pointDTO);
@@ -216,6 +223,11 @@ public class MainPanelActivity extends BaseActivity {
         List<PointDTO>list1 = new ArrayList<>();
         list1.add(pointDTO3);
         list1.add(pointDTO);
+        list1.add(pointDTO4);
+        List<PointDTO>list2 = new ArrayList<>();
+        list2.add(pointDTO2);
+        list2.add(pointDTO3);
+        list2.add(pointDTO4);
 
         RouteDTO routeDTO = new RouteDTO();
         routeDTO.setId(0);
@@ -229,7 +241,15 @@ public class MainPanelActivity extends BaseActivity {
         routeDTO1.setLength("20 min");
         routeDTO1.setType("woda");
         routeDTO1.setPoints(list1);
+        RouteDTO routeDTO2 = new RouteDTO();
+        routeDTO.setId(2);
+        routeDTO2.setName("średnia");
+        routeDTO2.setType("woda");
+        routeDTO2.setLength("50 min");
+        routeDTO2.setPoints(list2);
+
         mRepoRoutes.add(routeDTO);
         mRepoRoutes.add(routeDTO1);
+        mRepoRoutes.add(routeDTO2);
     }
 }

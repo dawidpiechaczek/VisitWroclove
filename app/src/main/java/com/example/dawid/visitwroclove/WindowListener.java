@@ -27,7 +27,11 @@ public class WindowListener implements GoogleMap.OnInfoWindowClickListener {
     public void onInfoWindowClick(Marker marker) {
         Intent intent = new Intent(context, DetailsActivity.class);
         intent.putExtra(Constants.EXTRA_POSIOTION, hashMap.get(marker));
-        intent.putExtra(Constants.EXTRA_ACTIVITY, Constants.ACTIVITY_VALUE_OBJECT);
+        if (marker.getTag().equals("EVENT")) {
+            intent.putExtra(Constants.EXTRA_ACTIVITY, Constants.ACTIVITY_VALUE_EVENT);
+        } else {
+            intent.putExtra(Constants.EXTRA_ACTIVITY, Constants.ACTIVITY_VALUE_OBJECT);
+        }
         context.startActivity(intent);
     }
 }

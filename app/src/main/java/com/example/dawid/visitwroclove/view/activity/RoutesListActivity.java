@@ -3,6 +3,7 @@ package com.example.dawid.visitwroclove.view.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -88,6 +89,7 @@ public class RoutesListActivity extends BaseActivity {
         }
         adapter = new RoutesListAdapter(this);
         adapter.setData(list);
+        recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         recyclerView.setAdapter(adapter);
         adapter.setOnClickListener(new RecyclerRoutesAdapter.ClickListener() {
             @Override

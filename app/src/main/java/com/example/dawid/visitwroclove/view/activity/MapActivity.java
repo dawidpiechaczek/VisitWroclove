@@ -10,15 +10,16 @@ import android.widget.Toast;
 
 import com.akexorcist.googledirection.DirectionCallback;
 import com.akexorcist.googledirection.GoogleDirection;
-import com.akexorcist.googledirection.constant.AvoidType;
 import com.akexorcist.googledirection.constant.TransportMode;
 import com.akexorcist.googledirection.model.Direction;
 import com.akexorcist.googledirection.util.DirectionConverter;
+import com.example.dawid.visitwroclove.DAO.implementation.EventDAOImpl;
 import com.example.dawid.visitwroclove.DAO.implementation.ObjectDAOImpl;
 import com.example.dawid.visitwroclove.DAO.implementation.RouteDAOImpl;
 import com.example.dawid.visitwroclove.R;
 import com.example.dawid.visitwroclove.WindowListener;
-import com.example.dawid.visitwroclove.adapter.WindowAdapter;
+import com.example.dawid.visitwroclove.adapter.MyWindowAdapter;
+import com.example.dawid.visitwroclove.model.EventDTO;
 import com.example.dawid.visitwroclove.model.ObjectDTO;
 import com.example.dawid.visitwroclove.model.RouteDTO;
 import com.example.dawid.visitwroclove.view.interfaces.MapView;
@@ -26,11 +27,11 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.Polyline;
-import com.google.android.gms.maps.model.PolylineOptions;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -48,13 +49,15 @@ import butterknife.ButterKnife;
 public class MapActivity extends BaseActivity implements OnMapReadyCallback, MapView {
     @Inject
     public ObjectDAOImpl mRepo;
-
     @Inject
     public RouteDAOImpl mRepoRoute;
+    @Inject
+    public EventDAOImpl mRepoEvents;
 
     public GoogleMap map;
     private Map<Marker, Integer> markersId = new HashMap<>();
     private List<ObjectDTO> buildings;
+    private List<EventDTO> events;
     private RouteDTO routeDTO;
 
     int routeId = -1;
@@ -66,7 +69,9 @@ public class MapActivity extends BaseActivity implements OnMapReadyCallback, Map
         setContentView(R.layout.activity_map);
         ButterKnife.bind(this);
         buildings = mRepo.getAll();
-        routeId = getIntent().getExtras().getInt("trasa", -1);
+        events = mRepoEvents.getAll();
+        if (getIntent().getExtras() != null)
+            routeId = getIntent().getExtras().getInt("trasa", -1);
         if (routeId != -1)
             routeDTO = mRepoRoute.getById(routeId);
         initMap();
@@ -79,10 +84,18 @@ public class MapActivity extends BaseActivity implements OnMapReadyCallback, Map
         for (ObjectDTO o : buildings) {
             LatLng latlng = new LatLng(Double.parseDouble(o.getAddress().getLat()), Double.parseDouble(o.getAddress().getLng()));
             Marker marker = map.addMarker(new MarkerOptions().position(latlng).title(o.getName()));
+            marker.setTag("OBJECT");
             markersId.put(marker, o.getId());
         }
 
-        if (routeDTO.getLatLngsList().size()>2)
+        for (EventDTO e : events) {
+            LatLng latlng = new LatLng(Double.parseDouble(e.getAddress().getLat()), Double.parseDouble(e.getAddress().getLng()));
+            Marker marker = map.addMarker(new MarkerOptions().position(latlng).title(e.getName()).title(e.getName()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+            marker.setTag("EVENT");
+            markersId.put(marker, e.getId());
+        }
+
+        if (routeDTO != null)
             GoogleDirection.withServerKey("AIzaSyCd96x4S9MNuOSaH9-uKmnKgto3wc_qV4E")
                     .from(routeDTO.getLatLngsList().get(0))
                     .to(routeDTO.getLatLngsList().get(routeDTO.getLatLngsList().size() - 1))
@@ -104,30 +117,11 @@ public class MapActivity extends BaseActivity implements OnMapReadyCallback, Map
                             // Do something
                         }
                     });
-        else
-            GoogleDirection.withServerKey("AIzaSyCd96x4S9MNuOSaH9-uKmnKgto3wc_qV4E")
-                    .from(routeDTO.getLatLngsList().get(0))
-                    .to(routeDTO.getLatLngsList().get(routeDTO.getLatLngsList().size() - 1))
-                    .transitMode(TransportMode.DRIVING)
-                    .execute(new DirectionCallback() {
-                        @Override
-                        public void onDirectionSuccess(Direction direction, String rawBody) {
-                            if (direction.isOK()) {
-                                ArrayList<LatLng> directionPositionList = direction.getRouteList().get(0).getLegList().get(0).getDirectionPoint();
-                                map.addPolyline(DirectionConverter.createPolyline(MapActivity.this, directionPositionList, 5, Color.RED));
-                            } else {
-                                // Do something
-                            }
-                        }
 
-                        @Override
-                        public void onDirectionFailure(Throwable t) {
-                            // Do something
-                        }
-                    });
-        WindowAdapter adapter = new WindowAdapter(getApplicationContext(), mRepo, (HashMap<Marker, Integer>) markersId);
-        map.setInfoWindowAdapter(adapter);
+        MyWindowAdapter adapter = new MyWindowAdapter(getApplicationContext(), mRepo, mRepoEvents, markersId);
         WindowListener windowListener = new WindowListener(this, markersId);
+
+        map.setInfoWindowAdapter(adapter);
         map.setOnInfoWindowClickListener(windowListener);
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(Double.parseDouble(buildings.get(0).getAddress().getLat()), Double.parseDouble(buildings.get(0).getAddress().getLng())), 15));
 
