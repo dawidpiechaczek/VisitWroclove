@@ -203,18 +203,23 @@ public class MainPanelActivity extends BaseActivity {
         PointDTO pointDTO = new PointDTO();
         pointDTO.setLat(addressDTO.getLat());
         pointDTO.setLng(addressDTO.getLng());
+        pointDTO.setObjectId(objectDTO.getId());
         PointDTO pointDTO1 = new PointDTO();
         pointDTO1.setLat(addressDTO1.getLat());
         pointDTO1.setLng(addressDTO1.getLng());
+        pointDTO1.setObjectId(objectDTO1.getId());
         PointDTO pointDTO2 = new PointDTO();
         pointDTO2.setLat(addressDTO2.getLat());
         pointDTO2.setLng(addressDTO2.getLng());
+        pointDTO2.setObjectId(objectDTO2.getId());
         PointDTO pointDTO3 = new PointDTO();
         pointDTO3.setLat(addressDTO3.getLat());
         pointDTO3.setLng(addressDTO3.getLng());
+        pointDTO3.setObjectId(objectDTO3.getId());
         PointDTO pointDTO4 = new PointDTO();
         pointDTO4.setLat(addressDTO4.getLat());
         pointDTO4.setLng(addressDTO4.getLng());
+        pointDTO4.setObjectId(eventDTO.getId());
 
         List<PointDTO>list = new ArrayList<>();
         list.add(pointDTO);

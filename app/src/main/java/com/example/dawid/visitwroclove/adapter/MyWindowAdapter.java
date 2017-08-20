@@ -1,12 +1,15 @@
 package com.example.dawid.visitwroclove.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.example.dawid.visitwroclove.DAO.implementation.EventDAOImpl;
 import com.example.dawid.visitwroclove.DAO.implementation.ObjectDAOImpl;
 import com.example.dawid.visitwroclove.R;
@@ -29,10 +32,6 @@ import butterknife.ButterKnife;
 public class MyWindowAdapter implements GoogleMap.InfoWindowAdapter {
     @BindView(R.id.wl_tv_name)
     TextView name;
-    @BindView(R.id.wl_iv_show_details)
-    TextView details;
-    @BindView(R.id.wl_iv_make_route)
-    TextView route;
     @BindView(R.id.wl_iv_image)
     ImageView image;
 
@@ -54,7 +53,7 @@ public class MyWindowAdapter implements GoogleMap.InfoWindowAdapter {
     }
 
     @Override
-    public View getInfoContents(Marker marker) {
+    public View getInfoContents(final Marker marker) {
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = layoutInflater.inflate(R.layout.window_layout, null);
         ButterKnife.bind(this, view);
@@ -65,10 +64,28 @@ public class MyWindowAdapter implements GoogleMap.InfoWindowAdapter {
         } else {
             baseDTO = mRepo.getById(id);
         }
-        details.setTypeface(FontManager.getIcons(context));
-        route.setTypeface(FontManager.getIcons(context));
         name.setText(baseDTO.getName());
-        Glide.with(context).load(baseDTO.getImage()).centerCrop().into(image);
+        Glide.with(context)
+                .load(baseDTO.getImage())
+                .asBitmap()
+                .listener(new RequestListener<String, Bitmap>() {
+                    @Override
+                    public boolean onException(Exception e, String model, Target<Bitmap> target, boolean isFirstResource) {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(Bitmap resource, String model, Target<Bitmap> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                        if(!isFromMemoryCache){
+                            marker.showInfoWindow();
+                        }
+                        return false;
+                    }
+                })
+                .placeholder(R.drawable.placeholder)
+                .dontAnimate()
+                .centerCrop()
+                .into(image);
         return view;
     }
 }

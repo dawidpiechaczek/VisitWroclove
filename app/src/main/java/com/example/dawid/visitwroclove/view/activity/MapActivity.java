@@ -6,6 +6,14 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.widget.RecyclerView;
+import android.view.ContextMenu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.akexorcist.googledirection.DirectionCallback;
@@ -13,21 +21,27 @@ import com.akexorcist.googledirection.GoogleDirection;
 import com.akexorcist.googledirection.constant.TransportMode;
 import com.akexorcist.googledirection.model.Direction;
 import com.akexorcist.googledirection.util.DirectionConverter;
+import com.azoft.carousellayoutmanager.CarouselLayoutManager;
+import com.azoft.carousellayoutmanager.CarouselZoomPostLayoutListener;
+import com.azoft.carousellayoutmanager.CenterScrollListener;
 import com.example.dawid.visitwroclove.DAO.implementation.EventDAOImpl;
 import com.example.dawid.visitwroclove.DAO.implementation.ObjectDAOImpl;
 import com.example.dawid.visitwroclove.DAO.implementation.RouteDAOImpl;
 import com.example.dawid.visitwroclove.R;
 import com.example.dawid.visitwroclove.WindowListener;
+import com.example.dawid.visitwroclove.adapter.CarouselAdapter;
 import com.example.dawid.visitwroclove.adapter.MyWindowAdapter;
+import com.example.dawid.visitwroclove.adapter.RecyclerAdapter;
+import com.example.dawid.visitwroclove.adapter.RecyclerRoutesAdapter;
 import com.example.dawid.visitwroclove.model.EventDTO;
 import com.example.dawid.visitwroclove.model.ObjectDTO;
+import com.example.dawid.visitwroclove.model.PointDTO;
 import com.example.dawid.visitwroclove.model.RouteDTO;
 import com.example.dawid.visitwroclove.view.interfaces.MapView;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -40,6 +54,7 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -53,6 +68,8 @@ public class MapActivity extends BaseActivity implements OnMapReadyCallback, Map
     public RouteDAOImpl mRepoRoute;
     @Inject
     public EventDAOImpl mRepoEvents;
+    @BindView(R.id.am_ll_container)
+    public RelativeLayout container;
 
     public GoogleMap map;
     private Map<Marker, Integer> markersId = new HashMap<>();
@@ -75,6 +92,7 @@ public class MapActivity extends BaseActivity implements OnMapReadyCallback, Map
         if (routeId != -1)
             routeDTO = mRepoRoute.getById(routeId);
         initMap();
+
     }
 
     @Override
@@ -95,12 +113,12 @@ public class MapActivity extends BaseActivity implements OnMapReadyCallback, Map
             markersId.put(marker, e.getId());
         }
 
-        if (routeDTO != null)
+        if (routeDTO != null){
             GoogleDirection.withServerKey("AIzaSyCd96x4S9MNuOSaH9-uKmnKgto3wc_qV4E")
                     .from(routeDTO.getLatLngsList().get(0))
                     .to(routeDTO.getLatLngsList().get(routeDTO.getLatLngsList().size() - 1))
                     .transitMode(TransportMode.DRIVING)
-                    .waypoints(routeDTO.getLatLngsList().subList(1, routeDTO.getLatLngsList().size() - 2))
+                    .waypoints(routeDTO.getLatLngsList().subList(1, routeDTO.getLatLngsList().size() - 1))
                     .execute(new DirectionCallback() {
                         @Override
                         public void onDirectionSuccess(Direction direction, String rawBody) {
@@ -117,12 +135,21 @@ public class MapActivity extends BaseActivity implements OnMapReadyCallback, Map
                             // Do something
                         }
                     });
+            addCarousel(routeDTO.getPoints());
+        }
 
         MyWindowAdapter adapter = new MyWindowAdapter(getApplicationContext(), mRepo, mRepoEvents, markersId);
         WindowListener windowListener = new WindowListener(this, markersId);
 
+        registerForContextMenu(container);
         map.setInfoWindowAdapter(adapter);
         map.setOnInfoWindowClickListener(windowListener);
+        map.setOnInfoWindowLongClickListener(new GoogleMap.OnInfoWindowLongClickListener() {
+            @Override
+            public void onInfoWindowLongClick(Marker marker) {
+                openContextMenu(container);
+            }
+        });
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(Double.parseDouble(buildings.get(0).getAddress().getLat()), Double.parseDouble(buildings.get(0).getAddress().getLng())), 15));
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -130,7 +157,46 @@ public class MapActivity extends BaseActivity implements OnMapReadyCallback, Map
         } else {
             map.setMyLocationEnabled(true);
         }
+    }
 
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v,
+                                    ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.context_menu, menu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        switch (item.getItemId()) {
+            case R.id.add:
+                return true;
+            case R.id.delete:
+                return true;
+            default:
+                return super.onContextItemSelected(item);
+        }
+    }
+
+    private void addCarousel(List<PointDTO>points){
+        final CarouselLayoutManager layoutManager = new CarouselLayoutManager(CarouselLayoutManager.HORIZONTAL, true);
+        layoutManager.setMaxVisibleItems(3);
+        layoutManager.setPostLayoutListener(new CarouselZoomPostLayoutListener());
+        final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.am_rv_recycler);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setHasFixedSize(true);
+        CarouselAdapter adapterek = new CarouselAdapter(this, mRepo);
+        adapterek.setData(points);
+        adapterek.setOnClickListener(new CarouselAdapter.ClickListener() {
+            @Override
+            public void onItemClick(int position, View view) {
+               map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(Double.parseDouble(routeDTO.getPoints().get(position).getLat()), Double.parseDouble(routeDTO.getPoints().get(position).getLng())), 15));
+            }
+        });
+        recyclerView.setAdapter(adapterek);
+        recyclerView.addOnScrollListener(new CenterScrollListener());
     }
 
     private void initMap() {
