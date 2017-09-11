@@ -32,14 +32,10 @@ public class EventsActivity extends BaseActivity{
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerAdapter adapter;
     private List<EventDTO> list;
-    @BindView(R.id.ap_t_toolbar)
-    public Toolbar toolbar;
 
-    @Inject
-    public EventDAOImpl mRepo;
-    @BindView(R.id.ap_rv_recycler)
-    public RecyclerView recyclerView;
-
+    @BindView(R.id.ap_t_toolbar) public Toolbar toolbar;
+    @BindView(R.id.ap_rv_recycler) public RecyclerView recyclerView;
+    @Inject public EventDAOImpl mRepo;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,18 +45,6 @@ public class EventsActivity extends BaseActivity{
         ButterKnife.bind(this);
         initPage();
         setToolbar();
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int itemId = item.getItemId();
-        switch (itemId) {
-            case (android.R.id.home):
-                onBackPressed();
-                return true;
-            default:
-                return true;
-        }
     }
 
     private void setToolbar() {

@@ -8,6 +8,66 @@
         android:background="@drawable/main_panel_wroclove">
 
         <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/ll_horizontal"
+            android:orientation="vertical"
+            android:layout_marginTop="300dp"
+            android:layout_marginLeft="18dp">
+
+            <LinearLayout
+                android:id="@+id/ll_weather"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.25"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_weather"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/ic_panel_weather"
+                    android:textColor="@android:color/white"
+                    android:textSize="50sp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="pogoda"
+                    android:textColor="@android:color/white"
+                    android:textSize="20sp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_bus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.25"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_bus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/ic_panel_buses"
+                    android:textColor="@android:color/white"
+                    android:textSize="50sp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="rozkład"
+                    android:textColor="@android:color/white"
+                    android:textSize="20sp"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -22,11 +82,14 @@
                 android:layout_weight="0.25"
                 android:orientation="vertical">
 
-                <ImageView
+                <TextView
+                    android:id="@+id/tv_places"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:background="@drawable/miejsca" />
+                    android:text="@string/ic_panel_places"
+                    android:textColor="@android:color/white"
+                    android:textSize="50sp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -34,7 +97,7 @@
                     android:layout_gravity="center"
                     android:text="miejsca"
                     android:textColor="@android:color/white"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"/>
             </LinearLayout>
 
             <LinearLayout
@@ -44,11 +107,14 @@
                 android:layout_weight="0.25"
                 android:orientation="vertical">
 
-                <ImageView
+                <TextView
+                    android:id="@+id/tv_tracks"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:background="@drawable/trasa" />
+                    android:text="@string/ic_panel_routes"
+                    android:textColor="@android:color/white"
+                    android:textSize="50sp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -56,7 +122,7 @@
                     android:layout_gravity="center"
                     android:text="trasy"
                     android:textColor="@android:color/white"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"/>
             </LinearLayout>
 
             <LinearLayout
@@ -66,11 +132,14 @@
                 android:layout_weight="0.25"
                 android:orientation="vertical">
 
-                <ImageView
+                <TextView
+                    android:id="@+id/tv_map"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:background="@drawable/mapa" />
+                    android:text="@string/ic_panel_map"
+                    android:textColor="@android:color/white"
+                    android:textSize="50sp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -78,7 +147,7 @@
                     android:layout_gravity="center"
                     android:text="mapa"
                     android:textColor="@android:color/white"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"/>
             </LinearLayout>
 
             <LinearLayout
@@ -88,11 +157,14 @@
                 android:layout_weight="0.25"
                 android:orientation="vertical">
 
-                <ImageView
+                <TextView
+                    android:id="@+id/tv_events"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:background="@drawable/calendar" />
+                    android:text="@string/ic_panel_calendar"
+                    android:textColor="@android:color/white"
+                    android:textSize="50sp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -100,7 +172,7 @@
                     android:layout_gravity="center"
                     android:text="wydarzenia"
                     android:textColor="@android:color/white"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"/>
             </LinearLayout>
         </LinearLayout>
 
@@ -117,7 +189,7 @@
             android:text="Wrocław"
             android:textColor="@android:color/white"
             android:textSize="40sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/textView2"
@@ -127,6 +199,6 @@
             android:layout_centerHorizontal="true"
             android:text="miasto spotkań"
             android:textColor="@android:color/white"
-            android:textSize="20sp" />
+            android:textSize="20sp"/>
     </RelativeLayout>
 </layout>

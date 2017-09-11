@@ -33,16 +33,13 @@ import butterknife.ButterKnife;
  */
 
 public class PlacesActivity extends BaseActivity {
-    @Inject
-    public ObjectDAOImpl mRepo;
-    @BindView(R.id.ap_rv_recycler)
-    public RecyclerView recyclerView;
-    @BindView(R.id.ap_t_toolbar)
-    public Toolbar toolbar;
-
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerAdapter adapter;
     private List<ObjectDTO> list;
+
+    @Inject public ObjectDAOImpl mRepo;
+    @BindView(R.id.ap_rv_recycler) public RecyclerView recyclerView;
+    @BindView(R.id.ap_t_toolbar) public Toolbar toolbar;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

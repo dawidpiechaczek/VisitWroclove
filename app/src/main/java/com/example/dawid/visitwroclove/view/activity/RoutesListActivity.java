@@ -31,12 +31,9 @@ import butterknife.ButterKnife;
  */
 
 public class RoutesListActivity extends BaseActivity {
-    @Inject
-    public RouteDAOImpl mRepo;
-    @BindView(R.id.rla_rv_recycler)
-    public RecyclerView recyclerView;
-    @BindView(R.id.rla_t_toolbar)
-    public Toolbar toolbar;
+    @Inject public RouteDAOImpl mRepo;
+    @BindView(R.id.rla_rv_recycler) public RecyclerView recyclerView;
+    @BindView(R.id.rla_t_toolbar) public Toolbar toolbar;
 
     private List<RouteDTO> list;
     private RecyclerView.LayoutManager layoutManager;
@@ -50,18 +47,6 @@ public class RoutesListActivity extends BaseActivity {
         getComponent().inject(this);
         setAdapter();
         setToolbar();
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int itemId = item.getItemId();
-        switch (itemId) {
-            case (android.R.id.home):
-                onBackPressed();
-                return true;
-            default:
-                return true;
-        }
     }
 
     private void setToolbar() {

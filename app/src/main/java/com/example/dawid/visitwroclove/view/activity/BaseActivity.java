@@ -3,6 +3,7 @@ package com.example.dawid.visitwroclove.view.activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 
 import com.example.dawid.visitwroclove.application.MyApplication;
 import com.example.dawid.visitwroclove.dagger.NonConfigurationComponent;
@@ -33,5 +34,14 @@ public class BaseActivity extends AppCompatActivity {
 
     public NonConfigurationComponent getComponent() {
         return component;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemId = item.getItemId();
+        if (itemId == android.R.id.home) {
+            onBackPressed();
+        }
+        return true;
     }
 }

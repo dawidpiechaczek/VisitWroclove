@@ -1,24 +1,22 @@
 package com.example.dawid.visitwroclove.view.activity;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
-import android.widget.LinearLayout;
+import android.widget.TextView;
 
 
 import com.example.dawid.visitwroclove.DAO.implementation.EventDAOImpl;
 import com.example.dawid.visitwroclove.DAO.implementation.ObjectDAOImpl;
 import com.example.dawid.visitwroclove.DAO.implementation.RouteDAOImpl;
-import com.example.dawid.visitwroclove.Manifest;
 import com.example.dawid.visitwroclove.R;
 import com.example.dawid.visitwroclove.model.AddressDTO;
 import com.example.dawid.visitwroclove.model.EventDTO;
 import com.example.dawid.visitwroclove.model.ObjectDTO;
 import com.example.dawid.visitwroclove.model.PointDTO;
 import com.example.dawid.visitwroclove.model.RouteDTO;
+import com.example.dawid.visitwroclove.utils.FontManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,24 +27,23 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static com.example.dawid.visitwroclove.utils.Constants.BUS_WEB_VIEW;
+import static com.example.dawid.visitwroclove.utils.Constants.EXTRA_WEB_VIEW;
+import static com.example.dawid.visitwroclove.utils.Constants.WEATHER_WEB_VIEW;
+
 
 public class MainPanelActivity extends BaseActivity {
 
     private String mLog = MainPanelActivity.class.getName();
-    @BindView(R.id.ll_map)
-    public LinearLayout mpa_ll_map;
-    @BindView(R.id.ll_events)
-    public LinearLayout mpa_ll_events;
-    @BindView(R.id.ll_places)
-    public LinearLayout mpa_ll_places;
-    @BindView(R.id.ll_tracks)
-    public LinearLayout mpa_ll_tracks;
-    @Inject
-    public ObjectDAOImpl mRepo;
-    @Inject
-    public EventDAOImpl mRepoEvent;
-    @Inject
-    public RouteDAOImpl mRepoRoutes;
+    @BindView(R.id.tv_map) public TextView mpa_tv_map;
+    @BindView(R.id.tv_events) public TextView mpa_tv_events;
+    @BindView(R.id.tv_places) public TextView mpa_tv_places;
+    @BindView(R.id.tv_tracks) public TextView mpa_tv_tracks;
+    @BindView(R.id.tv_bus) public TextView mpa_tv_buses;
+    @BindView(R.id.tv_weather) public TextView mpa_tv_weather;
+    @Inject public ObjectDAOImpl mRepo;
+    @Inject public EventDAOImpl mRepoEvent;
+    @Inject public RouteDAOImpl mRepoRoutes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +54,16 @@ public class MainPanelActivity extends BaseActivity {
         Log.d(mLog, "MainPanelActivity.onCreate()");
         scripts();
         setPermissions();
+        setIcons();
+    }
+
+    private void setIcons() {
+        mpa_tv_places.setTypeface(FontManager.getIcons(MainPanelActivity.this));
+        mpa_tv_map.setTypeface(FontManager.getIcons(MainPanelActivity.this));
+        mpa_tv_events.setTypeface(FontManager.getIcons(MainPanelActivity.this));
+        mpa_tv_tracks.setTypeface(FontManager.getIcons(MainPanelActivity.this));
+        mpa_tv_weather.setTypeface(FontManager.getIcons(MainPanelActivity.this));
+        mpa_tv_buses.setTypeface(FontManager.getIcons(MainPanelActivity.this));
     }
 
     private void setPermissions() {
@@ -78,13 +85,22 @@ public class MainPanelActivity extends BaseActivity {
     }
 
     @OnClick(R.id.ll_tracks)
-    public void showTracksActivity(){
+    public void showTracksActivity() {
         Intent intent = new Intent(getApplicationContext(), RoutesActivity.class);
         startActivity(intent);
     }
 
-    public void showWeatherActivity(){
-        Intent intent = new Intent(getApplicationContext(), WeatherActivity.class);
+    @OnClick(R.id.ll_weather)
+    public void showWeatherWebView() {
+        Intent intent = new Intent(getApplicationContext(), WebViewActivity.class);
+        intent.putExtra(EXTRA_WEB_VIEW, WEATHER_WEB_VIEW);
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.ll_bus)
+    public void showBusWebView() {
+        Intent intent = new Intent(getApplicationContext(), WebViewActivity.class);
+        intent.putExtra(EXTRA_WEB_VIEW, BUS_WEB_VIEW);
         startActivity(intent);
     }
 
@@ -200,6 +216,46 @@ public class MainPanelActivity extends BaseActivity {
         eventDTO.setAddress(addressDTO4);
         mRepoEvent.add(eventDTO);
 
+        EventDTO eventDTO1 = new EventDTO();
+        eventDTO1.setId(1);
+        eventDTO1.setFavourite(false);
+        eventDTO1.setName("Koncert wrocławski");
+        eventDTO1.setDescription("Wrocławski Tor Wyścigów Konnych - Partynice jest jednostką organizacyjną Gminy Wrocław, działającą w formie jednostki budżetowej, nie posiada osobowości prawnej. Leży na terenie osiedla Partynice.");
+        eventDTO1.setType("event");
+        eventDTO1.setImage("http://ocdn.eu/pulscms-transforms/1/kqIktkpTURBXy9iYjM4MDJkOThmMjcyOTk3OGYyYTIyMWRlZTg2NWRmZC5qcGeSlQMBAM0IF80EjZMFzQNSzQHe");
+        eventDTO1.setPrice("50 zł");
+        eventDTO1.setStartDate("20.04.2018");
+        AddressDTO addressDTO5 = new AddressDTO();
+        addressDTO5.setId(5);
+        addressDTO5.setCity("Wrocław");
+        addressDTO5.setStreet("Robotnicza");
+        addressDTO5.setHomeNumber("2");
+        addressDTO5.setZipCode("52-443");
+        addressDTO5.setLat("51.106606");
+        addressDTO5.setLng("17.028531");
+        eventDTO1.setAddress(addressDTO5);
+        mRepoEvent.add(eventDTO1);
+
+        EventDTO eventDTO2 = new EventDTO();
+        eventDTO2.setId(2);
+        eventDTO2.setFavourite(false);
+        eventDTO2.setName("Mecz Sląska Wrocław");
+        eventDTO2.setDescription("Wrocławski Tor Wyścigów Konnych - Partynice jest jednostką organizacyjną Gminy Wrocław, działającą w formie jednostki budżetowej, nie posiada osobowości prawnej. Leży na terenie osiedla Partynice.");
+        eventDTO2.setType("sport");
+        eventDTO2.setImage("http://s9.flog.pl/media/foto/5892089_slask-wroclaw--stadion.jpg");
+        eventDTO2.setPrice("82 zł");
+        eventDTO2.setStartDate("27.04.2018");
+        AddressDTO addressDTO6 = new AddressDTO();
+        addressDTO6.setId(6);
+        addressDTO6.setCity("Wrocław");
+        addressDTO6.setStreet("aleja Śląska");
+        addressDTO6.setHomeNumber("1");
+        addressDTO6.setZipCode("54-118");
+        addressDTO6.setLat("51.141568");
+        addressDTO6.setLng("16.943655");
+        eventDTO2.setAddress(addressDTO6);
+        mRepoEvent.add(eventDTO2);
+
         PointDTO pointDTO = new PointDTO();
         pointDTO.setLat(addressDTO.getLat());
         pointDTO.setLng(addressDTO.getLng());
@@ -221,15 +277,15 @@ public class MainPanelActivity extends BaseActivity {
         pointDTO4.setLng(addressDTO4.getLng());
         pointDTO4.setObjectId(eventDTO.getId());
 
-        List<PointDTO>list = new ArrayList<>();
+        List<PointDTO> list = new ArrayList<>();
         list.add(pointDTO);
         list.add(pointDTO1);
         list.add(pointDTO2);
-        List<PointDTO>list1 = new ArrayList<>();
+        List<PointDTO> list1 = new ArrayList<>();
         list1.add(pointDTO3);
         list1.add(pointDTO);
         list1.add(pointDTO4);
-        List<PointDTO>list2 = new ArrayList<>();
+        List<PointDTO> list2 = new ArrayList<>();
         list2.add(pointDTO2);
         list2.add(pointDTO3);
         list2.add(pointDTO4);

@@ -14,19 +14,22 @@ import android.widget.Toast;
 
 
 import com.example.dawid.visitwroclove.R;
+import com.example.dawid.visitwroclove.utils.Constants;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static com.example.dawid.visitwroclove.utils.Constants.EXTRA_WEB_VIEW;
 
 /**
  * Created by Dawid on 04.08.2017.
  */
 
-public class WeatherActivity extends BaseActivity {
-    @BindView(R.id.wa_wb_webView)
-    WebView webView;
-    @BindView(R.id.toolbar3)
-    Toolbar toolbar;
+public class WebViewActivity extends BaseActivity {
+
+    private String url, toolbarTitle;
+    @BindView(R.id.wa_wb_webView) WebView webView;
+    @BindView(R.id.toolbar3) Toolbar toolbar;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -34,8 +37,20 @@ public class WeatherActivity extends BaseActivity {
         getWindow().requestFeature(Window.FEATURE_PROGRESS);
         setContentView(R.layout.weather_activity);
         ButterKnife.bind(this);
+        getExtrasFromIntent();
         setToolbar();
         initWebView();
+    }
+
+    private void getExtrasFromIntent() {
+        String webViewType = getIntent().getStringExtra(EXTRA_WEB_VIEW);
+        if(webViewType.equals(Constants.BUS_WEB_VIEW)){
+            url = "http://www.wroclaw.pl/rozklady-jazdy";
+            toolbarTitle = "Rozkład jazdy";
+        } else {
+            url = "https://weather.com/pl-PL/pogoda/godzinowa/l/PLXX0029:1:PL";
+            toolbarTitle = "Pogoda";
+        }
     }
 
     private void initWebView() {
@@ -44,8 +59,6 @@ public class WeatherActivity extends BaseActivity {
         final Activity activity = this;
         webView.setWebChromeClient(new WebChromeClient() {
             public void onProgressChanged(WebView view, int progress) {
-                // Activities and WebViews measure progress with different scales.
-                // The progress meter will automatically disappear when we reach 100%
                 activity.setProgress(progress * 1000);
             }
         });
@@ -56,11 +69,11 @@ public class WeatherActivity extends BaseActivity {
             }
         });
 
-        webView.loadUrl("https://weather.com/pl-PL/pogoda/godzinowa/l/PLXX0029:1:PL");
+        webView.loadUrl(url);
     }
 
     private void setToolbar() {
-        toolbar.setTitle("Pogoda");
+        toolbar.setTitle(toolbarTitle);
         toolbar.setTitleTextColor(getColor(R.color.secondaryToolbar));
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {

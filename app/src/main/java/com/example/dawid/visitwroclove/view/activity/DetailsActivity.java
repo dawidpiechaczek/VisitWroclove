@@ -29,33 +29,22 @@ import butterknife.OnClick;
  */
 
 public class DetailsActivity extends BaseActivity {
-
-    @BindView(R.id.ad_im_image)
-    public ImageView image;
-    @BindView(R.id.ad_btn_favourite)
-    public FloatingActionButton favourite;
-    @BindView(R.id.ad_tv_description)
-    public TextView description;
-    @BindView(R.id.ad_tv_address)
-    public TextView address;
-    @BindView(R.id.toolbar)
-    public Toolbar toolbar;
-    @BindView(R.id.ad_ll_event_details)
-    public LinearLayout linearLayout;
-    @BindView(R.id.ad_tv_prize)
-    public TextView prize;
-    @BindView(R.id.ad_tv_date)
-    public TextView date;
-    @Inject
-    public ObjectDAOImpl mRepoObjects;
-    @Inject
-    public EventDAOImpl mRepoEvents;
-
     private Bundle extras;
     private BaseDTO list;
     private int itemId;
     private String activityType;
     private boolean isFavourite = false;
+
+    @BindView(R.id.ad_im_image) public ImageView image;
+    @BindView(R.id.ad_btn_favourite) public FloatingActionButton favourite;
+    @BindView(R.id.ad_tv_description) public TextView description;
+    @BindView(R.id.ad_tv_address) public TextView address;
+    @BindView(R.id.toolbar) public Toolbar toolbar;
+    @BindView(R.id.ad_ll_event_details) public LinearLayout linearLayout;
+    @BindView(R.id.ad_tv_prize) public TextView prize;
+    @BindView(R.id.ad_tv_date) public TextView date;
+    @Inject public ObjectDAOImpl mRepoObjects;
+    @Inject public EventDAOImpl mRepoEvents;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -121,15 +110,6 @@ public class DetailsActivity extends BaseActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int itemId = item.getItemId();
-        if (itemId == android.R.id.home) {
-            onBackPressed();
-        }
-        return true;
     }
 
     @OnClick(R.id.ad_btn_favourite)
