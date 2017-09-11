@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -16,7 +15,9 @@ import com.example.dawid.visitwroclove.DAO.implementation.ObjectDAOImpl;
 import com.example.dawid.visitwroclove.R;
 import com.example.dawid.visitwroclove.model.BaseDTO;
 import com.example.dawid.visitwroclove.model.EventDTO;
+import com.example.dawid.visitwroclove.presenter.DetailPresenter;
 import com.example.dawid.visitwroclove.utils.Constants;
+import com.example.dawid.visitwroclove.view.interfaces.DetailsView;
 
 import javax.inject.Inject;
 
@@ -28,23 +29,18 @@ import butterknife.OnClick;
  * Created by Dawid on 20.07.2017.
  */
 
-public class DetailsActivity extends BaseActivity {
-    private Bundle extras;
-    private BaseDTO list;
-    private int itemId;
-    private String activityType;
-    private boolean isFavourite = false;
-
-    @BindView(R.id.ad_im_image) public ImageView image;
-    @BindView(R.id.ad_btn_favourite) public FloatingActionButton favourite;
-    @BindView(R.id.ad_tv_description) public TextView description;
-    @BindView(R.id.ad_tv_address) public TextView address;
-    @BindView(R.id.toolbar) public Toolbar toolbar;
-    @BindView(R.id.ad_ll_event_details) public LinearLayout linearLayout;
-    @BindView(R.id.ad_tv_prize) public TextView prize;
-    @BindView(R.id.ad_tv_date) public TextView date;
-    @Inject public ObjectDAOImpl mRepoObjects;
-    @Inject public EventDAOImpl mRepoEvents;
+public class DetailsActivity extends BaseActivity implements DetailsView {
+    @BindView(R.id.toolbar)Toolbar toolbar;
+    @BindView(R.id.ad_im_image)ImageView image;
+    @BindView(R.id.ad_btn_favourite)FloatingActionButton favourite;
+    @BindView(R.id.ad_ll_event_details)LinearLayout linearLayout;
+    @BindView(R.id.ad_tv_description)TextView description;
+    @BindView(R.id.ad_tv_address)TextView address;
+    @BindView(R.id.ad_tv_prize) TextView prize;
+    @BindView(R.id.ad_tv_date) TextView date;
+    @Inject ObjectDAOImpl mRepoObjects;
+    @Inject EventDAOImpl mRepoEvents;
+    public DetailPresenter presenter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -52,47 +48,48 @@ public class DetailsActivity extends BaseActivity {
         getComponent().inject(this);
         setContentView(R.layout.activity_details);
         ButterKnife.bind(this);
+        presenter = new DetailPresenter(mRepoEvents, mRepoObjects);
+    }
+    @Override
+    public void onResume() {
+        presenter.attachView(this);
         getExtras();
+        super.onResume();
+    }
+    @Override
+    public void onPause() {
+        presenter.detachView();
+        super.onPause();
     }
 
-    private void getExtras() {
-        extras = getIntent().getExtras();
-        itemId = extras.getInt(Constants.EXTRA_POSIOTION);
-        activityType = extras.getString(Constants.EXTRA_ACTIVITY);
-
-        if (activityType.equals(Constants.ACTIVITY_VALUE_EVENT)) {
-            setObject(mRepoEvents.getById(itemId));
-            linearLayout.setVisibility(View.VISIBLE);
+    @Override
+    public void setFavourite(boolean isFavourite) {
+        if (isFavourite) {
+            favourite.setImageResource(R.drawable.ic_heart_clicked);
         } else {
-            setObject(mRepoObjects.getById(itemId));
-            linearLayout.setVisibility(View.GONE);
+            favourite.setImageResource(R.drawable.ic_action_name);
         }
-        loadObject();
     }
 
-    private void setObject(BaseDTO dto) {
-        this.list = dto;
+    @OnClick(R.id.ad_btn_favourite)
+    public void onClickSetFavourite() {
+        presenter.setFavourite(!presenter.getBaseDTO().isFavourite());
     }
 
     private void loadObject() {
-        setToolbarTitle(list.getName());
-        description.setText(list.getDescription());
-        address.setText(list.getAddress().getStreet() + " " + list.getAddress().getHomeNumber()
-                + ", " + list.getAddress().getZipCode() + " " + list.getAddress().getCity());
-        if (activityType.equals(Constants.ACTIVITY_VALUE_EVENT)) {
-            date.setText("Data: " + ((EventDTO) list).getStartDate());
-            prize.setText("Cena: " + ((EventDTO) list).getPrice());
+        BaseDTO baseDTO = presenter.getBaseDTO();
+        setToolbarTitle(baseDTO.getName());
+        description.setText(baseDTO.getDescription());
+        address.setText(baseDTO.getAddress().getStreet() + " " + baseDTO.getAddress().getHomeNumber()
+                + ", " + baseDTO.getAddress().getZipCode() + " " + baseDTO.getAddress().getCity());
+        if (presenter.getActivityType().equals(Constants.ACTIVITY_VALUE_EVENT)) {
+            date.setText("Data: " + ((EventDTO) baseDTO).getStartDate());
+            prize.setText("Cena: " + ((EventDTO) baseDTO).getPrice());
         }
 
-        String imageUrl = list.getImage();
+        String imageUrl = baseDTO.getImage();
         setImage(imageUrl);
-        if (list.isFavourite()) {
-            favourite.setImageResource(R.drawable.ic_heart_clicked);
-            isFavourite = true;
-        } else {
-            favourite.setImageResource(R.drawable.ic_action_name);
-            isFavourite = false;
-        }
+        presenter.setFavourite(baseDTO.isFavourite());
     }
 
     private void setImage(String imageUrl) {
@@ -104,22 +101,27 @@ public class DetailsActivity extends BaseActivity {
                 .into(image);
     }
 
+    private void getExtras() {
+        Bundle extras = getIntent().getExtras();
+        int itemId = extras.getInt(Constants.EXTRA_POSIOTION);
+        String activityType = extras.getString(Constants.EXTRA_ACTIVITY);
+        presenter.setLinearLayoutVisibility(activityType, itemId);
+        loadObject();
+    }
+
+    public void setVisibility(boolean visibility) {
+        if (visibility){
+            linearLayout.setVisibility(View.VISIBLE);
+        }else {
+            linearLayout.setVisibility(View.GONE);
+        }
+    }
+
     private void setToolbarTitle(String name) {
         toolbar.setTitle(name);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
-    }
-
-    @OnClick(R.id.ad_btn_favourite)
-    public void setFavourite() {
-        if (isFavourite) {
-            favourite.setImageResource(R.drawable.ic_action_name);
-            isFavourite = !isFavourite;
-        } else {
-            favourite.setImageResource(R.drawable.ic_heart_clicked);
-            isFavourite = !isFavourite;
         }
     }
 }

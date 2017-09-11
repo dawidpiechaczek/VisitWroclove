@@ -35,15 +35,15 @@ import static com.example.dawid.visitwroclove.utils.Constants.WEATHER_WEB_VIEW;
 public class MainPanelActivity extends BaseActivity {
 
     private String mLog = MainPanelActivity.class.getName();
-    @BindView(R.id.tv_map) public TextView mpa_tv_map;
-    @BindView(R.id.tv_events) public TextView mpa_tv_events;
-    @BindView(R.id.tv_places) public TextView mpa_tv_places;
-    @BindView(R.id.tv_tracks) public TextView mpa_tv_tracks;
-    @BindView(R.id.tv_bus) public TextView mpa_tv_buses;
-    @BindView(R.id.tv_weather) public TextView mpa_tv_weather;
-    @Inject public ObjectDAOImpl mRepo;
-    @Inject public EventDAOImpl mRepoEvent;
-    @Inject public RouteDAOImpl mRepoRoutes;
+    @BindView(R.id.tv_map)TextView mpa_tv_map;
+    @BindView(R.id.tv_events)TextView mpa_tv_events;
+    @BindView(R.id.tv_places)TextView mpa_tv_places;
+    @BindView(R.id.tv_tracks)TextView mpa_tv_tracks;
+    @BindView(R.id.tv_bus)TextView mpa_tv_buses;
+    @BindView(R.id.tv_weather)TextView mpa_tv_weather;
+    @Inject ObjectDAOImpl mRepo;
+    @Inject EventDAOImpl mRepoEvent;
+    @Inject RouteDAOImpl mRepoRoutes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

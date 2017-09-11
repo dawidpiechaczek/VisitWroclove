@@ -1,4 +1,4 @@
-package com.example.dawid.visitwroclove;
+package com.example.dawid.visitwroclove.utils;
 
 import android.content.Context;
 import android.content.Intent;
