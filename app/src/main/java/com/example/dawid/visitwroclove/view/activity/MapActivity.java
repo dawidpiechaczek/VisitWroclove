@@ -28,6 +28,8 @@ import com.example.dawid.visitwroclove.DAO.implementation.EventDAOImpl;
 import com.example.dawid.visitwroclove.DAO.implementation.ObjectDAOImpl;
 import com.example.dawid.visitwroclove.DAO.implementation.RouteDAOImpl;
 import com.example.dawid.visitwroclove.R;
+import com.example.dawid.visitwroclove.model.BaseDTO;
+import com.example.dawid.visitwroclove.presenter.MapPresenter;
 import com.example.dawid.visitwroclove.utils.WindowListener;
 import com.example.dawid.visitwroclove.adapter.CarouselAdapter;
 import com.example.dawid.visitwroclove.adapter.MyWindowAdapter;
@@ -63,16 +65,12 @@ public class MapActivity extends BaseActivity implements OnMapReadyCallback, Map
     @Inject ObjectDAOImpl mRepo;
     @Inject RouteDAOImpl mRepoRoute;
     @Inject EventDAOImpl mRepoEvents;
-    @BindView(R.id.am_ll_container)
-    public RelativeLayout container;
-
-    public GoogleMap map;
+    @BindView(R.id.am_ll_container) RelativeLayout container;
+    @BindView(R.id.am_rv_recycler) RecyclerView recyclerView;
+    private MapPresenter presenter;
     private Map<Marker, Integer> markersId = new HashMap<>();
-    private List<ObjectDTO> buildings;
-    private List<EventDTO> events;
-    private RouteDTO routeDTO;
-
-    int routeId = -1;
+    public GoogleMap map;
+    private int routeId = -1;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -80,65 +78,47 @@ public class MapActivity extends BaseActivity implements OnMapReadyCallback, Map
         getComponent().inject(this);
         setContentView(R.layout.activity_map);
         ButterKnife.bind(this);
-        buildings = mRepo.getAll();
-        events = mRepoEvents.getAll();
-        if (getIntent().getExtras() != null)
-            routeId = getIntent().getExtras().getInt("trasa", -1);
-        if (routeId != -1)
-            routeDTO = mRepoRoute.getById(routeId);
+        getExtra();
+        presenter = new MapPresenter(MapActivity.this, mRepo, mRepoEvents, mRepoRoute);
+        presenter.initRepositories(routeId);
+        presenter.setRecyclerView(recyclerView);
         initMap();
+    }
 
+    @Override
+    public void onResume() {
+        presenter.attachView(this);
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        presenter.detachView();
+        super.onPause();
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
+        presenter.setObjectsOnMap();
+        presenter.setEventsOnMap();
+        presenter.setRouteOnMap();
+        setMapListenersAndAdapters();
+        setCameraPosition(-1);
+        checkPermssions();
+    }
 
-        for (ObjectDTO o : buildings) {
-            LatLng latlng = new LatLng(Double.parseDouble(o.getAddress().getLat()), Double.parseDouble(o.getAddress().getLng()));
-            Marker marker = map.addMarker(new MarkerOptions().position(latlng).title(o.getName()));
-            marker.setTag("OBJECT");
-            markersId.put(marker, o.getId());
+    private void checkPermssions() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            Toast.makeText(this, "brak neta", Toast.LENGTH_LONG).show();
+        } else {
+            map.setMyLocationEnabled(true);
         }
+    }
 
-        for (EventDTO e : events) {
-            LatLng latlng = new LatLng(Double.parseDouble(e.getAddress().getLat()), Double.parseDouble(e.getAddress().getLng()));
-            Marker marker = map.addMarker(new MarkerOptions().position(latlng).title(e.getName()).title(e.getName()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
-            marker.setTag("EVENT");
-            markersId.put(marker, e.getId());
-        }
-
-        if (routeDTO != null){
-            GoogleDirection.withServerKey("AIzaSyCd96x4S9MNuOSaH9-uKmnKgto3wc_qV4E")
-                    .from(routeDTO.getLatLngsList().get(0))
-                    .to(routeDTO.getLatLngsList().get(routeDTO.getLatLngsList().size() - 1))
-                    .transitMode(TransportMode.WALKING)
-                    .waypoints(routeDTO.getLatLngsList().subList(1, routeDTO.getLatLngsList().size() - 1))
-                    .execute(new DirectionCallback() {
-                        @Override
-                        public void onDirectionSuccess(Direction direction, String rawBody) {
-                            if (direction.isOK()) {
-                                List<Leg> directionPositionList = direction.getRouteList().get(0).getLegList();
-                                for(Leg leg : directionPositionList){
-                                    ArrayList<LatLng>latLngs = leg.getDirectionPoint();
-                                    map.addPolyline(DirectionConverter.createPolyline(MapActivity.this, latLngs, 5, Color.RED));
-                                }
-                            } else {
-                                // Do something
-                            }
-                        }
-
-                        @Override
-                        public void onDirectionFailure(Throwable t) {
-                            // Do something
-                        }
-                    });
-            addCarousel(routeDTO.getPoints());
-        }
-
-        MyWindowAdapter adapter = new MyWindowAdapter(getApplicationContext(), mRepo, mRepoEvents, markersId);
+    private void setMapListenersAndAdapters() {
+        MyWindowAdapter adapter = new MyWindowAdapter(MapActivity.this, mRepo, mRepoEvents, markersId);
         WindowListener windowListener = new WindowListener(this, markersId);
-
         registerForContextMenu(container);
         map.setInfoWindowAdapter(adapter);
         map.setOnInfoWindowClickListener(windowListener);
@@ -148,13 +128,6 @@ public class MapActivity extends BaseActivity implements OnMapReadyCallback, Map
                 openContextMenu(container);
             }
         });
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(Double.parseDouble(buildings.get(0).getAddress().getLat()), Double.parseDouble(buildings.get(0).getAddress().getLng())), 15));
-
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            Toast.makeText(this, "brak neta", Toast.LENGTH_LONG).show();
-        } else {
-            map.setMyLocationEnabled(true);
-        }
     }
 
     @Override
@@ -178,28 +151,55 @@ public class MapActivity extends BaseActivity implements OnMapReadyCallback, Map
         }
     }
 
-    private void addCarousel(List<PointDTO>points){
-        final CarouselLayoutManager layoutManager = new CarouselLayoutManager(CarouselLayoutManager.HORIZONTAL, true);
-        layoutManager.setMaxVisibleItems(3);
-        layoutManager.setPostLayoutListener(new CarouselZoomPostLayoutListener());
-        final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.am_rv_recycler);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setHasFixedSize(true);
-        CarouselAdapter adapterek = new CarouselAdapter(this, mRepo, mRepoEvents);
-        adapterek.setData(points);
-        adapterek.setOnClickListener(new CarouselAdapter.ClickListener() {
-            @Override
-            public void onItemClick(int position, View view) {
-               map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(Double.parseDouble(routeDTO.getPoints().get(position).getLat()), Double.parseDouble(routeDTO.getPoints().get(position).getLng())), 15));
-            }
-        });
-        recyclerView.setAdapter(adapterek);
-        recyclerView.addOnScrollListener(new CenterScrollListener());
-    }
-
     private void initMap() {
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+    }
+
+    @Override
+    public void addMarker(BaseDTO baseDTO, String tag) {
+        LatLng latlng = new LatLng(Double.parseDouble(baseDTO.getAddress().getLat()), Double.parseDouble(baseDTO.getAddress().getLng()));
+        Marker marker;
+        if (tag.equals("EVENT")) {
+            marker = map.addMarker(new MarkerOptions().position(latlng).title(baseDTO.getName()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+        } else {
+            marker = map.addMarker(new MarkerOptions().position(latlng).title(baseDTO.getName()));
+        }
+        marker.setTag(tag);
+        markersId.put(marker, baseDTO.getId());
+    }
+
+    @Override
+    public void setCameraPosition(int position) {
+        if (position != -1) {
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(Double.parseDouble(presenter.getRoute().getPoints().get(position).getLat()), Double.parseDouble(presenter.getRoute().getPoints().get(position).getLng())), 15));
+        } else {
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(51.109678, 17.031879), 15));
+        }
+    }
+
+    @Override
+    public void positiveRouteCallback(Direction direction) {
+        if (direction.isOK()) {
+            List<Leg> directionPositionList = direction.getRouteList().get(0).getLegList();
+            for (Leg leg : directionPositionList) {
+                ArrayList<LatLng> latLngs = leg.getDirectionPoint();
+                map.addPolyline(DirectionConverter.createPolyline(this, latLngs, 5, Color.RED));
+            }
+        } else {
+            Toast.makeText(this, "Coś poszło nie tak", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    @Override
+    public void negativeRouteCallback() {
+        Toast.makeText(this, "Coś poszło nie tak", Toast.LENGTH_LONG).show();
+    }
+
+    public void getExtra() {
+        if (getIntent().getExtras() != null) {
+            routeId = getIntent().getExtras().getInt("trasa", -1);
+        }
     }
 }
