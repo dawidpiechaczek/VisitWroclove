@@ -19,6 +19,7 @@ import com.akexorcist.googledirection.DirectionCallback;
 import com.akexorcist.googledirection.GoogleDirection;
 import com.akexorcist.googledirection.constant.TransportMode;
 import com.akexorcist.googledirection.model.Direction;
+import com.akexorcist.googledirection.model.Leg;
 import com.akexorcist.googledirection.util.DirectionConverter;
 import com.azoft.carousellayoutmanager.CarouselLayoutManager;
 import com.azoft.carousellayoutmanager.CarouselZoomPostLayoutListener;
@@ -59,12 +60,9 @@ import butterknife.ButterKnife;
  */
 
 public class MapActivity extends BaseActivity implements OnMapReadyCallback, MapView {
-    @Inject
-    public ObjectDAOImpl mRepo;
-    @Inject
-    public RouteDAOImpl mRepoRoute;
-    @Inject
-    public EventDAOImpl mRepoEvents;
+    @Inject ObjectDAOImpl mRepo;
+    @Inject RouteDAOImpl mRepoRoute;
+    @Inject EventDAOImpl mRepoEvents;
     @BindView(R.id.am_ll_container)
     public RelativeLayout container;
 
@@ -114,14 +112,17 @@ public class MapActivity extends BaseActivity implements OnMapReadyCallback, Map
             GoogleDirection.withServerKey("AIzaSyCd96x4S9MNuOSaH9-uKmnKgto3wc_qV4E")
                     .from(routeDTO.getLatLngsList().get(0))
                     .to(routeDTO.getLatLngsList().get(routeDTO.getLatLngsList().size() - 1))
-                    .transitMode(TransportMode.DRIVING)
+                    .transitMode(TransportMode.WALKING)
                     .waypoints(routeDTO.getLatLngsList().subList(1, routeDTO.getLatLngsList().size() - 1))
                     .execute(new DirectionCallback() {
                         @Override
                         public void onDirectionSuccess(Direction direction, String rawBody) {
                             if (direction.isOK()) {
-                                ArrayList<LatLng> directionPositionList = direction.getRouteList().get(0).getLegList().get(0).getDirectionPoint();
-                                map.addPolyline(DirectionConverter.createPolyline(MapActivity.this, directionPositionList, 5, Color.RED));
+                                List<Leg> directionPositionList = direction.getRouteList().get(0).getLegList();
+                                for(Leg leg : directionPositionList){
+                                    ArrayList<LatLng>latLngs = leg.getDirectionPoint();
+                                    map.addPolyline(DirectionConverter.createPolyline(MapActivity.this, latLngs, 5, Color.RED));
+                                }
                             } else {
                                 // Do something
                             }
@@ -184,7 +185,7 @@ public class MapActivity extends BaseActivity implements OnMapReadyCallback, Map
         final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.am_rv_recycler);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
-        CarouselAdapter adapterek = new CarouselAdapter(this, mRepo);
+        CarouselAdapter adapterek = new CarouselAdapter(this, mRepo, mRepoEvents);
         adapterek.setData(points);
         adapterek.setOnClickListener(new CarouselAdapter.ClickListener() {
             @Override

@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.dawid.visitwroclove.DAO.implementation.EventDAOImpl;
 import com.example.dawid.visitwroclove.DAO.implementation.ObjectDAOImpl;
 import com.example.dawid.visitwroclove.R;
 import com.example.dawid.visitwroclove.model.BaseDTO;
@@ -29,11 +30,13 @@ public class CarouselAdapter extends RecyclerView.Adapter<CarouselAdapter.ViewHo
     private Context context;
     private List<PointDTO> list;
     private ObjectDAOImpl mRepo;
+    private EventDAOImpl mRepoEvents;
 
 
-    public CarouselAdapter(Context context, ObjectDAOImpl mRepo) {
+    public CarouselAdapter(Context context, ObjectDAOImpl mRepo, EventDAOImpl mRepoEvents) {
         this.context = context;
         this.mRepo = mRepo;
+        this.mRepoEvents = mRepoEvents;
     }
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -68,7 +71,13 @@ public class CarouselAdapter extends RecyclerView.Adapter<CarouselAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        BaseDTO baseDTO = mRepo.getById(list.get(position).getObjectId());
+        BaseDTO baseDTO;
+        if (list.get(position).isEvent()) {
+            baseDTO = mRepoEvents.getById(list.get(position).getObjectId());
+        } else {
+            baseDTO = mRepo.getById(list.get(position).getObjectId());
+        }
+
         Glide.with(context)
                 .load(baseDTO.getImage())
                 .placeholder(R.drawable.placeholder)
@@ -78,11 +87,11 @@ public class CarouselAdapter extends RecyclerView.Adapter<CarouselAdapter.ViewHo
         holder.itemName.setText(baseDTO.getName());
     }
 
-    public void setOnClickListener(ClickListener clickListener){
+    public void setOnClickListener(ClickListener clickListener) {
         this.clickListener = clickListener;
     }
 
-    public void setData(List list){
+    public void setData(List list) {
         this.list = list;
     }
 

@@ -1,9 +1,7 @@
 package com.example.dawid.visitwroclove.database.utils;
 
-import com.example.dawid.visitwroclove.DAO.model.ObjectDAO;
 import com.example.dawid.visitwroclove.DAO.model.PointDAO;
 import com.example.dawid.visitwroclove.DAO.model.RouteDAO;
-import com.example.dawid.visitwroclove.model.ObjectDTO;
 import com.example.dawid.visitwroclove.model.PointDTO;
 import com.example.dawid.visitwroclove.model.RouteDTO;
 
@@ -46,6 +44,7 @@ public class RouteAssembler {
             oDTO.setDescription(oDAO.getDescription());
             oDTO.setObjectId(oDAO.getObjectId());
             oDTO.setRouteId(oDAO.getRouteId());
+            oDTO.setEvent(oDAO.isEvent());
         }
 
         return oDTO;

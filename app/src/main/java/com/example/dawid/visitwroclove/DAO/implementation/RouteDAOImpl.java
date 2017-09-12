@@ -101,6 +101,7 @@ public class RouteDAOImpl implements IRouteDAOService {
             p.setLat(entity.getPoints().get(i).getLat());
             p.setLng(entity.getPoints().get(i).getLng());
             p.setDescription(entity.getPoints().get(i).getDescription());
+            p.setEvent(entity.getPoints().get(i).isEvent());
 
             points.add(p);
         }
@@ -156,6 +157,7 @@ public class RouteDAOImpl implements IRouteDAOService {
                 p.setLat(rDAO.getPoints().get(i).getLat());
                 p.setLng(rDAO.getPoints().get(i).getLng());
                 p.setDescription(rDAO.getPoints().get(i).getDescription());
+                p.setEvent(rDAO.getPoints().get(i).isEvent());
 
                 points.add(p);
             }
@@ -193,6 +195,7 @@ public class RouteDAOImpl implements IRouteDAOService {
                 p.setLat(results.get(i).getPoints().get(j).getLat());
                 p.setLng(results.get(i).getPoints().get(j).getLng());
                 p.setDescription(results.get(i).getPoints().get(j).getDescription());
+                p.setEvent(results.get(i).getPoints().get(j).isEvent());
 
                 points.add(p);
             }
@@ -233,6 +236,7 @@ public class RouteDAOImpl implements IRouteDAOService {
                 p.setLat(rDAO.getPoints().get(i).getLat());
                 p.setLng(rDAO.getPoints().get(i).getLng());
                 p.setDescription(rDAO.getPoints().get(i).getDescription());
+                p.setEvent(rDAO.getPoints().get(i).isEvent());
 
                 points.add(p);
             }
@@ -289,6 +293,7 @@ public class RouteDAOImpl implements IRouteDAOService {
                 p.setLat(results.get(i).getPoints().get(j).getLat());
                 p.setLng(results.get(i).getPoints().get(j).getLng());
                 p.setDescription(results.get(i).getPoints().get(j).getDescription());
+                p.setEvent(results.get(i).getPoints().get(j).isEvent());
 
                 points.add(p);
             }
@@ -327,6 +332,7 @@ public class RouteDAOImpl implements IRouteDAOService {
                 p.setLat(r.getPoints().get(i).getLat());
                 p.setLng(r.getPoints().get(i).getLng());
                 p.setDescription(r.getPoints().get(i).getDescription());
+                p.setEvent(r.getPoints().get(i).isEvent());
 
                 points.add(p);
             }

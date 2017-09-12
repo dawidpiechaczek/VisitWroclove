@@ -12,6 +12,7 @@ public class PointDTO {
     private String lat;
     private String lng;
     private String description;
+    private boolean isEvent;
 
     public String getId() {
         return id;
@@ -59,5 +60,13 @@ public class PointDTO {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public boolean isEvent() {
+        return isEvent;
+    }
+
+    public void setEvent(boolean event) {
+        isEvent = event;
     }
 }
