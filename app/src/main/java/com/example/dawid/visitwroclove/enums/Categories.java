@@ -5,19 +5,25 @@ package com.example.dawid.visitwroclove.enums;
  */
 
 public enum Categories {
-    LAS(0),
+    FOREST("leśna"),
 
-    WODA(1),
+    WATER("morska"),
 
-    ROWER(2);
+    CYCLE("rowerowa"),
 
-    private final int constValue;
+    COOK("dla smakosza"),
 
-    Categories(int constValue) {
+    WALKING("piesza"),
+
+    FAVOURITE("ulubiona");
+
+    private final String constValue;
+
+    Categories(String constValue) {
         this.constValue = constValue;
     }
 
-    public int getValue() {
+    public String getValue() {
         return constValue;
     }
 

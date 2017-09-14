@@ -83,7 +83,15 @@ public class RouteDAOImpl implements IRouteDAOService {
             r.setId_local(-1);
         }
 
-        //r.setId(entity.getId());
+        Number currentIdNum = realm.where(RouteDAO.class).max("id");
+        int nextId;
+        if(currentIdNum == null) {
+            nextId = 0;
+        } else {
+            nextId = currentIdNum.intValue() + 1;
+        }
+
+        r.setId(nextId);
         //r.setId(primaryKey);
         r.setName(entity.getName());
         r.setDescription(entity.getDescription());

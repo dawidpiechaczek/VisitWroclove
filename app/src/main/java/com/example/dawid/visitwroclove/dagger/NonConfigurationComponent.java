@@ -7,6 +7,7 @@ import com.example.dawid.visitwroclove.view.activity.MapActivity;
 import com.example.dawid.visitwroclove.view.activity.PlacesActivity;
 import com.example.dawid.visitwroclove.view.activity.RoutesActivity;
 import com.example.dawid.visitwroclove.view.activity.RoutesListActivity;
+import com.example.dawid.visitwroclove.view.activity.SplashScreenActivity;
 
 import dagger.Subcomponent;
 
@@ -23,4 +24,5 @@ public interface NonConfigurationComponent {
     void inject(EventsActivity activity);
     void inject(RoutesActivity activity);
     void inject(RoutesListActivity activity);
+    void inject(SplashScreenActivity activity);
 }

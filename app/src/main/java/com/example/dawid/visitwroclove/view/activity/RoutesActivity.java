@@ -58,9 +58,9 @@ public class RoutesActivity extends BaseActivity {
 
         adapter.setOnClickListener(new RecyclerRoutesAdapter.ClickListener() {
             @Override
-            public void onItemClick(int position, View view) {
+            public void onItemClick(String type, View view) {
                 Intent intent = new Intent(RoutesActivity.this, RoutesListActivity.class);
-                intent.putExtra(Constants.EXTRA_POSIOTION, position);
+                intent.putExtra(Constants.EXTRA_POSIOTION, type);
                 startActivity(intent);
             }
         });

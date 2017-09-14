@@ -12,4 +12,5 @@ public interface MapView {
     void setCameraPosition(int position);
     void positiveRouteCallback(Direction direction);
     void negativeRouteCallback();
+    void clearPolylines();
 }

@@ -1,8 +1,11 @@
 package com.example.dawid.visitwroclove.view.activity;
 
 import android.Manifest;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.location.Address;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -12,6 +15,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -30,6 +34,7 @@ import com.example.dawid.visitwroclove.DAO.implementation.RouteDAOImpl;
 import com.example.dawid.visitwroclove.R;
 import com.example.dawid.visitwroclove.model.BaseDTO;
 import com.example.dawid.visitwroclove.presenter.MapPresenter;
+import com.example.dawid.visitwroclove.utils.OnSaveFragmentCallback;
 import com.example.dawid.visitwroclove.utils.WindowListener;
 import com.example.dawid.visitwroclove.adapter.CarouselAdapter;
 import com.example.dawid.visitwroclove.adapter.MyWindowAdapter;
@@ -37,6 +42,7 @@ import com.example.dawid.visitwroclove.model.EventDTO;
 import com.example.dawid.visitwroclove.model.ObjectDTO;
 import com.example.dawid.visitwroclove.model.PointDTO;
 import com.example.dawid.visitwroclove.model.RouteDTO;
+import com.example.dawid.visitwroclove.view.fragment.SaveDialogFragment;
 import com.example.dawid.visitwroclove.view.interfaces.MapView;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -46,6 +52,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -56,21 +63,25 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by Dawid on 02.07.2017.
  */
 
-public class MapActivity extends BaseActivity implements OnMapReadyCallback, MapView {
+public class MapActivity extends BaseActivity implements OnMapReadyCallback, MapView, OnSaveFragmentCallback {
     @Inject ObjectDAOImpl mRepo;
     @Inject RouteDAOImpl mRepoRoute;
     @Inject EventDAOImpl mRepoEvents;
     @BindView(R.id.am_ll_container) RelativeLayout container;
     @BindView(R.id.am_rv_recycler) RecyclerView recyclerView;
+    @BindView(R.id.am_btn_save) Button buttonSave;
     private MapPresenter presenter;
     private Map<Marker, Integer> markersId = new HashMap<>();
     public GoogleMap map;
     private int routeId = -1;
+    private String totalTime;
+    private boolean ownRouteModeCreator;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -108,6 +119,23 @@ public class MapActivity extends BaseActivity implements OnMapReadyCallback, Map
         checkPermssions();
     }
 
+    @OnClick(R.id.am_btn_save)
+    public void onSaveRoute() {
+        showSaveDialog();
+    }
+
+    private void showSaveDialog() {
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        Fragment prev = getFragmentManager().findFragmentByTag("save_fragment");
+        if (prev != null) {
+            ft.remove(prev);
+        }
+        ft.addToBackStack(null);
+
+        SaveDialogFragment newFragment = SaveDialogFragment.newInstance(this);
+        newFragment.show(ft, "save_fragment");
+    }
+
     private void checkPermssions() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             Toast.makeText(this, "brak neta", Toast.LENGTH_LONG).show();
@@ -118,6 +146,7 @@ public class MapActivity extends BaseActivity implements OnMapReadyCallback, Map
 
     private void setMapListenersAndAdapters() {
         MyWindowAdapter adapter = new MyWindowAdapter(MapActivity.this, mRepo, mRepoEvents, markersId);
+        adapter.setCreatorMode(ownRouteModeCreator);
         WindowListener windowListener = new WindowListener(this, markersId);
         registerForContextMenu(container);
         map.setInfoWindowAdapter(adapter);
@@ -125,7 +154,11 @@ public class MapActivity extends BaseActivity implements OnMapReadyCallback, Map
         map.setOnInfoWindowLongClickListener(new GoogleMap.OnInfoWindowLongClickListener() {
             @Override
             public void onInfoWindowLongClick(Marker marker) {
-                openContextMenu(container);
+                if (ownRouteModeCreator) {
+                    openContextMenu(container);
+                    presenter.setMarkerIdAndTag(markersId.get(marker), marker.getTag().toString());
+                    marker.hideInfoWindow();
+                }
             }
         });
     }
@@ -140,11 +173,13 @@ public class MapActivity extends BaseActivity implements OnMapReadyCallback, Map
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
-        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         switch (item.getItemId()) {
             case R.id.add:
+                presenter.addOwnRoute();
+                buttonSave.setVisibility(View.VISIBLE);
                 return true;
             case R.id.delete:
+                presenter.deleteFromRoute();
                 return true;
             default:
                 return super.onContextItemSelected(item);
@@ -183,10 +218,13 @@ public class MapActivity extends BaseActivity implements OnMapReadyCallback, Map
     public void positiveRouteCallback(Direction direction) {
         if (direction.isOK()) {
             List<Leg> directionPositionList = direction.getRouteList().get(0).getLegList();
+            int duration = 0;
             for (Leg leg : directionPositionList) {
                 ArrayList<LatLng> latLngs = leg.getDirectionPoint();
                 map.addPolyline(DirectionConverter.createPolyline(this, latLngs, 5, Color.RED));
+                duration += Integer.parseInt(leg.getDuration().getValue());
             }
+            totalTime = new StringBuilder(duration).toString();
         } else {
             Toast.makeText(this, "Coś poszło nie tak", Toast.LENGTH_LONG).show();
         }
@@ -197,9 +235,20 @@ public class MapActivity extends BaseActivity implements OnMapReadyCallback, Map
         Toast.makeText(this, "Coś poszło nie tak", Toast.LENGTH_LONG).show();
     }
 
+    @Override
+    public void clearPolylines() {
+        map.clear();
+    }
+
     public void getExtra() {
         if (getIntent().getExtras() != null) {
             routeId = getIntent().getExtras().getInt("trasa", -1);
+            ownRouteModeCreator = getIntent().getExtras().getBoolean("own_route_mode");
         }
+    }
+
+    @Override
+    public void onSave(String name, String description, String type) {
+        presenter.saveRoute(name, description, totalTime, type);
     }
 }

@@ -59,28 +59,38 @@ public class RoutesListActivity extends BaseActivity {
     }
 
     private void setAdapter(){
-        int position = getIntent().getIntExtra(Constants.EXTRA_POSIOTION, 0);
+        String type = getIntent().getStringExtra(Constants.EXTRA_POSIOTION);
         list = new ArrayList<>();
 
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        if (position == Categories.LAS.getValue()) {
-            list = mRepo.getByType("las");
-        } else if (position == Categories.WODA.getValue()) {
-            list = mRepo.getByType("woda");
-        } else {
+        if (Categories.FOREST.getValue().equals(type)) {
+            list = mRepo.getByType(Categories.FOREST.getValue());
+        } else if (Categories.WATER.getValue().equals(type)) {
+            list = mRepo.getByType(Categories.WATER.getValue());
+        } else if (Categories.CYCLE.getValue().equals(type)) {
+            list = mRepo.getByType(Categories.CYCLE.getValue());
+        } else if (Categories.COOK.getValue().equals(type)) {
+            list = mRepo.getByType(Categories.COOK.getValue());
+        } else if (Categories.FAVOURITE.getValue().equals(type)) {
+            list = mRepo.getByType(Categories.FAVOURITE.getValue());
+        } else if (Categories.WALKING.getValue().equals(type)) {
+            list = mRepo.getByType(Categories.WALKING.getValue());
+        }else {
             list = mRepo.getAll();
         }
+
         adapter = new RoutesListAdapter(this);
         adapter.setData(list);
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         recyclerView.setAdapter(adapter);
-        adapter.setOnClickListener(new RecyclerRoutesAdapter.ClickListener() {
+        adapter.setOnClickListener(new RoutesListAdapter.ClickListener() {
             @Override
             public void onItemClick(int position, View view) {
                 Intent intent = new Intent(RoutesListActivity.this, MapActivity.class);
                 intent.putExtra("trasa", list.get(position).getId());
+                intent.putExtra("own_route_mode", false); //not run own route creator mode
                 startActivity(intent);
             }
         });

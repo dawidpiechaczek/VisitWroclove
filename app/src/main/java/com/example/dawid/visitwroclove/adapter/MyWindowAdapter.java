@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -30,15 +31,15 @@ import butterknife.ButterKnife;
  */
 
 public class MyWindowAdapter implements GoogleMap.InfoWindowAdapter {
-    @BindView(R.id.wl_tv_name)
-    TextView name;
-    @BindView(R.id.wl_iv_image)
-    ImageView image;
+    @BindView(R.id.wl_tv_name) TextView name;
+    @BindView(R.id.wl_iv_image) ImageView image;
+    @BindView(R.id.wl_btn_longClick) Button button;
 
     private Context context;
     private ObjectDAOImpl mRepo;
     private EventDAOImpl mRepoEvent;
     private Map<Marker, Integer> hashMap;
+    private boolean creatorMode;
 
     public MyWindowAdapter(Context context, ObjectDAOImpl repo, EventDAOImpl repoEvent, Map<Marker, Integer> hashMap) {
         this.context = context;
@@ -64,6 +65,11 @@ public class MyWindowAdapter implements GoogleMap.InfoWindowAdapter {
         } else {
             baseDTO = mRepo.getById(id);
         }
+
+        if(creatorMode){
+            button.setVisibility(View.VISIBLE);
+        }
+
         name.setText(baseDTO.getName());
         Glide.with(context)
                 .load(baseDTO.getImage())
@@ -87,5 +93,9 @@ public class MyWindowAdapter implements GoogleMap.InfoWindowAdapter {
                 .centerCrop()
                 .into(image);
         return view;
+    }
+
+    public void setCreatorMode(boolean mode){
+        creatorMode = mode;
     }
 }

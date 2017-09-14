@@ -26,10 +26,9 @@ import static com.example.dawid.visitwroclove.utils.Constants.EXTRA_WEB_VIEW;
  */
 
 public class WebViewActivity extends BaseActivity {
-
-    private String url, toolbarTitle;
     @BindView(R.id.wa_wb_webView) WebView webView;
     @BindView(R.id.toolbar3) Toolbar toolbar;
+    private String url, toolbarTitle;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

@@ -22,7 +22,7 @@ import butterknife.ButterKnife;
 
 public class RoutesListAdapter extends RecyclerView.Adapter<RoutesListAdapter.ViewHolder> {
     private Context context;
-    private RecyclerRoutesAdapter.ClickListener clickListener;
+    private RoutesListAdapter.ClickListener clickListener;
     private List<RouteDTO>list;
 
     public RoutesListAdapter(Context context) {
@@ -72,7 +72,7 @@ public class RoutesListAdapter extends RecyclerView.Adapter<RoutesListAdapter.Vi
         holder.timeImage.setTypeface(FontManager.getIcons(context));
     }
 
-    public void setOnClickListener(RecyclerRoutesAdapter.ClickListener clickListener) {
+    public void setOnClickListener(RoutesListAdapter.ClickListener clickListener) {
         this.clickListener = clickListener;
     }
 
