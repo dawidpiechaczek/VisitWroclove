@@ -31,9 +31,11 @@ public class PlacesPresenter extends BasePresenter<PlacesView> {
 
     public void sort(int itemId) {
         if (itemId == R.id.visit) {
-            list = mRepoObjects.getByType("building");
+            list = mRepoObjects.getByType("zwiedzanie");
         } else if (itemId == R.id.eat) {
-            list = mRepoObjects.getByType("visit");
+            list = mRepoObjects.getByType("gastronomia");
+        } else if (itemId == R.id.hotel) {
+            list = mRepoObjects.getByType("nocleg");
         } else {
             list = mRepoObjects.getAll();
         }

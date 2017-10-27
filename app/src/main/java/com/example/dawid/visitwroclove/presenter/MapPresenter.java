@@ -91,6 +91,9 @@ public class MapPresenter extends BasePresenter<MapView> {
 
             setCarouselToMap(routeDTO.getPoints());
             addRecyclerSettings();
+            getView().setButtonVisibility(true);
+        } else {
+            getView().setButtonVisibility(false);
         }
     }
 

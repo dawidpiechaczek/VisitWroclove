@@ -5,15 +5,15 @@ package com.example.dawid.visitwroclove.enums;
  */
 
 public enum Categories {
-    FOREST("leśna"),
+    FOREST("leśne zacisze"),
 
-    WATER("morska"),
+    WATER("przy rzece"),
 
-    CYCLE("rowerowa"),
+    CYCLE("rowerowa przygoda"),
 
     COOK("dla smakosza"),
 
-    WALKING("piesza"),
+    WALKING("pieszy relaks"),
 
     FAVOURITE("ulubiona");
 

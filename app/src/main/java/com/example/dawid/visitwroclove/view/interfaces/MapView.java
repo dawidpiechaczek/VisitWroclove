@@ -13,4 +13,5 @@ public interface MapView {
     void positiveRouteCallback(Direction direction);
     void negativeRouteCallback();
     void clearPolylines();
+    void setButtonVisibility(boolean visible);
 }

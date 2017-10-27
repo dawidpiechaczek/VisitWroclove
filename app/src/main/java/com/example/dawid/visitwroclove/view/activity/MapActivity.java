@@ -176,7 +176,6 @@ public class MapActivity extends BaseActivity implements OnMapReadyCallback, Map
         switch (item.getItemId()) {
             case R.id.add:
                 presenter.addOwnRoute();
-                buttonSave.setVisibility(View.VISIBLE);
                 return true;
             case R.id.delete:
                 presenter.deleteFromRoute();
@@ -222,9 +221,9 @@ public class MapActivity extends BaseActivity implements OnMapReadyCallback, Map
             for (Leg leg : directionPositionList) {
                 ArrayList<LatLng> latLngs = leg.getDirectionPoint();
                 map.addPolyline(DirectionConverter.createPolyline(this, latLngs, 5, Color.RED));
-                duration += Integer.parseInt(leg.getDuration().getValue());
+                duration += Double.parseDouble(leg.getDistance().getValue());
             }
-            totalTime = new StringBuilder(duration).toString();
+            totalTime = String.valueOf(duration / 1000.0) + " km";
         } else {
             Toast.makeText(this, "Coś poszło nie tak", Toast.LENGTH_LONG).show();
         }
@@ -238,6 +237,15 @@ public class MapActivity extends BaseActivity implements OnMapReadyCallback, Map
     @Override
     public void clearPolylines() {
         map.clear();
+    }
+
+    @Override
+    public void setButtonVisibility(boolean visible) {
+        if (visible) {
+            buttonSave.setVisibility(View.VISIBLE);
+        } else {
+            buttonSave.setVisibility(View.INVISIBLE);
+        }
     }
 
     public void getExtra() {

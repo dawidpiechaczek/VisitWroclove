@@ -73,7 +73,13 @@ public class DetailsActivity extends BaseActivity implements DetailsView {
 
     @OnClick(R.id.ad_btn_favourite)
     public void onClickSetFavourite() {
-        presenter.setFavourite(presenter.getBaseDTO().isFavourite());
+        boolean isFavourite = presenter.getBaseDTO().isFavourite()==1;
+        if(isFavourite){
+            presenter.setFavourite(0);
+        }else {
+            presenter.setFavourite(1);
+        }
+
     }
 
     private void loadObject() {
