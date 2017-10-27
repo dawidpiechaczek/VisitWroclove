@@ -19,7 +19,7 @@ public class EventDAO extends RealmObject {
     private AddressDAO address;
     private String image;
     private int removed;
-    private boolean isFavourite;
+    private int isFavourite;
     private String price;
     private String www;
 
@@ -31,11 +31,11 @@ public class EventDAO extends RealmObject {
         this.www = www;
     }
 
-    public boolean isFavourite() {
+    public int isFavourite() {
         return isFavourite;
     }
 
-    public void setFavourite(boolean favourite) {
+    public void setFavourite(int favourite) {
         isFavourite = favourite;
     }
 

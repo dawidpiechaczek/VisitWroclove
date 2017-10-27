@@ -7,5 +7,5 @@ package com.example.dawid.visitwroclove.view.interfaces;
 
 public interface DetailsView {
     void setVisibility(boolean visibility);
-    void setFavourite(boolean isFavourite);
+    void setFavourite(int isFavourite);
 }

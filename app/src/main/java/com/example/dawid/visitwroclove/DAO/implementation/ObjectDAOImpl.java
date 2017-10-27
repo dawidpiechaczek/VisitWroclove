@@ -59,7 +59,6 @@ public class ObjectDAOImpl implements IObjectDAOService {
         objectDAO.setDescription(entity.getDescription());
         objectDAO.setPhone(entity.getPhone());
         objectDAO.setRank(entity.getRank());
-        objectDAO.setStandard(entity.getStandard());
         objectDAO.setAddressId(entity.getAddressId());
         objectDAO.setAddress(aDAO);
         objectDAO.setThumb(entity.getThumb());

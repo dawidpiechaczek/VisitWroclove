@@ -15,20 +15,20 @@ public class ObjectDAO extends RealmObject {
     private String name;
     private String description;
     private String phone;
-    private double rank;
+    private String rank;
     private int standard;
     private int address_id;
     private AddressDAO address;
     private String thumb;
     private String image;
     private int removed;
-    private boolean isFavourite;
+    private int isFavourite;
 
-    public boolean isFavourite() {
+    public int isFavourite() {
         return isFavourite;
     }
 
-    public void setFavourite(boolean favourite) {
+    public void setFavourite(int favourite) {
         isFavourite = favourite;
     }
 
@@ -72,11 +72,11 @@ public class ObjectDAO extends RealmObject {
         this.phone = phone;
     }
 
-    public double getRank() {
+    public String getRank() {
         return rank;
     }
 
-    public void setRank(double rank) {
+    public void setRank(String rank) {
         this.rank = rank;
     }
 

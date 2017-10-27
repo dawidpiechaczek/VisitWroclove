@@ -20,7 +20,6 @@ public class ObjectAssembler {
             oDTO.setDescription(oDAO.getDescription());
             oDTO.setPhone(oDAO.getPhone());
             oDTO.setRank(oDAO.getRank());
-            oDTO.setStandard(oDAO.getStandard());
             oDTO.setAddressId(oDAO.getAddressId());
             oDTO.setAddress(AddressAssembler.AddressDAOtoDTO(oDAO.getAddress()));
             oDTO.setThumb(oDAO.getThumb());

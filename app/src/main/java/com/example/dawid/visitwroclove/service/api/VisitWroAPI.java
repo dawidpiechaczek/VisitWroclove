@@ -1,6 +1,8 @@
 package com.example.dawid.visitwroclove.service.api;
 
 import com.example.dawid.visitwroclove.model.AddressDTO;
+import com.example.dawid.visitwroclove.model.EventDTO;
+import com.example.dawid.visitwroclove.model.ObjectDTO;
 
 import java.util.List;
 
@@ -16,8 +18,14 @@ public interface VisitWroAPI {
 
     String SERVICE_ENDPOINT = "http://visitwro.azurewebsites.net/api/";
 
-    @GET("/addresses/{addressId}")
+    @GET("addresses/{addressId}")
     Observable<AddressDTO> getAddress(@Path("addressId") String addressId);
+
+    @GET("places")
+    Observable<List<ObjectDTO>> getObjects();
+
+    @GET("events")
+    Observable<List<EventDTO>> getEvents();
 
     @GET("addresses")
     Observable<List<AddressDTO>> getAddresses();

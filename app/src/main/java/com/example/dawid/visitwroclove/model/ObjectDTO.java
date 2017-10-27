@@ -1,16 +1,112 @@
 package com.example.dawid.visitwroclove.model;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by Dawid on 07.07.2017.
  */
 
 public class ObjectDTO extends BaseDTO {
 
+    @SerializedName("PlaceId")
+    @Expose
+    private Integer id;
+    @SerializedName("CategoryPlace")
+    @Expose
+    private String type;
+    @SerializedName("NamePlace")
+    @Expose
+    private String name;
+    @SerializedName("DescriptionPlace")
+    @Expose
+    private String description;
+    @SerializedName("Phone")
+    @Expose
     private String phone;
-    private double rank;
-    private int standard;
+    @SerializedName("Mark")
+    @Expose
+    private String mark;
+    @SerializedName("ImagePlace")
+    @Expose
+    private String image;
+    @SerializedName("ThumbPlace")
+    @Expose
     private String thumb;
-    private int removed;
+    @SerializedName("Removed")
+    @Expose
+    private Integer removed;
+    @SerializedName("IsFavourite")
+    @Expose
+    private Integer isFavourite;
+    @SerializedName("AddressId")
+    @Expose
+    private Integer addressId;
+    private transient AddressDTO address;
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public int getAddressId() {
+        return addressId;
+    }
+
+    public void setAddressId(int addressId) {
+        this.addressId = addressId;
+    }
+
+    public AddressDTO getAddress() {
+        return address;
+    }
+
+    public void setAddress(AddressDTO address) {
+        this.address = address;
+    }
+
+    public int isFavourite() {
+        return isFavourite;
+    }
+
+    public void setFavourite(int favourite) {
+        isFavourite = favourite;
+    }
 
     public String getPhone() {
         return phone;
@@ -20,20 +116,12 @@ public class ObjectDTO extends BaseDTO {
         this.phone = phone;
     }
 
-    public double getRank() {
-        return rank;
+    public String getRank() {
+        return mark;
     }
 
-    public void setRank(double rank) {
-        this.rank = rank;
-    }
-
-    public int getStandard() {
-        return standard;
-    }
-
-    public void setStandard(int standard) {
-        this.standard = standard;
+    public void setRank(String rank) {
+        this.mark = rank;
     }
 
     public String getThumb() {

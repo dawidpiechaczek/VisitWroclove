@@ -63,8 +63,8 @@ public class DetailsActivity extends BaseActivity implements DetailsView {
     }
 
     @Override
-    public void setFavourite(boolean isFavourite) {
-        if (isFavourite) {
+    public void setFavourite(int isFavourite) {
+        if (isFavourite==1) {
             favourite.setImageResource(R.drawable.ic_heart_clicked);
         } else {
             favourite.setImageResource(R.drawable.ic_action_name);
@@ -73,7 +73,7 @@ public class DetailsActivity extends BaseActivity implements DetailsView {
 
     @OnClick(R.id.ad_btn_favourite)
     public void onClickSetFavourite() {
-        presenter.setFavourite(!presenter.getBaseDTO().isFavourite());
+        presenter.setFavourite(presenter.getBaseDTO().isFavourite());
     }
 
     private void loadObject() {

@@ -40,7 +40,7 @@ public class DetailPresenter extends BasePresenter<DetailsView> {
         return activityType;
     }
 
-    public void setFavourite(boolean isFavourite) {
+    public void setFavourite(int isFavourite) {
         baseDTO.setFavourite(isFavourite);
         if (activityType.equals(Constants.ACTIVITY_VALUE_EVENT)) {
             mRepoEvents.add((EventDTO) baseDTO);

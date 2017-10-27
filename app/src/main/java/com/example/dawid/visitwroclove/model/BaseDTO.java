@@ -10,9 +10,9 @@ public class BaseDTO {
     private String name;
     private String description;
     private int address_id;
-    private AddressDTO address;
+    private transient AddressDTO address;
     private String image;
-    private boolean isFavourite;
+    private int isFavourite;
 
     public String getImage() {
         return image;
@@ -70,11 +70,11 @@ public class BaseDTO {
         this.address = address;
     }
 
-    public boolean isFavourite() {
+    public int isFavourite() {
         return isFavourite;
     }
 
-    public void setFavourite(boolean favourite) {
+    public void setFavourite(int favourite) {
         isFavourite = favourite;
     }
 }
