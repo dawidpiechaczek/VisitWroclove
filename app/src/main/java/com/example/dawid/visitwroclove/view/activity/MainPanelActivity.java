@@ -6,23 +6,8 @@ import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.widget.TextView;
 
-
-import com.example.dawid.visitwroclove.DAO.implementation.EventDAOImpl;
-import com.example.dawid.visitwroclove.DAO.implementation.ObjectDAOImpl;
-import com.example.dawid.visitwroclove.DAO.implementation.RouteDAOImpl;
 import com.example.dawid.visitwroclove.R;
-import com.example.dawid.visitwroclove.model.AddressDTO;
-import com.example.dawid.visitwroclove.model.EventDTO;
-import com.example.dawid.visitwroclove.model.ObjectDTO;
-import com.example.dawid.visitwroclove.model.PointDTO;
-import com.example.dawid.visitwroclove.model.RouteDTO;
 import com.example.dawid.visitwroclove.utils.FontManager;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.inject.Inject;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;

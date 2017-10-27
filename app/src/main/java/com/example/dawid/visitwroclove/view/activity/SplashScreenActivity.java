@@ -3,6 +3,7 @@ package com.example.dawid.visitwroclove.view.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.example.dawid.visitwroclove.DAO.implementation.EventDAOImpl;
 import com.example.dawid.visitwroclove.DAO.implementation.ObjectDAOImpl;
@@ -14,6 +15,7 @@ import com.example.dawid.visitwroclove.model.EventDTO;
 import com.example.dawid.visitwroclove.model.ObjectDTO;
 import com.example.dawid.visitwroclove.model.PointDTO;
 import com.example.dawid.visitwroclove.model.RouteDTO;
+import com.example.dawid.visitwroclove.service.api.VisitWroAPI;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +25,9 @@ import javax.inject.Inject;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 
 /**
@@ -76,6 +80,33 @@ public class SplashScreenActivity extends BaseActivity {
     }
 
     public void scripts() {
+        final VisitWroAPI randomUserAPI = VisitWroAPI.Factory.create();
+        randomUserAPI.getAddresses()
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<List<AddressDTO>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(List<AddressDTO> value) {
+                        Log.d("sub",value.get(0).getCity());
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.d("sub",e.getMessage());
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+
+
         mRepoEvent = new EventDAOImpl();
         ObjectDTO objectDTO = new ObjectDTO();
         objectDTO.setId(0);

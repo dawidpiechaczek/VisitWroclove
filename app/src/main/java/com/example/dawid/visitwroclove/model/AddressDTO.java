@@ -1,19 +1,33 @@
 package com.example.dawid.visitwroclove.model;
 
-import com.example.dawid.visitwroclove.view.activity.BaseActivity;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by Dawid on 07.07.2017.
  */
 
 public class AddressDTO {
-
+    @SerializedName("AddressId")
+    @Expose
     private int id;
+    @SerializedName("ZipCode")
+    @Expose
     private String zip_code;
+    @SerializedName("City")
+    @Expose
     private String city;
+    @SerializedName("Street")
+    @Expose
     private String street;
+    @SerializedName("HomeNumber")
+    @Expose
     private String home_number;
+    @SerializedName("Lat")
+    @Expose
     private String lat;
+    @SerializedName("Lng")
+    @Expose
     private String lng;
 
     public int getId() {
