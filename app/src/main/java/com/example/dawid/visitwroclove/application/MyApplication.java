@@ -2,6 +2,7 @@ package com.example.dawid.visitwroclove.application;
 
 import android.app.Application;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.pm.PackageManager;
 
 import com.example.dawid.visitwroclove.dagger.AppComponent;
@@ -19,15 +20,21 @@ import io.realm.Realm;
 
 public class MyApplication extends Application {
     private AppComponent appComponent;
+    private static Context context;
 
     @Override
     public void onCreate() {
         super.onCreate();
+        context = getApplicationContext();
         stethoCongig();
         Realm.init(this);
         stethoInit();
         createAppComponent();
         appComponent.inject(this);
+    }
+
+    public static Context getMyApplicationContext(){
+        return context;
     }
 
     private void createAppComponent() {

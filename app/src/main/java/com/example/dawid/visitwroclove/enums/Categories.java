@@ -1,30 +1,33 @@
 package com.example.dawid.visitwroclove.enums;
 
+import com.example.dawid.visitwroclove.R;
+import com.example.dawid.visitwroclove.application.MyApplication;
+
 /**
  * Created by Dawid on 10.08.2017.
  */
 
 public enum Categories {
-    FOREST("leśne zacisze"),
+    FOREST(R.string.forest),
 
-    WATER("przy rzece"),
+    WATER(R.string.river),
 
-    CYCLE("rowerowa przygoda"),
+    CYCLE(R.string.cycle),
 
-    COOK("dla smakosza"),
+    COOK(R.string.cook),
 
-    WALKING("pieszy relaks"),
+    WALKING(R.string.foot),
 
-    FAVOURITE("ulubiona");
+    FAVOURITE(R.string.favourite);
 
-    private final String constValue;
+    private final int constValue;
 
-    Categories(String constValue) {
+    Categories(int constValue) {
         this.constValue = constValue;
     }
 
     public String getValue() {
-        return constValue;
+        return MyApplication.getMyApplicationContext().getString(constValue);
     }
 
 }

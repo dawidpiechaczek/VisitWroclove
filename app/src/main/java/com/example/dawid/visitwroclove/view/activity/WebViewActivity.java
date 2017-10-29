@@ -44,11 +44,11 @@ public class WebViewActivity extends BaseActivity {
     private void getExtrasFromIntent() {
         String webViewType = getIntent().getStringExtra(EXTRA_WEB_VIEW);
         if(webViewType.equals(Constants.BUS_WEB_VIEW)){
-            url = "http://www.wroclaw.pl/rozklady-jazdy";
-            toolbarTitle = "Rozkład jazdy";
+            url = getString(R.string.schedule_url);
+            toolbarTitle = getString(R.string.schedule);
         } else {
-            url = "https://weather.com/pl-PL/pogoda/godzinowa/l/PLXX0029:1:PL";
-            toolbarTitle = "Pogoda";
+            url = getString(R.string.weather_url);
+            toolbarTitle = getString(R.string.weather);
         }
     }
 
@@ -64,7 +64,7 @@ public class WebViewActivity extends BaseActivity {
         webView.setWebViewClient(new WebViewClient() {
             @Override
             public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
-                Toast.makeText(activity, "Problem z internetem", Toast.LENGTH_SHORT).show();
+                Toast.makeText(activity, getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
             }
         });
 

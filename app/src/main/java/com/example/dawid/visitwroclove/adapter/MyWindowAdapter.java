@@ -60,7 +60,7 @@ public class MyWindowAdapter implements GoogleMap.InfoWindowAdapter {
         ButterKnife.bind(this, view);
         int id = hashMap.get(marker);
         BaseDTO baseDTO;
-        if (marker.getTag().equals("EVENT")) {
+        if (marker.getTag().equals(context.getString(R.string.events))) {
             baseDTO = mRepoEvent.getById(id);
         } else {
             baseDTO = mRepo.getById(id);

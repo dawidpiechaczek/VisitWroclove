@@ -9,4 +9,50 @@
     <string name="ic_panel_map">&#xf203;</string>
     <string name="ic_panel_weather">&#xf3b0;</string>
     <string name="ic_panel_buses">&#xf3af;</string>
+
+    <!--MainPanelActivity-->
+    <string name="weather">pogoda</string>
+    <string name="schedule">rozkład</string>
+    <string name="places">miejsca</string>
+    <string name="routes">trasy</string>
+    <string name="map">mapa</string>
+    <string name="events">wydarzenia</string>
+    <string name="wroclove">Wrocław</string>
+    <string name="city_of_meetings">miasto spotkań</string>
+
+    <!--DetailsActivity-->
+    <string name="price">cena</string>
+    <string name="date">data</string>
+    <string name="mark">Oceń: </string>
+
+    <!--MapActivity-->
+    <string name="no_internet">Brak Internetu</string>
+    <string name="error_route">Błąd przy obliczaniu tras</string>
+    <string name="save_route">Zapisz trasę</string>
+    <string name="route_name">Nazwa trasy</string>
+    <string name="route_description">Opis trasy</string>
+    <string name="save">ZAPISZ</string>
+    <string name="cancel">ANULUJ</string>
+    <string name="details">Szczegóły</string>
+    <string name="create_route">Kliknij długo, aby stworzyć trasę</string>
+    <string name="add_to_route">Dodaj punkt do trasy</string>
+    <string name="delete_from_route">Usuń punkt z trasy</string>
+
+    <!--WebViewActivity-->
+    <string name="schedule_url">http://komunikacja.iwroclaw.pl/?lang=en&amp;language=pl</string>
+    <string name="weather_url">https://weather.com/pl-PL/pogoda/godzinowa/l/PLXX0029:1:PL</string>
+
+    <!--Menu-->
+    <string name="visit">Zwiedzanie</string>
+    <string name="gastronomy">Gastronomia</string>
+    <string name="hotel">Nocleg</string>
+    <string name="all">Wszystkie</string>
+
+    <!--Route categories-->
+    <string name="forest">leśne zacisze</string>
+    <string name="river">przy rzece</string>
+    <string name="cycle">rowerowa przygoda</string>
+    <string name="cook">dla smakosza</string>
+    <string name="foot">pieszy relaks</string>
+    <string name="favourite">ulubione</string>
 </resources>

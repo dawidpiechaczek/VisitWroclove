@@ -88,7 +88,7 @@ public class PlacesActivity extends BaseActivity implements PlacesView {
     }
 
     private void setToolbar() {
-        toolbar.setTitle("Miejsca");
+        toolbar.setTitle(getString(R.string.places));
         toolbar.setTitleTextColor(getColor(R.color.secondaryToolbar));
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {

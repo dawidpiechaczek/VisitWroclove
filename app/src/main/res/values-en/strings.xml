@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--MainPanelActivity-->
+    <string name="weather">weather</string>
+    <string name="schedule">schedule</string>
+    <string name="places">places</string>
+    <string name="routes">routes</string>
+    <string name="map">map</string>
+    <string name="events">events</string>
+    <string name="wroclove">Wroclaw</string>
+    <string name="city_of_meetings">city of meetings</string>
+
+    <!--DetailsActivity-->
+    <string name="price">price</string>
+    <string name="date">date</string>
+    <string name="mark">Give a mark: </string>
+
+    <!--MapActivity-->
+    <string name="no_internet">No Internet connection</string>
+    <string name="error_route">Error while estimating</string>
+    <string name="save_route">Save route</string>
+    <string name="route_name">Route name</string>
+    <string name="route_description">Route description</string>
+    <string name="save">SAVE</string>
+    <string name="cancel">CANCEL</string>
+    <string name="details">Details</string>
+    <string name="create_route">Long click to create route</string>
+    <string name="add_to_route">Add point to route</string>
+    <string name="delete_from_route">Delete point from route</string>
+
+    <!--WebViewActivity-->
+    <string name="schedule_url">http://komunikacja.iwroclaw.pl/?lang=pl&amp;language=en</string>
+    <string name="weather_url">https://weather.com/en-GB/weather/hourbyhour/l/375e3d68387b399a03e46421fd79cf5acc878e501c3033a7f72af255f23c13e6</string>
+
+    <!--Menu-->
+    <string name="visit">Visiting</string>
+    <string name="gastronomy">Gastronomy</string>
+    <string name="hotel">Hotels</string>
+    <string name="all">All</string>
+
+    <string name="forest">forest trip</string>
+    <string name="river">near river</string>
+    <string name="cycle">cycling adventure</string>
+    <string name="cook">taste the trip</string>
+    <string name="foot">pedestrant relax</string>
+    <string name="favourite">favourite</string>
+</resources>

@@ -1,14 +1,11 @@
 package com.example.dawid.visitwroclove.DAO.implementation;
 
-import com.example.dawid.visitwroclove.DAO.model.ObjectDAO;
 import com.example.dawid.visitwroclove.DAO.model.PointDAO;
 import com.example.dawid.visitwroclove.DAO.model.RouteDAO;
 import com.example.dawid.visitwroclove.database.enums.Removed;
 import com.example.dawid.visitwroclove.database.interfaces.IRouteDAOService;
-import com.example.dawid.visitwroclove.database.utils.ObjectAssembler;
 import com.example.dawid.visitwroclove.database.utils.RealmTable;
 import com.example.dawid.visitwroclove.database.utils.RouteAssembler;
-import com.example.dawid.visitwroclove.model.ObjectDTO;
 import com.example.dawid.visitwroclove.model.PointDTO;
 import com.example.dawid.visitwroclove.model.RouteDTO;
 

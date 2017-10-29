@@ -16,7 +16,14 @@ import io.realm.RealmResults;
  */
 
 public class AddressDAOImpl implements IEntityDAO<AddressDTO> {
+    private static AddressDAOImpl instance;
 
+    public static AddressDAOImpl getInstance() {
+        if (instance == null) {
+            instance = new AddressDAOImpl();
+        }
+        return instance;
+    }
 
     @Override
     public void add(AddressDTO entity) {

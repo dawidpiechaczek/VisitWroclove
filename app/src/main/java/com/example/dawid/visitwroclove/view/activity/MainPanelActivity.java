@@ -1,6 +1,7 @@
 package com.example.dawid.visitwroclove.view.activity;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
@@ -8,6 +9,9 @@ import android.widget.TextView;
 
 import com.example.dawid.visitwroclove.R;
 import com.example.dawid.visitwroclove.utils.FontManager;
+
+import java.util.Locale;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -26,7 +30,6 @@ public class MainPanelActivity extends BaseActivity {
     @BindView(R.id.tv_tracks)TextView mpa_tv_tracks;
     @BindView(R.id.tv_bus)TextView mpa_tv_buses;
     @BindView(R.id.tv_weather)TextView mpa_tv_weather;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +60,16 @@ public class MainPanelActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         Log.d(mLog, "MainPanelActivity.onResume()");
+    }
+
+    @OnClick(R.id.iv_en_icon)
+    public void getEnglishVersion() {
+        changeLanguage("en");
+    }
+
+    @OnClick(R.id.iv_pl_icon)
+    public void getPolishVersion() {
+        changeLanguage("pl");
     }
 
     @OnClick(R.id.ll_map)
@@ -96,5 +109,18 @@ public class MainPanelActivity extends BaseActivity {
     public void showEventsActivity() {
         Intent intent = new Intent(getApplicationContext(), EventsActivity.class);
         startActivity(intent);
+    }
+
+    private void changeLanguage(String language){
+        Locale locale = new Locale(language);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        getBaseContext().getResources().updateConfiguration(config,
+                getBaseContext().getResources().getDisplayMetrics());
+
+        Intent refresh = new Intent(MainPanelActivity.this, MainPanelActivity.class);
+        startActivity(refresh);
+        finish();
     }
 }

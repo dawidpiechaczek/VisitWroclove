@@ -9,11 +9,36 @@
 
         <LinearLayout
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp">
+
+            <ImageView
+                android:id="@+id/iv_pl_icon"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/poland"/>
+
+            <ImageView
+                android:id="@+id/iv_en_icon"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/united_kingdom"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_above="@+id/ll_horizontal"
-            android:orientation="vertical"
+            android:layout_marginLeft="18dp"
             android:layout_marginTop="300dp"
-            android:layout_marginLeft="18dp">
+            android:orientation="vertical">
 
             <LinearLayout
                 android:id="@+id/ll_weather"
@@ -35,7 +60,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="pogoda"
+                    android:text="@string/weather"
                     android:textColor="@android:color/white"
                     android:textSize="20sp"/>
             </LinearLayout>
@@ -60,7 +85,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="rozkład"
+                    android:text="@string/schedule"
                     android:textColor="@android:color/white"
                     android:textSize="20sp"/>
             </LinearLayout>
@@ -95,7 +120,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="miejsca"
+                    android:text="@string/places"
                     android:textColor="@android:color/white"
                     android:textSize="20sp"/>
             </LinearLayout>
@@ -120,7 +145,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="trasy"
+                    android:text="@string/routes"
                     android:textColor="@android:color/white"
                     android:textSize="20sp"/>
             </LinearLayout>
@@ -145,7 +170,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="mapa"
+                    android:text="@string/map"
                     android:textColor="@android:color/white"
                     android:textSize="20sp"/>
             </LinearLayout>
@@ -170,7 +195,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="wydarzenia"
+                    android:text="@string/events"
                     android:textColor="@android:color/white"
                     android:textSize="20sp"/>
             </LinearLayout>
@@ -186,7 +211,7 @@
             android:layout_marginLeft="51dp"
             android:layout_marginStart="51dp"
             android:layout_marginTop="68dp"
-            android:text="Wrocław"
+            android:text="@string/wroclove"
             android:textColor="@android:color/white"
             android:textSize="40sp"
             android:textStyle="bold"/>
@@ -197,7 +222,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/textView"
             android:layout_centerHorizontal="true"
-            android:text="miasto spotkań"
+            android:text="@string/city_of_meetings"
             android:textColor="@android:color/white"
             android:textSize="20sp"/>
     </RelativeLayout>

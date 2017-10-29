@@ -10,15 +10,11 @@ import com.example.dawid.visitwroclove.DAO.implementation.EventDAOImpl;
 import com.example.dawid.visitwroclove.DAO.implementation.ObjectDAOImpl;
 import com.example.dawid.visitwroclove.DAO.implementation.RouteDAOImpl;
 import com.example.dawid.visitwroclove.R;
-import com.example.dawid.visitwroclove.enums.Categories;
 import com.example.dawid.visitwroclove.model.AddressDTO;
 import com.example.dawid.visitwroclove.model.EventDTO;
 import com.example.dawid.visitwroclove.model.ObjectDTO;
-import com.example.dawid.visitwroclove.model.PointDTO;
-import com.example.dawid.visitwroclove.model.RouteDTO;
 import com.example.dawid.visitwroclove.service.api.VisitWroAPI;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -37,10 +33,10 @@ import io.reactivex.schedulers.Schedulers;
 
 public class SplashScreenActivity extends BaseActivity {
     final VisitWroAPI randomUserAPI = VisitWroAPI.Factory.create();
-    @Inject ObjectDAOImpl mRepo;
-    @Inject EventDAOImpl mRepoEvent;
-    @Inject RouteDAOImpl mRepoRoutes;
-    AddressDAOImpl mAddressRepo;
+    @Inject ObjectDAOImpl repoObjects;
+    @Inject EventDAOImpl repoEvents;
+    @Inject RouteDAOImpl repoRoutes;
+    @Inject AddressDAOImpl repoAddresses;
     private Context context = SplashScreenActivity.this;
 
     private Observer mObserver = new Observer() {
@@ -72,8 +68,7 @@ public class SplashScreenActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash_screen_activity);
         getComponent().inject(this);
-        mAddressRepo = new AddressDAOImpl();
-        scripts();
+        script();
     }
 
     @Override
@@ -82,7 +77,7 @@ public class SplashScreenActivity extends BaseActivity {
         super.onResume();
     }
 
-    private void getAddress() {
+    private void script() {
         randomUserAPI.getAddresses()
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -95,77 +90,72 @@ public class SplashScreenActivity extends BaseActivity {
                     @Override
                     public void onNext(List<AddressDTO> value) {
                         for (AddressDTO addressDTO : value) {
-                            mAddressRepo.add(addressDTO);
+                            repoAddresses.add(addressDTO);
                         }
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.d("sub", "Addresses: " + e.getMessage());
+                        Log.d("SplashScreen.onError", "Addresses: " + e.getMessage());
                     }
 
                     @Override
                     public void onComplete() {
+                        randomUserAPI.getEvents()
+                                .subscribeOn(Schedulers.newThread())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe(new Observer<List<EventDTO>>() {
+                                    @Override
+                                    public void onSubscribe(Disposable d) {
 
-                    }
-                });
-    }
+                                    }
 
-    public void scripts() {
-        getAddress();
-        randomUserAPI.getEvents()
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<List<EventDTO>>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
+                                    @Override
+                                    public void onNext(List<EventDTO> value) {
+                                        for (EventDTO eventDTO : value) {
+                                            eventDTO.setAddress(repoAddresses.getById(eventDTO.getAddressId()));
+                                            repoEvents.add(eventDTO);
+                                        }
+                                    }
 
-                    }
+                                    @Override
+                                    public void onError(Throwable e) {
+                                        Log.d("SplashScreen.onError", "Events: "+e.getMessage());
+                                    }
 
-                    @Override
-                    public void onNext(List<EventDTO> value) {
-                        for (EventDTO eventDTO : value) {
-                            eventDTO.setAddress(mAddressRepo.getById(eventDTO.getAddressId()));
-                            mRepoEvent.add(eventDTO);
-                        }
-                    }
+                                    @Override
+                                    public void onComplete() {
 
-                    @Override
-                    public void onError(Throwable e) {
-                        Log.d("sub", e.getMessage());
-                    }
+                                    }
+                                });
 
-                    @Override
-                    public void onComplete() {
+                        randomUserAPI.getObjects()
+                                .subscribeOn(Schedulers.newThread())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe(new Observer<List<ObjectDTO>>() {
+                                    @Override
+                                    public void onSubscribe(Disposable d) {
 
-                    }
-                });
+                                    }
 
-        randomUserAPI.getObjects()
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<List<ObjectDTO>>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
+                                    @Override
+                                    public void onNext(List<ObjectDTO> value) {
+                                        for (ObjectDTO objectDTO : value) {
+                                            objectDTO.setAddress(repoAddresses.getById(objectDTO.getAddressId()));
+                                            repoObjects.add(objectDTO);
+                                        }
+                                    }
 
-                    }
+                                    @Override
+                                    public void onError(Throwable e) {
+                                        Log.d("SplashScreen.onError","Objects: "+ e.getMessage());
+                                    }
 
-                    @Override
-                    public void onNext(List<ObjectDTO> value) {
-                        for (ObjectDTO objectDTO : value) {
-                            objectDTO.setAddress(mAddressRepo.getById(objectDTO.getAddressId()));
-                            mRepo.add(objectDTO);
-                        }
-                    }
+                                    @Override
+                                    public void onComplete() {
 
-                    @Override
-                    public void onError(Throwable e) {
-                        Log.d("sub", e.getMessage());
-                    }
-
-                    @Override
-                    public void onComplete() {
-
+                                    }
+                                });
                     }
                 });
     }

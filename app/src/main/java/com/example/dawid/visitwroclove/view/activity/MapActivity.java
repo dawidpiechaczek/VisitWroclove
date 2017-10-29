@@ -138,7 +138,7 @@ public class MapActivity extends BaseActivity implements OnMapReadyCallback, Map
 
     private void checkPermssions() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            Toast.makeText(this, "brak neta", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getString(R.string.no_internet), Toast.LENGTH_LONG).show();
         } else {
             map.setMyLocationEnabled(true);
         }
@@ -195,7 +195,7 @@ public class MapActivity extends BaseActivity implements OnMapReadyCallback, Map
     public void addMarker(BaseDTO baseDTO, String tag) {
         LatLng latlng = new LatLng(Double.parseDouble(baseDTO.getAddress().getLat()), Double.parseDouble(baseDTO.getAddress().getLng()));
         Marker marker;
-        if (tag.equals("EVENT")) {
+        if (tag.equals(getString(R.string.events))) {
             marker = map.addMarker(new MarkerOptions().position(latlng).title(baseDTO.getName()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
         } else {
             marker = map.addMarker(new MarkerOptions().position(latlng).title(baseDTO.getName()));
@@ -225,13 +225,13 @@ public class MapActivity extends BaseActivity implements OnMapReadyCallback, Map
             }
             totalTime = String.valueOf(duration / 1000.0) + " km";
         } else {
-            Toast.makeText(this, "Coś poszło nie tak", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getString(R.string.error_route), Toast.LENGTH_LONG).show();
         }
     }
 
     @Override
     public void negativeRouteCallback() {
-        Toast.makeText(this, "Coś poszło nie tak", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, getString(R.string.error_route), Toast.LENGTH_LONG).show();
     }
 
     @Override

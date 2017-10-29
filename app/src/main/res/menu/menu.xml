@@ -7,13 +7,13 @@
         android:icon="@drawable/ic_sort">
         <menu>
             <item android:id="@+id/visit"
-                android:title="Zwiedzanie" />
+                android:title="@string/visit" />
             <item android:id="@+id/eat"
-                android:title="Gastronomia" />
+                android:title="@string/gastronomy" />
             <item android:id="@+id/hotel"
-                  android:title="Nocleg" />
+                  android:title="@string/hotel" />
             <item android:id="@+id/all"
-                android:title="Wszystkie" />
+                android:title="@string/all" />
         </menu>
     </item>
 </menu>

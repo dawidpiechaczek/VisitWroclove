@@ -48,7 +48,7 @@ public class EventsActivity extends BaseActivity{
     }
 
     private void setToolbar() {
-        toolbar.setTitle("Wydarzenia");
+        toolbar.setTitle(getString(R.string.events));
         toolbar.setTitleTextColor(getColor(R.color.secondaryToolbar));
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {

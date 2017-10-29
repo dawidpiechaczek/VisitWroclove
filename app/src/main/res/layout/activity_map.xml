@@ -14,7 +14,7 @@
         android:id="@+id/am_btn_save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="ZAPISZ TRASĘ"
+        android:text="@string/save_route"
         android:visibility="gone"/>
 
     <android.support.v7.widget.RecyclerView

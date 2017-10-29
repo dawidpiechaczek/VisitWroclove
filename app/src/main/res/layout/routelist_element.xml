@@ -11,7 +11,6 @@
         android:layout_height="match_parent"
         android:layout_marginLeft="6dp"
         android:layout_marginTop="6dp"
-        android:text="tata"
         android:textColor="@android:color/white"
         android:textSize="20sp" />
 
@@ -33,7 +32,6 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="6dp"
             android:layout_marginTop="6dp"
-            android:text="4"
             android:textColor="@android:color/white"
             android:textSize="20sp" />
     </LinearLayout>
@@ -56,7 +54,6 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="6dp"
             android:layout_marginTop="6dp"
-            android:text="20 min"
             android:textColor="@android:color/white"
             android:textSize="20sp" />
     </LinearLayout>

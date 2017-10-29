@@ -14,6 +14,7 @@ import com.azoft.carousellayoutmanager.CenterScrollListener;
 import com.example.dawid.visitwroclove.DAO.implementation.EventDAOImpl;
 import com.example.dawid.visitwroclove.DAO.implementation.ObjectDAOImpl;
 import com.example.dawid.visitwroclove.DAO.implementation.RouteDAOImpl;
+import com.example.dawid.visitwroclove.R;
 import com.example.dawid.visitwroclove.adapter.CarouselAdapter;
 import com.example.dawid.visitwroclove.model.BaseDTO;
 import com.example.dawid.visitwroclove.model.EventDTO;
@@ -59,20 +60,20 @@ public class MapPresenter extends BasePresenter<MapView> {
 
     public void setObjectsOnMap() {
         for (ObjectDTO o : buildings) {
-            getView().addMarker(o, "OBJECT");
+            getView().addMarker(o, context.getString(R.string.places));
         }
     }
 
     public void setEventsOnMap() {
         for (EventDTO e : events) {
-            getView().addMarker(e, "EVENT");
+            getView().addMarker(e, context.getString(R.string.events));
         }
     }
 
     public void setRouteOnMap() {
         if (routeDTO != null && routeDTO.getPoints().size() > 1) {
             List<LatLng> list = generateListOfLatLng();
-            GoogleDirection.withServerKey("AIzaSyCd96x4S9MNuOSaH9-uKmnKgto3wc_qV4E")
+            GoogleDirection.withServerKey("XXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
                     .from(routeDTO.getLatLngsList().get(0))
                     .to(routeDTO.getLatLngsList().get(routeDTO.getLatLngsList().size() - 1))
                     .transitMode(TransportMode.WALKING)
@@ -134,7 +135,7 @@ public class MapPresenter extends BasePresenter<MapView> {
         PointDTO point = new PointDTO();
         point.setObjectId(currentMarkerId);
         BaseDTO baseDTO;
-        if (currentMarkerTag.equals("EVENT")) {
+        if (currentMarkerTag.equals(context.getString(R.string.events))) {
             baseDTO = repoEvents.getById(currentMarkerId);
             point.setEvent(true);
         } else {
@@ -155,7 +156,7 @@ public class MapPresenter extends BasePresenter<MapView> {
 
     public void deleteFromRoute(){
         BaseDTO baseDTO;
-        if (currentMarkerTag.equals("EVENT")) {
+        if (currentMarkerTag.equals(context.getString(R.string.events))) {
             baseDTO = repoEvents.getById(currentMarkerId);
         } else {
             baseDTO = repoObjects.getById(currentMarkerId);

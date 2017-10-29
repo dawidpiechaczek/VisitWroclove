@@ -30,16 +30,16 @@ import butterknife.OnClick;
  */
 
 public class DetailsActivity extends BaseActivity implements DetailsView {
-    @BindView(R.id.toolbar)Toolbar toolbar;
-    @BindView(R.id.ad_im_image)ImageView image;
-    @BindView(R.id.ad_btn_favourite)FloatingActionButton favourite;
-    @BindView(R.id.ad_ll_event_details)LinearLayout linearLayout;
-    @BindView(R.id.ad_tv_description)TextView description;
-    @BindView(R.id.ad_tv_address)TextView address;
+    @BindView(R.id.toolbar) Toolbar toolbar;
+    @BindView(R.id.ad_im_image) ImageView image;
+    @BindView(R.id.ad_btn_favourite) FloatingActionButton favourite;
+    @BindView(R.id.ad_ll_event_details) LinearLayout linearLayout;
+    @BindView(R.id.ad_tv_description) TextView description;
+    @BindView(R.id.ad_tv_address) TextView address;
     @BindView(R.id.ad_tv_prize) TextView prize;
     @BindView(R.id.ad_tv_date) TextView date;
-    @Inject ObjectDAOImpl mRepoObjects;
-    @Inject EventDAOImpl mRepoEvents;
+    @Inject ObjectDAOImpl objectsRepo;
+    @Inject EventDAOImpl eventsRepo;
     public DetailPresenter presenter;
 
     @Override
@@ -48,14 +48,16 @@ public class DetailsActivity extends BaseActivity implements DetailsView {
         getComponent().inject(this);
         setContentView(R.layout.activity_details);
         ButterKnife.bind(this);
-        presenter = new DetailPresenter(mRepoEvents, mRepoObjects);
+        presenter = new DetailPresenter(eventsRepo, objectsRepo);
     }
+
     @Override
     public void onResume() {
         presenter.attachView(this);
         getExtras();
         super.onResume();
     }
+
     @Override
     public void onPause() {
         presenter.detachView();
@@ -64,7 +66,7 @@ public class DetailsActivity extends BaseActivity implements DetailsView {
 
     @Override
     public void setFavourite(int isFavourite) {
-        if (isFavourite==1) {
+        if (isFavourite == 1) {
             favourite.setImageResource(R.drawable.ic_heart_clicked);
         } else {
             favourite.setImageResource(R.drawable.ic_action_name);
@@ -73,10 +75,10 @@ public class DetailsActivity extends BaseActivity implements DetailsView {
 
     @OnClick(R.id.ad_btn_favourite)
     public void onClickSetFavourite() {
-        boolean isFavourite = presenter.getBaseDTO().isFavourite()==1;
-        if(isFavourite){
+        boolean isFavourite = presenter.getBaseDTO().isFavourite() == 1;
+        if (isFavourite) {
             presenter.setFavourite(0);
-        }else {
+        } else {
             presenter.setFavourite(1);
         }
 
@@ -89,8 +91,8 @@ public class DetailsActivity extends BaseActivity implements DetailsView {
         address.setText(baseDTO.getAddress().getStreet() + " " + baseDTO.getAddress().getHomeNumber()
                 + ", " + baseDTO.getAddress().getZipCode() + " " + baseDTO.getAddress().getCity());
         if (presenter.getActivityType().equals(Constants.ACTIVITY_VALUE_EVENT)) {
-            date.setText("Data: " + ((EventDTO) baseDTO).getStartDate());
-            prize.setText("Cena: " + ((EventDTO) baseDTO).getPrice());
+            date.setText(getString(R.string.date) + ": " + ((EventDTO) baseDTO).getStartDate());
+            prize.setText(getString(R.string.price) + ": " + ((EventDTO) baseDTO).getPrice());
         }
 
         String imageUrl = baseDTO.getImage();
@@ -116,9 +118,9 @@ public class DetailsActivity extends BaseActivity implements DetailsView {
     }
 
     public void setVisibility(boolean visibility) {
-        if (visibility){
+        if (visibility) {
             linearLayout.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             linearLayout.setVisibility(View.GONE);
         }
     }

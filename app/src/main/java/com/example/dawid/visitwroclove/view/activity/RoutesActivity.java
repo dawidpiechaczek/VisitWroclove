@@ -67,7 +67,7 @@ public class RoutesActivity extends BaseActivity {
     }
 
     private void setToolbar() {
-        toolbar.setTitle("Trasy");
+        toolbar.setTitle(getString(R.string.routes));
         toolbar.setTitleTextColor(getColor(R.color.secondaryToolbar));
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {

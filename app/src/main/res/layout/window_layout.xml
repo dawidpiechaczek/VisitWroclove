@@ -17,11 +17,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/wl_iv_image"
+        android:layout_marginBottom="5dp"
         android:layout_marginLeft="20dp"
         android:layout_marginStart="14dp"
         android:layout_toEndOf="@+id/wl_iv_image"
         android:layout_toRightOf="@+id/wl_iv_image"
-        android:text="title"
         android:textColor="@android:color/black"
         android:textSize="20sp"/>
 
@@ -31,18 +31,20 @@
         android:layout_alignBottom="@+id/wl_iv_image"
         android:layout_alignLeft="@+id/wl_tv_name"
         android:layout_alignStart="@+id/wl_tv_name"
+        android:layout_marginTop="5dp"
         android:orientation="horizontal">
 
         <Button
+            android:id="@+id/wl_btn_details"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="SZCZEGÓLY"/>
+            android:layout_height="match_parent"
+            android:text="@string/details"/>
 
         <Button
             android:id="@+id/wl_btn_longClick"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Długo kliknij by stworzyć trasę"
-            android:visibility="gone"/>
+            android:layout_height="match_parent"
+            android:text="@string/create_route"
+            />
     </LinearLayout>
 </RelativeLayout>
