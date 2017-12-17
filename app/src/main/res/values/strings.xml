@@ -39,7 +39,7 @@
     <string name="delete_from_route">Usuń punkt z trasy</string>
 
     <!--WebViewActivity-->
-    <string name="schedule_url">http://komunikacja.iwroclaw.pl/?lang=en&amp;language=pl</string>
+    <string name="schedule_url">https://www.wroclaw.pl/rozklady-jazdy</string>
     <string name="weather_url">https://weather.com/pl-PL/pogoda/godzinowa/l/PLXX0029:1:PL</string>
 
     <!--Menu-->
